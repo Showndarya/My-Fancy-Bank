@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="131f9e1f-b622-432c-aa73-baa9f3580a39" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FancyBank.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UI/Home.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UI/Home.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BusinessLogicLayer/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DataAccessLayer/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Utilities/DatabaseConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +39,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -51,11 +49,11 @@
 }]]></component>
   <component name="RunManager">
     <configuration name="Home" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="UI.Home" />
+      <option name="MAIN_CLASS_NAME" value="Frontend.Home" />
       <module name="FancyBank" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="UI.*" />
+          <option name="PATTERN" value="Frontend.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -77,7 +75,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1670038561634</updated>
-      <workItem from="1670038564332" duration="447000" />
+      <workItem from="1670038564332" duration="763000" />
     </task>
     <servers />
   </component>
