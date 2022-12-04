@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="131f9e1f-b622-432c-aa73-baa9f3580a39" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/BusinessLogicLayer/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataAccessLayer/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Utilities/DatabaseConnector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Collateral.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Loan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/LoanTransaction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Manager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,23 +30,25 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2IO2xuvlMIPg0qUg5cjwgJ7mpNT" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Home" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Frontend.Home" />
@@ -76,10 +78,23 @@
       <option name="presentableId" value="Default" />
       <updated>1670038561634</updated>
       <workItem from="1670038564332" duration="763000" />
+      <workItem from="1670097341280" duration="22000" />
+      <workItem from="1670115282049" duration="1099000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
