@@ -1,4 +1,4 @@
-package BusinessLogicLayer.Transaction;
+package ServiceLayer.Transaction;
 
 public interface Transact<T,X> {
     public Boolean MakeTransaction(T account, X object);

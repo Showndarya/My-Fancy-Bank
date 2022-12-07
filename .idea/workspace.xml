@@ -5,22 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="131f9e1f-b622-432c-aa73-baa9f3580a39" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/BusinessLogicLayer/Transaction/Transact.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Enums/AccountType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Enums/TransactionType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/Transaction/Deposit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/Transaction/Stock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/Transaction/Transaction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/Transaction/Withdraw.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BusinessLogicLayer/TransactionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DataAccessLayer/DepositTransactionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/99c83ede-f9b7-4885-909a-927799a3bd6b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/99c83ede-f9b7-4885-909a-927799a3bd6b.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Account/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/BankAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Account/BankAccount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/CheckingAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Account/CheckingAccount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/LoanTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Transaction/Loan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/Money.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Money.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/SavingsAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Account/SavingsAccount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/SecurityAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Account/SecurityAccount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BusinessLogicLayer/Transaction/Transact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServiceLayer/Transaction/Transact.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utilities/DatabaseConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utilities/DatabaseConnector.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
