@@ -5,9 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="131f9e1f-b622-432c-aa73-baa9f3580a39" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/DataAccessLayer/RepositoryInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Bank.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/BankAccount.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/CheckingAccount.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/SavingsAccount.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/SecurityAccount.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataAccessLayer/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataAccessLayer/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +49,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/Personal Information/BU/Courses/CS 611 OOP In Java/Homework/final/fancybank/src/Models",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -53,6 +61,11 @@
     ]
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Personal Information\BU\Courses\CS 611 OOP In Java\Homework\final\fancybank\src\Models" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Home" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Frontend.Home" />
@@ -85,6 +98,7 @@
       <workItem from="1670097341280" duration="22000" />
       <workItem from="1670115282049" duration="1232000" />
       <workItem from="1670303515483" duration="2386000" />
+      <workItem from="1670429659787" duration="689000" />
     </task>
     <servers />
   </component>
