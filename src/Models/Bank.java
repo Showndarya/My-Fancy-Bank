@@ -4,7 +4,7 @@ package Models;
  * Bank which is a special user
  * extends: User
  */
-public class Bank extends User{
+public class Bank extends User {
 
     // interest
 

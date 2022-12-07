@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="131f9e1f-b622-432c-aa73-baa9f3580a39" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Models/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/Bank.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/BankAccount.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/CheckingAccount.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/Customer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/SavingsAccount.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/SecurityAccount.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Money.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Manager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Bank.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +18,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -43,24 +37,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Personal Information/BU/Courses/CS 611 OOP In Java/Homework/final/fancybank/src/Models",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Personal Information/BU/Courses/CS 611 OOP In Java/Homework/final/fancybank/src/Models&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Personal Information\BU\Courses\CS 611 OOP In Java\Homework\final\fancybank\src\Models" />
