@@ -1130,12 +1130,14 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DataType>varchar(20)|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="314" parent="299" name="modifiedDate">
+    <column id="314" parent="299" name="modified_date">
       <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="315" parent="299" name="createdDate">
+    <column id="315" parent="299" name="created_date">
       <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <index id="316" parent="299" name="PRIMARY">
@@ -1244,42 +1246,52 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <index id="337" parent="302" name="PRIMARY">
+    <column id="337" parent="302" name="modified_date">
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+    </column>
+    <column id="338" parent="302" name="created_date">
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>8</Position>
+    </column>
+    <index id="339" parent="302" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="338" parent="302" name="PRIMARY">
+    <key id="340" parent="302" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="339" parent="303" name="user_id">
+    <column id="341" parent="303" name="user_id">
       <DataType>varchar(10)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="340" parent="303" name="user_name">
+    <column id="342" parent="303" name="user_name">
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="341" parent="303" name="user_type">
+    <column id="343" parent="303" name="user_type">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="342" parent="303" name="password">
+    <column id="344" parent="303" name="password">
       <DataType>varchar(16)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <index id="343" parent="303" name="PRIMARY">
+    <index id="345" parent="303" name="PRIMARY">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="344" parent="303" name="PRIMARY">
+    <key id="346" parent="303" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>

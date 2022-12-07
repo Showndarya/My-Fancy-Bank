@@ -5,10 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="131f9e1f-b622-432c-aa73-baa9f3580a39" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Models/Money.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BusinessLogicLayer/Transaction/Transact.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Enums/AccountType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Enums/TransactionType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Transaction/Deposit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Transaction/Stock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Transaction/Transaction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/Transaction/Withdraw.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Bank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Account/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/BankAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Account/BankAccount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/CheckingAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Account/CheckingAccount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/LoanTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Transaction/Loan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/Money.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Money.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/SavingsAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Account/SavingsAccount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/SecurityAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Account/SecurityAccount.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +31,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -28,6 +41,10 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="MigrationScriptOptions">
+    <option name="ignoreImplicitObjects" value="true" />
+    <option name="ignoreSourceCode" value="false" />
   </component>
   <component name="ProjectId" id="2IO2xuvlMIPg0qUg5cjwgJ7mpNT" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
