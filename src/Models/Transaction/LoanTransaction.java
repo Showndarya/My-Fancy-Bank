@@ -1,16 +1,16 @@
 package Models.Transaction;
 
-import com.sun.deploy.util.SessionState;
+import Models.Customer;
 
 public class LoanTransaction extends Transaction{
     private Collateral collateral;
-    private SessionState.Client client;
+    private Customer customer;
     private int amount;
     private int interest;
 
-    public LoanTransaction(Collateral collateral, SessionState.Client client, int amount) {
+    public LoanTransaction(Collateral collateral, Customer customer, int amount) {
         this.collateral = collateral;
-        this.client = client;
+        this.customer = customer;
         this.amount = amount;
         calcInterest();
     }
@@ -27,13 +27,6 @@ public class LoanTransaction extends Transaction{
         this.collateral = collateral;
     }
 
-    public SessionState.Client getClient() {
-        return client;
-    }
-
-    public void setClient(SessionState.Client client) {
-        this.client = client;
-    }
 
     public int getAmount() {
         return amount;
