@@ -1,23 +1,21 @@
-package Models;
+package Models.Account;
+
+import Enums.AccountType;
 
 /**
  * Abstract Account class
  */
 public abstract class Account {
-    enum Type{
-        Checking,
-        Savings,
-        Security,
-    }
 
-    private final Type type;
+
+    private final AccountType type;
     private double money;
 
-    public Account(Type type){
+    public Account(AccountType type){
         this.type = type;
     }
 
-    public Type getType(){
+    public AccountType getType(){
         return type;
     }
 
