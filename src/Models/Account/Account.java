@@ -6,8 +6,6 @@ import Enums.AccountType;
  * Abstract Account class
  */
 public abstract class Account {
-
-
     private final AccountType type;
     private double money;
 
