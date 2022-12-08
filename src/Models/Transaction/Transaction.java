@@ -3,7 +3,26 @@ package Models.Transaction;
 import Enums.TransactionType;
 
 public class Transaction {
-    public int id;
-    public int amount;
-    public TransactionType transaction_type;
+    private int id;
+    private int amount;
+    private int interest;
+    private TransactionType transaction_type;
+
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public int getInterest() {
+        return interest;
+    }
+
+    public void setInterest(int interest) {
+        this.interest = interest;
+    }
+
 }
