@@ -11,6 +11,7 @@ import java.util.Hashtable;
  * extends: User
  */
 public class Customer extends User{
+    // with loan variable?
     private Hashtable<AccountType, ArrayList<Account>> accounts;
 
     /**

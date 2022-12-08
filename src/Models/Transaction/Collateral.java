@@ -13,6 +13,10 @@ public class Collateral {
         this.money = money;
     }
 
+    public Collateral(String name) {
+        // get from database?
+    }
+
     public String getName() {
         return name;
     }

@@ -9,6 +9,8 @@ import java.util.ArrayList;
  * extends: User
  */
 public class Manager extends User {
+    // create a manager singleton
+    private static Manager manager;
     private ArrayList<Customer> customers;
     private ArrayList<Customer> customersWithLoan;
     private ArrayList<Transaction> dailyReport;
@@ -18,7 +20,15 @@ public class Manager extends User {
     }
     @Override
     protected boolean InitializeFromDatabase(String name) {
-
+        // query all customers, customers with loan, and daily report
         return false;
+    }
+
+    // get instance of singleton
+    public static Manager getManager(String id, String name) {
+        if (manager == null) {
+            manager = new Manager(id, name);
+        }
+        return manager;
     }
 }
