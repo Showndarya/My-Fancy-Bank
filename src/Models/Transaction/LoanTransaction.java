@@ -1,6 +1,5 @@
 package Models.Transaction;
 
-public class Loan extends Transaction{
-    private int amount;
+public class LoanTransaction extends Transaction{
     private Collateral collateral;
 }
