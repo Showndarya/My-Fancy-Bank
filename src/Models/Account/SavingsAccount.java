@@ -1,4 +1,4 @@
-package Models;
+package Models.Account;
 
 /**
  * Savings Account

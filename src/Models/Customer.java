@@ -1,5 +1,8 @@
 package Models;
 
+import Enums.AccountType;
+import Models.Account.Account;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -8,7 +11,7 @@ import java.util.Hashtable;
  * extends: User
  */
 public class Customer extends User{
-    private Hashtable<Account.Type, ArrayList<Account>> accounts;
+    private Hashtable<AccountType, ArrayList<Account>> accounts;
 
     /**
      * Constructor of class Customer, which will create a customer from database
@@ -26,18 +29,18 @@ public class Customer extends User{
     public Customer(String id, String name) {
         super(id, name);
         accounts = new Hashtable<>();
-        accounts.put(Account.Type.Checking, new ArrayList<>());
-        accounts.put(Account.Type.Savings, new ArrayList<>());
-        accounts.put(Account.Type.Security, new ArrayList<>());
+        accounts.put(AccountType.Checking, new ArrayList<>());
+        accounts.put(AccountType.Savings, new ArrayList<>());
+        accounts.put(AccountType.Security, new ArrayList<>());
     }
 
     @Override
     protected boolean InitializeFromDatabase(String name) {
         // Initialize accounts
         accounts = new Hashtable<>();
-        accounts.put(Account.Type.Checking, new ArrayList<>());
-        accounts.put(Account.Type.Savings, new ArrayList<>());
-        accounts.put(Account.Type.Security, new ArrayList<>());
+        accounts.put(AccountType.Checking, new ArrayList<>());
+        accounts.put(AccountType.Savings, new ArrayList<>());
+        accounts.put(AccountType.Security, new ArrayList<>());
         // Query
 
         return false;
@@ -48,7 +51,7 @@ public class Customer extends User{
      * @param accountType account type
      * @return a list of accounts
      */
-    public ArrayList<Account> getAccounts(Account.Type accountType){
+    public ArrayList<Account> getAccounts(AccountType accountType){
         return null;
     }
 

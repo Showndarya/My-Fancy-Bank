@@ -1,4 +1,4 @@
-package Models;
+package Models.Account;
 
 /**
  * Bank Account which is a special kind of account only for bank
