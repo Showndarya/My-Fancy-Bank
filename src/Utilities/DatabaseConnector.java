@@ -43,17 +43,13 @@ public class DatabaseConnector {
     public void close(){
         // close statement
         try{
-            if(statement != null){
-                statement.close();
-            }
+            if(statement != null) statement.close();
         } catch (SQLException ignored){
 
         }
         // close connection
         try{
-            if(connection != null){
-                connection.close();
-            }
+            if(connection != null) connection.close();
         } catch (SQLException se){
             se.printStackTrace();
         }
