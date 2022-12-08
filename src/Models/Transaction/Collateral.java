@@ -1,13 +1,13 @@
 package Models.Transaction;
 
-import Models.Money;
+import Models.MoneyType;
 
 public class Collateral {
     private String name;
-    private Money moneyType;
+    private MoneyType moneyType;
     private double money;
 
-    public Collateral(String name, Money moneyType, double money) {
+    public Collateral(String name, MoneyType moneyType, double money) {
         this.name = name;
         this.moneyType = moneyType;
         this.money = money;
@@ -25,11 +25,11 @@ public class Collateral {
         this.name = name;
     }
 
-    public Money getMoneyType() {
+    public MoneyType getMoneyType() {
         return moneyType;
     }
 
-    public void setMoneyType(Money moneyType) {
+    public void setMoneyType(MoneyType moneyType) {
         this.moneyType = moneyType;
     }
 
