@@ -1,4 +1,4 @@
-package BusinessLogicLayer;
+package ServiceLayer.Interfaces;
 
 import Models.Stock;
 import dto.StockList;

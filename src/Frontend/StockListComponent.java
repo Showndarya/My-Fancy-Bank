@@ -1,7 +1,7 @@
 package Frontend;
 
-import BusinessLogicLayer.StockService;
-import BusinessLogicLayer.StockServiceImpl;
+import ServiceLayer.Interfaces.StockService;
+import ServiceLayer.StockServiceImpl;
 import dto.StockList;
 
 import javax.swing.*;

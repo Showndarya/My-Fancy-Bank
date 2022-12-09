@@ -1,8 +1,6 @@
 package DataAccessLayer;
 
-import BusinessLogicLayer.StockServiceImpl;
 import Models.Stock;
-import dto.StockList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

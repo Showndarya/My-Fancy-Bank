@@ -1,14 +1,15 @@
-package BusinessLogicLayer;
+package ServiceLayer;
 
 import DataAccessLayer.StockRepository;
 import DataAccessLayer.StockRepositoryImpl;
 import Models.Stock;
+import ServiceLayer.Interfaces.StockService;
 import dto.StockList;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class StockServiceImpl implements StockService{
+public class StockServiceImpl implements StockService {
     private StockRepository stockRepository;
     public StockServiceImpl(){
         stockRepository = new StockRepositoryImpl();

@@ -50,7 +50,6 @@ public class Stock extends Transaction  {
         this.price = price;
     }
 
-
     public Stock() {
     }
 }
