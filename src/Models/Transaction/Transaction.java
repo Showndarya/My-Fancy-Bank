@@ -57,4 +57,8 @@ public class Transaction {
     public void setSimpleDate(SimpleDate simpleDate) {
         this.simpleDate = simpleDate;
     }
+
+    public TransactionType getTransactionType() {
+        return transaction_type;
+    }
 }

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface CurrentTransactionRepository {
     public List<Transaction> getAllDeposits(Customer customer) throws SQLException;
-    public List<Customer> addDeposit(Transaction deposit) throws SQLException;
+    public Boolean addDeposit(Customer customer, Transaction deposit) throws SQLException;
 }

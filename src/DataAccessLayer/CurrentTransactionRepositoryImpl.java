@@ -9,6 +9,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,7 +38,19 @@ public class CurrentTransactionRepositoryImpl implements CurrentTransactionRepos
     }
 
     @Override
-    public List<Customer> addDeposit(Transaction deposit) throws SQLException {
-        throw new NotImplementedException();
+    public Boolean addDeposit(Customer customer, Transaction deposit) throws SQLException {
+        Connection connection = BaseDao.getConnection();
+        String sql = "insert into current_transaction values("
+                +customer.getId()+","
+                +deposit.getAmount()+","
+                +"1,"//todo money type
+                +deposit.getTransactionType()+",'"
+                +java.sql.Date.valueOf(LocalDate.now())+"','"
+                +java.sql.Date.valueOf(LocalDate.now())+"'";
+        ResultSet results = null;
+        results = BaseDao.execute(connection, sql, null, results);
+
+        BaseDao.close(connection, null, results);
+        return true;
     }
 }
