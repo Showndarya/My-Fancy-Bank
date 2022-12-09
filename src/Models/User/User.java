@@ -1,4 +1,4 @@
-package Models;
+package Models.User;
 
 /**
  * Abstract class of user

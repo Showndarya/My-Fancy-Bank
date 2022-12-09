@@ -1,10 +1,10 @@
-package DataAccessLayer;
+package DataAccessLayer.Implementation;
 
+import DataAccessLayer.Interfaces.CurrentTransactionRepository;
 import Enums.TransactionType;
-import Models.Customer;
+import Models.User.Customer;
 import Models.Transaction.Transaction;
 import Utilities.BaseDao;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

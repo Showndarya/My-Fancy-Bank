@@ -1,5 +1,6 @@
-package DataAccessLayer;
+package DataAccessLayer.Implementation;
 
+import DataAccessLayer.Interfaces.StockRepository;
 import Models.Stock;
 import Utilities.BaseDao;
 
@@ -10,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StockRepositoryImpl implements StockRepository{
+public class StockRepositoryImpl implements StockRepository {
     @Override
     public List<Stock> getAllStocks() throws SQLException {
         Connection connection = BaseDao.getConnection();

@@ -1,5 +1,7 @@
 package Models;
 
+import Models.User.User;
+
 /**
  * Bank which is a special user
  * extends: User

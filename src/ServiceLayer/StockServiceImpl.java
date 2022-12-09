@@ -1,7 +1,7 @@
 package ServiceLayer;
 
-import DataAccessLayer.StockRepository;
-import DataAccessLayer.StockRepositoryImpl;
+import DataAccessLayer.Interfaces.StockRepository;
+import DataAccessLayer.Implementation.StockRepositoryImpl;
 import Models.Stock;
 import ServiceLayer.Interfaces.StockService;
 import dto.StockList;

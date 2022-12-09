@@ -1,15 +1,12 @@
-package DataAccessLayer;
+package DataAccessLayer.Implementation;
 
-import Models.Customer;
-import Models.Stock;
+import DataAccessLayer.Interfaces.ManagerRepository;
+import Models.User.Customer;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
-public class ManagerRepositoryImpl implements ManagerRepository{
+public class ManagerRepositoryImpl implements ManagerRepository {
     @Override
     public List<Customer> getAllCustomers() throws SQLException {
         return null;

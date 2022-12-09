@@ -1,4 +1,4 @@
-package DataAccessLayer;
+package DataAccessLayer.Interfaces;
 
 import Models.Stock;
 

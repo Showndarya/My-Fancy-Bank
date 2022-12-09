@@ -1,6 +1,6 @@
 package Models.Transaction;
 
-import Models.Customer;
+import Models.User.Customer;
 
 public class Loan extends Transaction{
     private Collateral collateral;
