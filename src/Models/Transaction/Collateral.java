@@ -17,6 +17,7 @@ public class Collateral {
         // get from database?
     }
 
+
     public String getName() {
         return name;
     }

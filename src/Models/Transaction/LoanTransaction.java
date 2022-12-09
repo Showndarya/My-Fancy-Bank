@@ -2,11 +2,11 @@ package Models.Transaction;
 
 import Models.Customer;
 
-public class Loan extends Transaction{
+public class LoanTransaction extends Transaction{
     private Collateral collateral;
     private Customer customer;
 
-    public Loan(Collateral collateral, Customer customer, int amount) {
+    public LoanTransaction(Collateral collateral, Customer customer, int amount) {
         this.collateral = collateral;
         this.customer = customer;
         this.setAmount(amount);
