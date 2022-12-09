@@ -1,6 +1,7 @@
 package DataAccessLayer;
 
 import Models.Stock;
+import Utilities.BaseDao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

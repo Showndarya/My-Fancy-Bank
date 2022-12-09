@@ -1,4 +1,4 @@
-package DataAccessLayer;
+package Utilities;
 
 import java.io.IOException;
 import java.io.InputStream;
