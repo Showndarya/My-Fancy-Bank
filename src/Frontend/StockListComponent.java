@@ -61,16 +61,16 @@ public class StockListComponent {
 
     }
 
-    public static void main(String[] args) {
-        JFrame jf = new JFrame();
-        jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JScrollPane jScrollPane = new StockListComponent().loadFrame();
-        jf.setContentPane(jScrollPane);
-
-        jf.pack();
-        jf.setLocationRelativeTo(null);
-        jf.setVisible(true);
-
-
-    }
+//    public static void main(String[] args) {
+//        JFrame jf = new JFrame();
+//        jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//        JScrollPane jScrollPane = new StockListComponent().loadFrame();
+//        jf.setContentPane(jScrollPane);
+//
+//        jf.pack();
+//        jf.setLocationRelativeTo(null);
+//        jf.setVisible(true);
+//
+//
+//    }
 }

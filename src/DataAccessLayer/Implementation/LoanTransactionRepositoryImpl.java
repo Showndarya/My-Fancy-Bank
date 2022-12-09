@@ -1,7 +1,7 @@
 package DataAccessLayer.Implementation;
 
 import DataAccessLayer.Interfaces.LoanTransactionRepository;
-import Models.User.Customer;
+import Models.Users.Customer;
 import Models.Transaction.Collateral;
 import Models.Transaction.Loan;
 import Utilities.BaseDao;

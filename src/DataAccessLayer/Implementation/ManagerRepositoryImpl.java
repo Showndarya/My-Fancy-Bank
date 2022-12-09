@@ -1,7 +1,7 @@
 package DataAccessLayer.Implementation;
 
 import DataAccessLayer.Interfaces.ManagerRepository;
-import Models.User.Customer;
+import Models.Users.Customer;
 
 import java.sql.SQLException;
 import java.util.List;

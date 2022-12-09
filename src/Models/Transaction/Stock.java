@@ -1,6 +1,10 @@
 package Models.Transaction;
 
+import Enums.TransactionType;
 import Utilities.SimpleDate;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 public class Stock extends Transaction  {
     private final int SELL = 0;
@@ -51,5 +55,6 @@ public class Stock extends Transaction  {
     }
 
     public Stock() {
+        super(null, 0.0, TransactionType.Stock, new Date());
     }
 }

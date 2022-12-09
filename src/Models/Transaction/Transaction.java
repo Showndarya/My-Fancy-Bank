@@ -1,7 +1,7 @@
 package Models.Transaction;
 
 import Enums.TransactionType;
-import Models.User.Customer;
+import Models.Users.Customer;
 import Utilities.SimpleDate;
 
 import java.util.Date;

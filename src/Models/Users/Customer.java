@@ -1,4 +1,4 @@
-package Models.User;
+package Models.Users;
 
 import Enums.AccountType;
 import Models.Account.Account;

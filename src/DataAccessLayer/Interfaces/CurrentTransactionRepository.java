@@ -1,6 +1,6 @@
 package DataAccessLayer.Interfaces;
 
-import Models.User.Customer;
+import Models.Users.Customer;
 import Models.Transaction.Transaction;
 
 import java.sql.SQLException;

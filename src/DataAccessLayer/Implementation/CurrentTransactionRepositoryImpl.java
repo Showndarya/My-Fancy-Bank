@@ -2,7 +2,7 @@ package DataAccessLayer.Implementation;
 
 import DataAccessLayer.Interfaces.CurrentTransactionRepository;
 import Enums.TransactionType;
-import Models.User.Customer;
+import Models.Users.Customer;
 import Models.Transaction.Transaction;
 import Utilities.BaseDao;
 

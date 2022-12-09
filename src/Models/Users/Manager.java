@@ -1,4 +1,4 @@
-package Models.User;
+package Models.Users;
 
 import Models.Transaction.Transaction;
 

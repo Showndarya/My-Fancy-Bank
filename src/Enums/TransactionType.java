@@ -1,5 +1,5 @@
 package Enums;
 
 public enum TransactionType {
-    Deposit, Withdraw;
+    Deposit, Withdraw, Loan, Stock;
 }

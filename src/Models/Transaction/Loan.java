@@ -1,11 +1,16 @@
 package Models.Transaction;
 
-import Models.User.Customer;
+import Enums.TransactionType;
+import Models.Users.Customer;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 public class Loan extends Transaction{
     private Collateral collateral;
 
-    public Loan(Collateral collateral, Customer customer, int amount) {
+    public Loan(Collateral collateral, Customer customer, double amount) {
+        super(customer, amount, TransactionType.Loan, new Date());
         this.collateral = collateral;
         this.setCustomer(customer);
         this.setAmount(amount);

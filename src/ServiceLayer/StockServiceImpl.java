@@ -34,9 +34,9 @@ public class StockServiceImpl implements StockService {
         return stockList;
     }
 
-    public static void main(String[] args) {
-        StockServiceImpl stockService = new StockServiceImpl();
-        StockList allStock = stockService.getAllStock();
-        System.out.println(allStock.getRowData().length);
-    }
+//    public static void main(String[] args) {
+//        StockServiceImpl stockService = new StockServiceImpl();
+//        StockList allStock = stockService.getAllStock();
+//        System.out.println(allStock.getRowData().length);
+//    }
 }
