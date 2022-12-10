@@ -1,12 +1,12 @@
 package DataAccessLayer.Implementation;
 
-import DataAccessLayer.Interfaces.ManagerRepository;
+import DataAccessLayer.Interfaces.ManagerDao;
 import Models.Users.Customer;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class ManagerRepositoryImpl implements ManagerRepository {
+public class ManagerDaoImpl implements ManagerDao {
     @Override
     public List<Customer> getAllCustomers() throws SQLException {
         return null;

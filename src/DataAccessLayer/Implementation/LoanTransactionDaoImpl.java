@@ -1,6 +1,6 @@
 package DataAccessLayer.Implementation;
 
-import DataAccessLayer.Interfaces.LoanTransactionRepository;
+import DataAccessLayer.Interfaces.LoanTransactionDao;
 import Models.Users.Customer;
 import Models.Transaction.Collateral;
 import Models.Transaction.Loan;
@@ -13,7 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoanTransactionRepositoryImpl implements LoanTransactionRepository {
+public class LoanTransactionDaoImpl implements LoanTransactionDao {
     @Override
     public List<Loan> getLoanTransactions(Customer customer) throws SQLException {
         Connection connection = BaseDao.getConnection();

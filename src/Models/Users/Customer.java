@@ -10,7 +10,7 @@ import java.util.Hashtable;
  * Customer class
  * extends: User
  */
-public class Customer extends User{
+public class Customer extends Models.Users.User{
     // with loan variable?
     private Hashtable<AccountType, ArrayList<Account>> accounts;
 

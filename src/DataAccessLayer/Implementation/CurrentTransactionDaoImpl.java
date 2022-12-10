@@ -1,6 +1,6 @@
 package DataAccessLayer.Implementation;
 
-import DataAccessLayer.Interfaces.CurrentTransactionRepository;
+import DataAccessLayer.Interfaces.CurrentTransactionDao;
 import Enums.TransactionType;
 import Models.Users.Customer;
 import Models.Transaction.Transaction;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CurrentTransactionRepositoryImpl implements CurrentTransactionRepository {
+public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
     @Override
     public List<Transaction> getAllDeposits(Customer customer) throws SQLException {
         Connection connection = BaseDao.getConnection();
