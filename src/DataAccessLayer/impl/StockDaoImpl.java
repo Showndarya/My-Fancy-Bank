@@ -1,8 +1,9 @@
-package DataAccessLayer;
+package DataAccessLayer.impl;
 
-import BusinessLogicLayer.StockServiceImpl;
+import DataAccessLayer.BaseDao;
+import DataAccessLayer.StockDao;
 import Models.Stock;
-import dto.StockList;
+import Utilities.StockFactory;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StockRepositoryImpl implements StockRepository{
+public class StockDaoImpl implements StockDao {
     @Override
     public List<Stock> getAllStocks() throws SQLException {
         Connection connection = BaseDao.getConnection();
@@ -32,6 +33,27 @@ public class StockRepositoryImpl implements StockRepository{
         BaseDao.close(connection, statement, resultSet);
         return list;
 
+    }
+
+    /**
+     * get a stock by stock id
+     *
+     * @param stockId
+     * @return
+     */
+    @Override
+    public Stock getStockById(int stockId) throws SQLException {
+        Connection connection = BaseDao.getConnection();
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String sql = "select * from stock where stock_id = "+stockId;
+        resultSet = BaseDao.execute(connection, sql, statement, resultSet);
+        Stock stock = null;
+        if (resultSet.next()){
+            StockFactory.getStock(resultSet.getString("name"), resultSet.getString("tag"), resultSet.getDouble("price"));
+        }
+        BaseDao.close(null, statement, resultSet);
+        return stock;
     }
 
 
