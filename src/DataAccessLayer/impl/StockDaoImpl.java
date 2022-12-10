@@ -1,8 +1,9 @@
 package DataAccessLayer.impl;
 
-import DataAccessLayer.BaseDao;
+
 import DataAccessLayer.StockDao;
 import Models.Stock;
+import DataAccessLayer.BaseDao;
 import Utilities.StockFactory;
 
 import java.sql.Connection;

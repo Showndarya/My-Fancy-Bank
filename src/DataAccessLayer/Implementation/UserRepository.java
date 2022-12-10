@@ -1,6 +1,7 @@
-package DataAccessLayer;
+package DataAccessLayer.Implementation;
 
-import Models.User;
+import DataAccessLayer.Interfaces.RepositoryInterface;
+import Models.Users.User;
 
 import java.util.ArrayList;
 
