@@ -70,7 +70,5 @@ public class StockListComponent {
         jf.pack();
         jf.setLocationRelativeTo(null);
         jf.setVisible(true);
-
-
     }
 }

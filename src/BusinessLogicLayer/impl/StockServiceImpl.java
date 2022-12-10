@@ -62,7 +62,7 @@ public class StockServiceImpl implements StockService {
         try {
             //calculate new money
             double customerMoney = securityService.getCustomerMoney(clientId);
-            if(customerMoney<stockPrice){
+            if(customerMoney<stockPrice*numberOfShare){
                 return false;
             }
             int flag=0;
