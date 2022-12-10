@@ -3,7 +3,7 @@ package DataAccessLayer.Implementation;
 import DataAccessLayer.Interfaces.LoanTransactionDao;
 import Models.Users.Customer;
 import Models.Transaction.Collateral;
-import Models.Transaction.Loan;
+import Models.Transaction.LoanTransaction;
 import DataAccessLayer.BaseDao;
 
 import java.sql.Connection;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class LoanTransactionDaoImpl implements LoanTransactionDao {
     @Override
-    public List<Loan> getLoanTransactions(Customer customer) throws SQLException {
+    public List<LoanTransaction> getLoanTransactions(Customer customer) throws SQLException {
         Connection connection = BaseDao.getConnection();
         Statement statement = null;
         ResultSet resultSet = null;
@@ -24,12 +24,12 @@ public class LoanTransactionDaoImpl implements LoanTransactionDao {
                 "on loan_transaction.collateral_id = collateral.id " +
                 "where customer_id = " + customer.getId();
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
-        List<Loan> list = new ArrayList<>();
-        Loan loan;
+        List<LoanTransaction> list = new ArrayList<>();
+        LoanTransaction loanTransaction;
         while (resultSet.next()){
             Collateral collateral = new Collateral(resultSet.getString("collateral.name"));
-            loan = new Loan(collateral, customer, resultSet.getInt("amount"));
-            list.add(loan);
+            loanTransaction = new LoanTransaction(collateral, customer, resultSet.getInt("amount"));
+            list.add(loanTransaction);
         }
 
         BaseDao.close(connection, statement, resultSet);
