@@ -4,13 +4,17 @@ import javax.swing.*;
 
 public class Home {
     private JPanel rootPanel;
-    private JComboBox comboBox1;
+    private JButton deposit;
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Home");
-        frame.setContentPane(new Home().rootPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+        JFrame jFrame = new JFrame("Home");
+        jFrame.setContentPane(new Home().rootPanel);
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.pack();
+        jFrame.setVisible(true);
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }

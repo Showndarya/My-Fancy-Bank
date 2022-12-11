@@ -13,4 +13,9 @@ public class MoneyType
         this.id = id;
         this.type = type;
     }
+
+    public int getId(){
+        return id;
+    }
+
 }

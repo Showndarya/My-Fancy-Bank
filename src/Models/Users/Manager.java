@@ -15,17 +15,12 @@ public class Manager extends Models.Users.User {
     private ArrayList<Customer> customersWithLoan;
     private ArrayList<Transaction> dailyReport;
 
-    public Manager(String id, String name) {
+    public Manager(int id, String name) {
         super(id, name);
-    }
-    @Override
-    protected boolean InitializeFromDatabase(String name) {
-        // query all customers, customers with loan, and daily report
-        return false;
     }
 
     // get instance of singleton
-    public static Manager getManager(String id, String name) {
+    public static Manager getManager(int id, String name) {
         if (manager == null) {
             manager = new Manager(id, name);
         }

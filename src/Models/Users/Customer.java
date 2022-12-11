@@ -2,86 +2,55 @@ package Models.Users;
 
 import Enums.AccountType;
 import Models.Account.Account;
+import Models.Account.CheckingAccount;
+import Models.Account.SavingsAccount;
+import Models.Account.SecurityAccount;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
 
 /**
  * Customer class
  * extends: User
  */
-public class Customer extends Models.Users.User{
-    // with loan variable?
-    private Hashtable<AccountType, ArrayList<Account>> accounts;
+public class Customer extends User{
+    private Hashtable<AccountType, Account> accounts;
+    // loan?
 
     /**
-     * Constructor of class Customer, which will create a customer from database
-     * @param name name
+     * Construct an empty Customer
      */
-    public Customer(String name){
-        super(name);
+    public Customer(){
+        super();
     }
 
     /**
-     * Constructor of class Customer, which will create an empty customer
+     * Construct a customer
      * @param id id of the customer
      * @param name name of the customer
      */
-    public Customer(String id, String name) {
+    public Customer(int id, String name, CheckingAccount checkingAccount, SavingsAccount savingsAccount, SecurityAccount securityAccount) {
         super(id, name);
         accounts = new Hashtable<>();
-        accounts.put(AccountType.Checking, new ArrayList<>());
-        accounts.put(AccountType.Savings, new ArrayList<>());
-        accounts.put(AccountType.Security, new ArrayList<>());
-    }
-
-    @Override
-    protected boolean InitializeFromDatabase(String name) {
-        // Initialize accounts
-        accounts = new Hashtable<>();
-        accounts.put(AccountType.Checking, new ArrayList<>());
-        accounts.put(AccountType.Savings, new ArrayList<>());
-        accounts.put(AccountType.Security, new ArrayList<>());
-        // Query
-
-        return false;
+        accounts.put(AccountType.Checking, checkingAccount);
+        accounts.put(AccountType.Savings, savingsAccount);
+        accounts.put(AccountType.Security, securityAccount);
     }
 
     /**
-     * Get a list of a type of accounts
+     * Set a type of account
+     * @param account account object
      * @param accountType account type
-     * @return a list of accounts
      */
-    public ArrayList<Account> getAccounts(AccountType accountType){
-        return null;
+    public void setAccounts(Account account, AccountType accountType){
+        accounts.put(accountType, account);
     }
 
     /**
-     * Add an account
-     * @param account account
+     * Get a type of account
+     * @param accountType account type
+     * @return an account
      */
-    public void addAccount(Account account){
-        accounts.get(account.getType()).add(account);
+    public Account getAccount(AccountType accountType){
+        return accounts.get(accountType);
     }
-
-    /**
-     * Check whether the customer can open a security account
-     * @return true if the customer can open it
-     */
-    public boolean canOpenSecurity(){
-        return false;
-    }
-
-    /**
-     * Check whether the customer can maintain the security account
-     * @return true if the customer can maintain it
-     */
-    public boolean maintainSecurity(){
-        return false;
-    }
-
-
-
-
-
 }
