@@ -64,13 +64,14 @@ public class LoanTransactionDaoImpl implements LoanTransactionDao {
 
     @Override
     public int addLoan(Customer customer, Collateral collateral) throws SQLException {
-        Statement statement = null;
-        String sql = "insert into collateral (`name`,`worth`,`money_type`)\n" +
-                "values \n" +
-                "    (" + collateral.getName() + "," + collateral.getMoney() + "," + collateral.getMoneyType() + ")";
-
-        int i = BaseDao.executeUpdate(connection, sql, statement);
-        BaseDao.close(null, statement, null);
-        return i;
+//        Statement statement = null;
+//        String sql = "insert into collateral (`name`,`worth`,`money_type`)\n" +
+//                "values \n" +
+//                "    (" + collateral.getName() + "," + collateral.getMoney() + "," + collateral.getMoneyType() + ")";
+//
+//        int i = BaseDao.executeUpdate(connection, sql, statement);
+//        BaseDao.close(null, statement, null);
+//        return i;
+        return 0;
     }
 }
