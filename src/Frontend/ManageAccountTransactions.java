@@ -13,18 +13,13 @@ public class ManageAccountTransactions {
         Deposit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(panel1, "");
+                DepositTransaction.open();
             }
         });
     }
 
     public static void main(String[] args) {
-        JFrame jFrame = new JFrame();
-        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        jFrame.setContentPane(new ManageAccountTransactions().panel1);
-        jFrame.setSize(300,300);
-        jFrame.pack();
-        jFrame.setLocationRelativeTo(null);
-        jFrame.setVisible(true);
+        //JframeSingleton.getInstance().removePanel();
+        JframeSingleton.getInstance().addPanel(new ManageAccountTransactions().panel1);
     }
 }
