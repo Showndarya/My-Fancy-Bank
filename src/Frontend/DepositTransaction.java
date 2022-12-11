@@ -1,6 +1,7 @@
 package Frontend;
 
 import ControllerLayer.TransactionController;
+import Enums.TransactionType;
 import Models.MoneyType;
 import Utilities.Tuple;
 
@@ -58,10 +59,20 @@ public class DepositTransaction {
         });
     }
 
-    public static void open() throws SQLException {
+    public static void open(TransactionType type) throws SQLException {
         //JframeSingleton.getInstance().removePanel();
-        depositTransaction.accountDetailsPanel.setVisible(false);
-        JframeSingleton.getInstance().addPanel(depositTransaction.depositPanel);
+        switch (type) {
+            case Deposit:
+                depositTransaction.accountDetailsPanel.setVisible(false);
+                depositTransaction.depositLabel.setText("Make a deposit");
+                JframeSingleton.getInstance().addPanel(depositTransaction.depositPanel);
+                break;
+            case Withdraw:
+                depositTransaction.accountDetailsPanel.setVisible(false);
+                depositTransaction.depositLabel.setText("Withdraw money");
+                JframeSingleton.getInstance().addPanel(depositTransaction.depositPanel);
+                break;
+        }
 
 
     }

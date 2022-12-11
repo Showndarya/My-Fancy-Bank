@@ -1,5 +1,7 @@
 package Frontend;
 
+import Enums.TransactionType;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +15,14 @@ public class ManageAccountTransactions {
     public ManageAccountTransactions() {
         Deposit.addActionListener(e -> {
             try {
-                DepositTransaction.open();
+                DepositTransaction.open(TransactionType.Deposit);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        Withdraw.addActionListener(e -> {
+            try {
+                DepositTransaction.open(TransactionType.Withdraw);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
