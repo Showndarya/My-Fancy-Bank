@@ -9,7 +9,7 @@ import DataAccessLayer.StockDao;
 import DataAccessLayer.impl.StockDaoImpl;
 import Models.Stock;
 import Utilities.StockPriceUtils;
-import dto.StockList;
+import dto.TableList;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -29,23 +29,23 @@ public class StockServiceImpl implements StockService {
         stockTransactionService = new StockTransactionServiceImpl();
     }
     @Override
-    public StockList getAllStock() {
+    public TableList getAllStock() {
         List<Stock> list;
         try {
             list = stockDao.getAllStocks();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        StockList stockList = new StockList();
+        TableList tableList = new TableList();
         System.out.println(list.size());
-        stockList.setColumnsName(new Object[]{"Name","Tag","Price"});
+        tableList.setColumnsName(new Object[]{"Name","Tag","Price"});
         Object[][] rowData = new Object[list.size()][];
         for(int i=0;i<list.size();i++){
             Stock stock = list.get(i);
             rowData[i] = new Object[]{stock.getName(), stock.getTag(), stock.getPrice()};
         }
-        stockList.setRowData(rowData);
-        return stockList;
+        tableList.setRowData(rowData);
+        return tableList;
     }
 
     /**
