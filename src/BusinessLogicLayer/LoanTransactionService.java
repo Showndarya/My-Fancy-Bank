@@ -1,5 +1,6 @@
 package BusinessLogicLayer;
 
+import Models.Transaction.Collateral;
 import Models.Transaction.LoanTransaction;
 import Models.Users.Customer;
 import dto.TableList;
@@ -13,4 +14,6 @@ public interface LoanTransactionService {
 
     // get loan transaction of a specific user
     public TableList getCustomerLoan(Customer customer);
+
+    public int addLoan(Customer customer, Collateral collateral);
 }

@@ -5,6 +5,14 @@ public class MoneyType
     private int id;
     private String type;
 
+    private String symbol;
+
+    public MoneyType(int id, String type, String symbol) {
+        this.id = id;
+        this.type = type;
+        this.symbol = symbol;
+    }
+
     public MoneyType(int id) {
         this.id = id;
     }
@@ -14,8 +22,15 @@ public class MoneyType
         this.type = type;
     }
 
-    public int getId(){
-        return id;
+    public String getType() {
+        return type;
     }
 
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public int getId() {
+        return id;
+    }
 }

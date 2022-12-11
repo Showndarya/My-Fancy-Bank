@@ -1,5 +1,6 @@
 package DataAccessLayer.Interfaces;
 
+import Models.Transaction.Collateral;
 import Models.Users.Customer;
 import Models.Transaction.LoanTransaction;
 
@@ -12,4 +13,8 @@ public interface LoanTransactionDao {
 
     // get loan transaction of a specific user
     public List<LoanTransaction> getCustomerLoan(Customer customer) throws SQLException;
+
+    // let customer add loan
+    public int addLoan(Customer customer, Collateral collateral) throws SQLException;
+
 }
