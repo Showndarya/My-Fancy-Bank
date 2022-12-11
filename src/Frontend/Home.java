@@ -4,6 +4,7 @@ import javax.swing.*;
 
 public class Home {
     private JPanel rootPanel;
+    private JComboBox comboBox1;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Home");
