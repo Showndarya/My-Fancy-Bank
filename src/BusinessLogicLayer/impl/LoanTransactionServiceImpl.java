@@ -1,12 +1,16 @@
 package BusinessLogicLayer.impl;
 
 import BusinessLogicLayer.LoanTransactionService;
+import DataAccessLayer.BaseDao;
 import DataAccessLayer.Implementation.LoanTransactionDaoImpl;
 import DataAccessLayer.Interfaces.LoanTransactionDao;
+import Models.Transaction.Collateral;
 import Models.Transaction.LoanTransaction;
 import Models.Users.Customer;
+import Utilities.StockPriceUtils;
 import dto.TableList;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -56,5 +60,31 @@ public class LoanTransactionServiceImpl implements LoanTransactionService {
         }
         tableList.setRowData(rowData);
         return tableList;
+    }
+
+    @Override
+    public int addLoan(Customer customer, Collateral collateral) {
+        // wait to do add the current date
+        Connection connection = BaseDao.getConnection();
+        try {
+            int flag = 0;
+            //add stock to open intereset
+
+            if (flag < 1){
+                throw new SQLException();
+            }
+
+        } catch (SQLException e) {
+            try {
+                e.printStackTrace();
+                System.out.println("Error occur. Try to rollback");
+                connection.rollback();
+            } catch (SQLException ex) {
+                System.out.println("Rollback failed");
+            }
+        }finally {
+            BaseDao.close(connection, null, null);
+        }
+        return 1;
     }
 }
