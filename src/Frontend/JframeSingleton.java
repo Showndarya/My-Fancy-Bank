@@ -10,14 +10,14 @@ public class JframeSingleton {
         if(jframeSingleton==null)
         {
             jframeSingleton=new JframeSingleton();
+            jFrame = new JFrame();
+            jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         }
 
         return jframeSingleton;
     }
 
     public void addPanel(JPanel jPanel) {
-        jFrame=new JFrame();
-        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         jFrame.setContentPane(jPanel);
         jFrame.setSize(300,300);
         jFrame.pack();
