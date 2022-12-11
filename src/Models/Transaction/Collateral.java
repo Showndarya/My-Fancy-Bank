@@ -5,16 +5,12 @@ import Models.MoneyType;
 public class Collateral {
     private String name;
     private MoneyType moneyType;
-    private double money;
+    private int money;
 
-    public Collateral(String name, MoneyType moneyType, double money) {
+    public Collateral(String name, MoneyType moneyType, int money) {
         this.name = name;
         this.moneyType = moneyType;
         this.money = money;
-    }
-
-    public Collateral(String name) {
-        // get from database?
     }
 
 
@@ -34,11 +30,11 @@ public class Collateral {
         this.moneyType = moneyType;
     }
 
-    public double getMoney() {
+    public int getMoney() {
         return money;
     }
 
-    public void setMoney(double money) {
+    public void setMoney(int money) {
         this.money = money;
     }
 

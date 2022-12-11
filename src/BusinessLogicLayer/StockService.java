@@ -1,12 +1,9 @@
 package BusinessLogicLayer;
 
-import Models.Stock;
-import dto.StockList;
-
-import java.util.List;
+import dto.TableList;
 
 public interface StockService {
-    public StockList getAllStock();
+    public TableList getAllStock();
 
     /**
      * buy the stock for this client and stock with this tag

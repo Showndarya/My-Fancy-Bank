@@ -1,6 +1,6 @@
 package dto;
 
-public class StockList {
+public class TableList {
     private Object[] columnsName;
     private Object[][] rowData;
 
@@ -21,6 +21,6 @@ public class StockList {
         this.rowData = rowData;
     }
 
-    public StockList() {
+    public TableList() {
     }
 }

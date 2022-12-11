@@ -2,7 +2,7 @@ package Frontend;
 
 import BusinessLogicLayer.StockService;
 import BusinessLogicLayer.impl.StockServiceImpl;
-import dto.StockList;
+import dto.TableList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,16 +17,16 @@ public class StockListComponent {
     }
 
     public JScrollPane loadFrame(){
-        StockList stockList = stockService.getAllStock();
+        TableList tableList = stockService.getAllStock();
 
 
 
 
 
-        Object[] columnNames = stockList.getColumnsName();
+        Object[] columnNames = tableList.getColumnsName();
 
 
-        Object[][] rowData = stockList.getRowData();
+        Object[][] rowData = tableList.getRowData();
 //        Object[][] rowData = {{"Tesla","TSLA",194.66},{"Alphabet Class A","GOOGL",100.07}};
 
 
