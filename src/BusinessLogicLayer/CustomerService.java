@@ -24,4 +24,22 @@ public interface CustomerService {
      */
     public int addCustomer(String name, String password) throws SQLException;
 
+    /**
+     * Login a customer by name and password
+     * @param name
+     * @param password
+     * @return true if login successfully
+     * @throws SQLException
+     */
+    public boolean loginCustomer(String name, String password) throws SQLException;
+
+    /**
+     * Register a customer by name and password
+     * @param name
+     * @param password
+     * @return true if register successfully
+     * @throws SQLException
+     */
+    public boolean registerCustomer(String name, String password) throws SQLException;
+
 }
