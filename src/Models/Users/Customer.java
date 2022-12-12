@@ -36,6 +36,7 @@ public class Customer extends User{
         accounts.put(AccountType.Security, securityAccount);
     }
 
+
     /**
      * Set a type of account
      * @param account account object

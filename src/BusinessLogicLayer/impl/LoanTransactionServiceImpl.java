@@ -4,6 +4,7 @@ import BusinessLogicLayer.LoanTransactionService;
 import DataAccessLayer.BaseDao;
 import DataAccessLayer.Implementation.LoanTransactionDaoImpl;
 import DataAccessLayer.Interfaces.LoanTransactionDao;
+import Models.MoneyType;
 import Models.Transaction.Collateral;
 import Models.Transaction.LoanTransaction;
 import Models.Users.Customer;
@@ -63,14 +64,12 @@ public class LoanTransactionServiceImpl implements LoanTransactionService {
     }
 
     @Override
-    public int addLoan(Customer customer, Collateral collateral) {
-        // wait to do add the current date
-        Connection connection = BaseDao.getConnection();
+    public int addLoan(Connection connection, Customer customer, Collateral collateral, int amount) {
         try {
             int flag = 0;
-            //add stock to open intereset
-
-            if (flag < 1){
+            // add stock to open intereset
+            flag += loanTransactionDao.addLoan(connection, customer, collateral, amount);
+            if (flag < 2){
                 throw new SQLException();
             }
 
@@ -86,5 +85,13 @@ public class LoanTransactionServiceImpl implements LoanTransactionService {
             BaseDao.close(connection, null, null);
         }
         return 1;
+    }
+
+    public static void main(String[] args) throws SQLException {
+        Customer customer = new Customer("id", "name");
+        Connection connection = BaseDao.getConnection();
+        MoneyType moneyType = new MoneyType(1);
+        Collateral collateral = new Collateral("house", moneyType, 100);
+        new LoanTransactionServiceImpl().addLoan(connection, customer, collateral, 1000);
     }
 }
