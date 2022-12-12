@@ -26,7 +26,7 @@ public class CustomerDaoImpl implements CustomerDao {
         Statement statement = null;
         ResultSet resultSet = null;
         String sql = "select id from user " +
-                "where user_name = '" + name + "'";
+                "where user_name = '" + name + "';";
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         // return true if there is result
         return resultSet.next();
@@ -44,7 +44,7 @@ public class CustomerDaoImpl implements CustomerDao {
         Statement statement = null;
         ResultSet resultSet = null;
         String sql = "select * from user " +
-                "where user_name = '" + name + "'";
+                "where user_name = '" + name + "';";
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         Customer customer = null;
         if(resultSet.next()) {
@@ -68,7 +68,7 @@ public class CustomerDaoImpl implements CustomerDao {
         Statement statement = null;
         ResultSet resultSet = null;
         String sql = "select * from user " +
-                "where user_name = " + id;
+                "where user_name = " + id + ";";
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         Customer customer = null;
         if(resultSet.next()) {
@@ -88,7 +88,7 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public int add(Connection connection, String name, String password) throws SQLException {
         Statement statement = null;
-        String sql = "insert into account ('user_name', 'user_type', 'password') values ('"+ name + "',"+ UserType.Customer + ",'"+ password +"')";
+        String sql = "insert into user ('user_name', 'user_type', 'password') values ('"+ name + "',"+ UserType.Customer + ",'"+ password +"');";
         int affectRows = BaseDao.executeUpdate(connection, sql, statement);
         return affectRows;
     }

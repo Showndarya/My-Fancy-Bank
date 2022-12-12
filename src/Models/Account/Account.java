@@ -10,7 +10,7 @@ import java.util.HashMap;
  */
 public abstract class Account {
     private int ownerId;
-    private final AccountType type;
+    private AccountType type;
     // Integer means the id in MoneyType
     private HashMap<Integer, Double> money;
 
@@ -40,6 +40,10 @@ public abstract class Account {
 
     public HashMap<Integer, Double> getAllTypeMoney(){
         return money;
+    }
+
+    public void setType(AccountType type){
+        this.type = type;
     }
 
     public void setMoney(MoneyType type, double money){

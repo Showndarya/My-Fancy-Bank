@@ -8,4 +8,9 @@ public class AccountOperationServiceImpl implements AccountOperationService {
     public Boolean changeBalance(TransactionType type, int accountId, double amount) {
         return null;
     }
+
+    @Override
+    public double getBalance(int accountId) {
+        return 0;
+    }
 }
