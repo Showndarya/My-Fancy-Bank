@@ -88,10 +88,10 @@ public class LoanTransactionServiceImpl implements LoanTransactionService {
     }
 
     public static void main(String[] args) throws SQLException {
-        Customer customer = new Customer("id", "name");
+        Customer customer = new Customer(1, "name");
         Connection connection = BaseDao.getConnection();
-        MoneyType moneyType = new MoneyType(1);
-        Collateral collateral = new Collateral("house", moneyType, 100);
+        MoneyType moneyType = new MoneyType(1, "USD");
+        Collateral collateral = new Collateral("apartment", moneyType, 100);
         new LoanTransactionServiceImpl().addLoan(connection, customer, collateral, 1000);
     }
 }

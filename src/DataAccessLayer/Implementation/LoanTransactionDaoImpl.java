@@ -28,7 +28,7 @@ public class LoanTransactionDaoImpl implements LoanTransactionDao {
                     "where id = " + resultSet.getInt("customer_id");
             ResultSet result = null;
             result = BaseDao.execute(connection, customerSql, statement, result);
-            Customer customer = new Customer(result.getString("user_id"), result.getString("user_name"));
+            Customer customer = new Customer(result.getInt("id"), result.getString("user_name"));
             list.add(customer);
         }
 
@@ -65,23 +65,26 @@ public class LoanTransactionDaoImpl implements LoanTransactionDao {
     @Override
     public int addLoan(Connection connection, Customer customer, Collateral collateral, int amount) throws SQLException {
         Statement statement = null;
-        String sql = "insert into collateral (`name`,`worth`,`money_type`)\n" +
+        String sql = "insert into collateral (name, worth , money_type )\n" +
                 "values \n" +
-                "    (" + collateral.getName() + "," + collateral.getMoney() + "," + collateral.getMoneyType() + ")";
-        String idSql = "select id from collateral where name = " + collateral.getName();
+                "    ('" + collateral.getName() + "',"
+                + collateral.getMoney() + ",'"
+                + collateral.getMoneyType().getType() + "')";
+        int i = BaseDao.executeUpdate(connection, sql, statement);
+
+        String idSql = "select id from collateral where name = '" + collateral.getName() + "'";
         ResultSet resultSet = null;
         resultSet = BaseDao.execute(connection, idSql, statement, resultSet);
         int id = 0;
         while (resultSet.next()) {
             id = resultSet.getInt("id");
         }
-        int i = BaseDao.executeUpdate(connection, sql, statement);
+
         LoanTransaction loanTransaction = new LoanTransaction(collateral, customer, amount);
-        String loanSql = "insert into loan_transaction (`customer_id`,`collateral_id`,`amount`,`int`)\n" +
+        String loanSql = "insert into loan_transaction (customer_id, collateral_id, amount, interest)\n" +
                 "values \n" +
                 "    (" + loanTransaction.getCustomer().getId() + ","
                 + id + ","
-                + loanTransaction.getCollateral().getMoneyType() + ","
                 + amount + ","
                 + loanTransaction.getInterest() + ")";
         int j = BaseDao.executeUpdate(connection, loanSql, statement);
