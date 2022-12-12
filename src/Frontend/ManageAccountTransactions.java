@@ -20,6 +20,7 @@ public class ManageAccountTransactions {
                 throw new RuntimeException(ex);
             }
         });
+
         Withdraw.addActionListener(e -> {
             try {
                 DepositTransaction.open(TransactionType.Withdraw);
