@@ -39,22 +39,46 @@ public class StockDaoImpl implements StockDao {
     /**
      * get a stock by stock id
      *
-     * @param stockId
+     * @param tag
      * @return
      */
     @Override
-    public Stock getStockById(int stockId) throws SQLException {
+    public Stock getStockByTag(String tag) throws SQLException {
         Connection connection = BaseDao.getConnection();
         Statement statement = null;
         ResultSet resultSet = null;
-        String sql = "select * from stock where stock_id = "+stockId;
+        String sql = "select * from stock where tag = '"+tag+"'";
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         Stock stock = null;
         if (resultSet.next()){
-            StockFactory.getStock(resultSet.getString("name"), resultSet.getString("tag"), resultSet.getDouble("price"));
+           stock= StockFactory.getStock(resultSet.getString("name"), resultSet.getString("tag"), resultSet.getDouble("price"));
         }
         BaseDao.close(null, statement, resultSet);
         return stock;
+    }
+
+    @Override
+    public void addStock(Connection connection, String name, String tag, double price) throws SQLException {
+        Statement statement=null;
+        String sql = "insert into stock (`name`,`tag`,`price`) values (\'"+name+"\',\'"+tag+"\',"+price+")";
+        int i = BaseDao.executeUpdate(connection,sql,statement);
+        BaseDao.close(null,statement,null);
+    }
+
+    @Override
+    public void updateStock(Connection connection, String tag,  double price) throws SQLException {
+        Statement statement = null;
+        String sql = "update stock set price='" + price + "' where tag='" + tag + "'";
+        BaseDao.executeUpdate(connection, sql, statement);
+        BaseDao.close(null, statement, null);
+    }
+
+    @Override
+    public void deleteStockByTag(Connection connection, String tag) throws SQLException {
+        Statement statement=null;
+        String sql = "delete from stock where tag='" + tag + "'";
+        BaseDao.executeUpdate(connection, sql, statement);
+        BaseDao.close(null, statement, null);
     }
 
 

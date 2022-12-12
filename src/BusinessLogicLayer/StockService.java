@@ -21,4 +21,24 @@ public interface StockService {
      * @param
      */
     public boolean sellStock(int clientId, int stockId, int amount);
+
+    /**
+     * add a stock to the stock list
+     * @param name
+     * @param tag
+     * @param price
+     * @return
+     */
+    public boolean addStock(String name, String tag, double price);
+
+    /**
+     * get a stock by tag
+     * @param tag
+     * @return
+     */
+    public Stock getStockByTag(String tag);
+
+    public boolean updateStockPriceByTag(String tag, double price);
+
+    public boolean deleteStockByTag(String tag);
 }
