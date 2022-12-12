@@ -20,6 +20,11 @@ public abstract class Account {
         money = new HashMap<>();
     }
 
+    public Account(AccountType type){
+        this.type = type;
+        money = new HashMap<>();
+    }
+
     public AccountType getType(){
         return type;
     }

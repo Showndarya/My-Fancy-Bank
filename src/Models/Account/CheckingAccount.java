@@ -10,4 +10,9 @@ public class CheckingAccount extends Account {
     public CheckingAccount() {
         super(AccountType.Checking);
     }
+
+    public CheckingAccount(int ownerId){
+        super(AccountType.Checking);
+    }
+
 }

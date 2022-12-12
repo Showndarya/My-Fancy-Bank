@@ -7,7 +7,12 @@ import Enums.AccountType;
  * extends: Account
  */
 public class SavingsAccount extends Account {
-    public SavingsAccount() {
+    public SavingsAccount(int ownerId) {
+        super(AccountType.Savings, ownerId);
+    }
+
+    public SavingsAccount(){
         super(AccountType.Savings);
     }
+
 }

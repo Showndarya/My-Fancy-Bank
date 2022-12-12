@@ -19,8 +19,8 @@ public interface AccountService {
      * Create a specific type of account
      * @param ownerId
      * @param type
-     * @return 0:succeed, -1:fail
+     * @return true:succeed, false:fail
      */
-    public int createAccount(int ownerId, AccountType type);
+    public boolean createAccount(int ownerId, AccountType type);
 
 }

@@ -24,7 +24,7 @@ public class CheckingAccountDaoImpl implements CheckingAccountDao {
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         CheckingAccount checkingAccount = null;
         if(resultSet.next()){
-            checkingAccount = new CheckingAccount();
+            checkingAccount = new CheckingAccount(resultSet.getInt("id"));
         }
 
         return null;

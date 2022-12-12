@@ -36,6 +36,11 @@ public class Customer extends User{
         accounts.put(AccountType.Security, securityAccount);
     }
 
+    public Customer(int id, String name){
+        super(id, name);
+        accounts = new Hashtable<>();
+    }
+
     /**
      * Set a type of account
      * @param account account object
