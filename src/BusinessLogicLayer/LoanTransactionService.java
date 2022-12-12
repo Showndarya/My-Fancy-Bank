@@ -16,5 +16,5 @@ public interface LoanTransactionService {
     // get loan transaction of a specific user
     public TableList getCustomerLoan(Customer customer);
 
-    public int addLoan(Connection connection, Customer customer, Collateral collateral, int amount);
+    public int addLoan(Customer customer, Collateral collateral, int amount);
 }

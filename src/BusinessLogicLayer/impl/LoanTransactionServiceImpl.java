@@ -24,9 +24,10 @@ public class LoanTransactionServiceImpl implements LoanTransactionService {
 
     @Override
     public TableList getAllCustomersWithLoan() {
+        Connection connection = BaseDao.getConnection();
         List<Customer> list;
         try {
-            list = loanTransactionDao.getAllCustomersWithLoan();
+            list = loanTransactionDao.getAllCustomersWithLoan(connection);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -43,9 +44,10 @@ public class LoanTransactionServiceImpl implements LoanTransactionService {
 
     @Override
     public TableList getCustomerLoan(Customer customer) {
+        Connection connection = BaseDao.getConnection();
         List<LoanTransaction> list;
         try {
-            list = loanTransactionDao.getCustomerLoan(customer);
+            list = loanTransactionDao.getCustomerLoan(connection, customer);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -64,7 +66,8 @@ public class LoanTransactionServiceImpl implements LoanTransactionService {
     }
 
     @Override
-    public int addLoan(Connection connection, Customer customer, Collateral collateral, int amount) {
+    public int addLoan(Customer customer, Collateral collateral, int amount) {
+        Connection connection = BaseDao.getConnection();
         try {
             int flag = 0;
             // add stock to open intereset
@@ -89,9 +92,8 @@ public class LoanTransactionServiceImpl implements LoanTransactionService {
 
     public static void main(String[] args) throws SQLException {
         Customer customer = new Customer(1, "name");
-        Connection connection = BaseDao.getConnection();
         MoneyType moneyType = new MoneyType(1, "USD");
         Collateral collateral = new Collateral("apartment", moneyType, 100);
-        new LoanTransactionServiceImpl().addLoan(connection, customer, collateral, 1000);
+        new LoanTransactionServiceImpl().addLoan(customer, collateral, 1000);
     }
 }

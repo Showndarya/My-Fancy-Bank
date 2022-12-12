@@ -1,6 +1,7 @@
 package DataAccessLayer.Implementation;
 
 import DataAccessLayer.Interfaces.LoanTransactionDao;
+import Models.Account.Account;
 import Models.MoneyType;
 import Models.Users.Customer;
 import Models.Transaction.Collateral;
@@ -16,8 +17,7 @@ import java.util.List;
 
 public class LoanTransactionDaoImpl implements LoanTransactionDao {
     @Override
-    public List<Customer> getAllCustomersWithLoan() throws SQLException {
-        Connection connection = BaseDao.getConnection();
+    public List<Customer> getAllCustomersWithLoan(Connection connection) throws SQLException {
         Statement statement = null;
         ResultSet resultSet = null;
         String sql = "select * from loan_transaction";
@@ -38,8 +38,7 @@ public class LoanTransactionDaoImpl implements LoanTransactionDao {
 
     // implement getting specific customer's loan in database
     @Override
-    public List<LoanTransaction> getCustomerLoan(Customer customer) throws SQLException {
-        Connection connection = BaseDao.getConnection();
+    public List<LoanTransaction> getCustomerLoan(Connection connection, Customer customer) throws SQLException {
         Statement statement = null;
         ResultSet resultSet = null;
         String sql = "select * from loan_transaction " +
@@ -81,14 +80,17 @@ public class LoanTransactionDaoImpl implements LoanTransactionDao {
         }
 
         LoanTransaction loanTransaction = new LoanTransaction(collateral, customer, amount);
-        String loanSql = "insert into loan_transaction (customer_id, collateral_id, amount, interest)\n" +
+        String loanSql = "insert into loan_transaction (customer_id, collateral_id, amount, interest, created_date)\n" +
                 "values \n" +
                 "    (" + loanTransaction.getCustomer().getId() + ","
                 + id + ","
                 + amount + ","
-                + loanTransaction.getInterest() + ")";
+                + loanTransaction.getInterest() + ","
+                + loanTransaction.getSimpleDate() + ")";
         int j = BaseDao.executeUpdate(connection, loanSql, statement);
         BaseDao.close(null, statement, null);
+
+        // account add money
         return i + j;
     }
 }
