@@ -50,7 +50,8 @@ public class OpenInterestServiceImpl implements OpenInterestService {
     }
 
     @Override
-    public List<OpenInterest> getOpenInterestOrderedByPurchasePrice(Connection connection, int clientId, int stockId) {
-        openInterestDao.getOpenInterestOrderedByPurchasePrice(connection, clientId, stockId);
+    public List<OpenInterest> getOpenInterestOrderedByPurchasePrice(Connection connection, int clientId, int stockId) throws SQLException {
+        return openInterestDao.getOpenInterestOrderedByPurchasePrice(connection, clientId, stockId);
+
     }
 }

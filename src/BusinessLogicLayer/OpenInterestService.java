@@ -25,6 +25,6 @@ public interface OpenInterestService {
 
     public void deleteOpenInterest(Connection connection, int id, int clientId, int stockId) throws SQLException;
 
-    public List<OpenInterest> getOpenInterestOrderedByPurchasePrice(Connection connection, int clientId, int stockId);
+    public List<OpenInterest> getOpenInterestOrderedByPurchasePrice(Connection connection, int clientId, int stockId) throws SQLException;
 
 }
