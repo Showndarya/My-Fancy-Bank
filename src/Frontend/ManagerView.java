@@ -1,14 +1,20 @@
 package Frontend;
 
+import BusinessLogicLayer.ManagerService;
+import Frontend.component.CustomerComponent;
+import Frontend.component.DailyLoanTransactionComponent;
+
 import javax.swing.*;
 
 public class ManagerView extends JPanel{
+    private ManagerService managerService;
     private JPanel managerView;
-    private JButton getAllCustomersButton;
-    private JButton getAllCustomersWithLoanButton;
-    private JButton searchCustomerButton;
-    private JButton dailyReportButton;
-    private JButton stockButton;
+    private JTabbedPane tabbedPane;
+    private JPanel allCustomer;
+    private JPanel customerWithLoan;
+    private JPanel searchCustomer;
+    private JPanel dailyReport;
+    private JPanel stock;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("managerView");
@@ -19,11 +25,14 @@ public class ManagerView extends JPanel{
     }
 
     public ManagerView() {
-        add(getAllCustomersButton);
-        add(getAllCustomersWithLoanButton);
-        add(searchCustomerButton);
-        add(dailyReportButton);
-        add(stockButton);
+        add(managerView);
+        allCustomer.add(new CustomerComponent());
+        customerWithLoan.add(new CustomerComponent(1));
+        dailyReport.add(new JLabel("Loan Transaction"));
+        dailyReport.add(new DailyLoanTransactionComponent());
+        stock.add(new StockListView());
+        setVisible(true);
     }
+
 
 }

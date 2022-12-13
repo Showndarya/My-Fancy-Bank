@@ -60,12 +60,12 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public TableList getDailyCurrentTransaction() throws SQLException {
+    public TableList getDailyCurrentTransaction(){
         return null;
     }
 
     @Override
-    public TableList getDailyLoanTransaction() throws SQLException {
+    public TableList getDailyLoanTransaction(){
         List<LoanTransaction> list;
         try {
             list = managerDao.getDailyLoanTransaction();
@@ -87,6 +87,9 @@ public class ManagerServiceImpl implements ManagerService {
 
 
     public static void main(String[] args) throws SQLException {
-        new ManagerDaoImpl().getAllCustomers();
+        ManagerService managerService = new ManagerServiceImpl();
+        TableList daily = managerService.getDailyLoanTransaction();
+
+        System.out.println("");
     }
 }
