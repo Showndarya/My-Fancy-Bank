@@ -5,7 +5,7 @@ import Models.Users.Customer;
 import java.sql.SQLException;
 
 public interface CustomerService {
-    public Customer getCustomer(String name) throws SQLException;
+    public int getCustomerId(String name) throws SQLException;
 
     /**
      * Check whether there is a customer with "name"
@@ -19,10 +19,10 @@ public interface CustomerService {
      * Add a new customer
      * @param name name
      * @param password password
-     * @return 0:success, -1:fail
+     * @return true if add successfully
      * @throws SQLException
      */
-    public int addCustomer(String name, String password) throws SQLException;
+    public boolean addCustomer(String name, String password) throws SQLException;
 
     /**
      * Login a customer by name and password
