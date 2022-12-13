@@ -1,10 +1,10 @@
 package Frontend;
 
 import BusinessLogicLayer.ManagerService;
-import BusinessLogicLayer.impl.ManagerServiceImpl;
+import Frontend.component.CustomerComponent;
+import Frontend.component.DailyLoanTransactionComponent;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class ManagerView extends JPanel{
     private ManagerService managerService;
@@ -26,11 +26,13 @@ public class ManagerView extends JPanel{
 
     public ManagerView() {
         add(managerView);
-
-
+        allCustomer.add(new CustomerComponent());
+        customerWithLoan.add(new CustomerComponent(1));
+        dailyReport.add(new JLabel("Loan Transaction"));
+        dailyReport.add(new DailyLoanTransactionComponent());
+        stock.add(new StockListView());
+        setVisible(true);
     }
-
-
 
 
 }

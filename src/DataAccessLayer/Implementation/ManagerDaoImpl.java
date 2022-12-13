@@ -66,19 +66,7 @@ public class ManagerDaoImpl implements ManagerDao {
 
     @Override
     public List<Transaction> getDailyCurrentTransaction() throws SQLException {
-        Connection connection = BaseDao.getConnection();
-        Statement statement = null;
-        ResultSet resultSet = null;
-        SimpleDate simpleDate = new SimpleDate();
-        String sql = "select * from current_transaction where created_date = " + simpleDate.getDateString();
-        resultSet = BaseDao.execute(connection, sql, statement, resultSet);
-        List<Transaction> list = new ArrayList<>();
-        Transaction transaction;
-        while (resultSet.next()){
-            // String accountSql = "select * from account where "
-        }
-        BaseDao.close(connection, statement, resultSet);
-        return list;
+        return null;
     }
 
     @Override
@@ -87,33 +75,25 @@ public class ManagerDaoImpl implements ManagerDao {
         Statement statement = null;
         ResultSet resultSet = null;
         SimpleDate simpleDate = new SimpleDate();
-        String sql = "select * from current_transaction where created_date = " + simpleDate.getDateString();
+        String sql = "select * from loan_transaction\n" +
+                "    join collateral on loan_transaction.collateral_id = collateral.id\n" +
+                "    join user on loan_transaction.customer_id = user.id\n" +
+                "    join money_type on collateral.money_type = money_type.type\n" +
+                "    where loan_transaction.created_date = '"
+                + simpleDate.getDateString() + "'";
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         List<LoanTransaction> list = new ArrayList<>();
         while (resultSet.next()){
-            String customerSql = "Select * from user" +
-                    "where id = " + resultSet.getInt("customer_id");
-            ResultSet result = null;
-            result = BaseDao.execute(connection, customerSql, statement, result);
-            Customer customer = new Customer(result.getInt("customer_id"), result.getString("user_name"));
-
-            ResultSet collateralResult = null;
-            String collateralSql = "Select * from collateral " +
-                    "where id = " + resultSet.getInt("collateral_id");
-            collateralResult = BaseDao.execute(connection, collateralSql, statement, collateralResult);
-
-            String moneySql = "Select id from money_type " +
-                    "where type = " + collateralResult.getString("money_type");
-
-            ResultSet moneyResult = null;
-            moneyResult = BaseDao.execute(connection, moneySql, statement, moneyResult);
-
-            MoneyType moneyType = new MoneyType(moneyResult.getInt("id"));
-            Collateral collateral = new Collateral(result.getString("name"), moneyType, collateralResult.getInt("worth"));
-            LoanTransaction loanTransaction = new LoanTransaction(collateral, customer, result.getInt("amount"));
+            MoneyType moneyType = new MoneyType(resultSet.getInt("money_type.id"),
+                    resultSet.getString("money_type.type"));
+            Customer customer = new Customer(resultSet.getInt("customer_id"),
+                    resultSet.getString("user.user_name"));
+            Collateral collateral = new Collateral(resultSet.getString("collateral.name"),
+                    moneyType,
+                    resultSet.getInt("collateral.worth"));
+            LoanTransaction loanTransaction = new LoanTransaction(collateral, customer, resultSet.getInt("amount"));
             list.add(loanTransaction);
         }
-
         BaseDao.close(connection, statement, resultSet);
         return list;
     }
