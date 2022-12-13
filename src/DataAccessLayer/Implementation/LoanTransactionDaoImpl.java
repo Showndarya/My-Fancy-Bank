@@ -7,11 +7,13 @@ import Models.Users.Customer;
 import Models.Transaction.Collateral;
 import Models.Transaction.LoanTransaction;
 import DataAccessLayer.BaseDao;
+import Utilities.SimpleDate;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,8 +87,9 @@ public class LoanTransactionDaoImpl implements LoanTransactionDao {
                 "    (" + loanTransaction.getCustomer().getId() + ","
                 + id + ","
                 + amount + ","
-                + loanTransaction.getInterest() + ","
-                + loanTransaction.getSimpleDate() + ")";
+                + loanTransaction.getInterest() + ",'"
+                + loanTransaction.getSimpleDate().getDateString() + "')";
+
         int j = BaseDao.executeUpdate(connection, loanSql, statement);
         BaseDao.close(null, statement, null);
 
