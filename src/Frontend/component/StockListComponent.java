@@ -2,7 +2,7 @@ package Frontend.component;
 
 import BusinessLogicLayer.StockService;
 import BusinessLogicLayer.impl.StockServiceImpl;
-import dto.StockList;
+import dto.TableList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +24,7 @@ public class StockListComponent extends JScrollPane {
     }
 
     public void reloadTable() {
-        StockList stockList = stockService.getAllStock();
+        TableList stockList = stockService.getAllStock();
         rowData = stockList.getRowData();
         Object[] columnNames = stockList.getColumnsName();
         table = new JTable(rowData, columnNames) {
@@ -65,7 +65,7 @@ public class StockListComponent extends JScrollPane {
 
     private StockListComponent() {
         stockService = new StockServiceImpl();
-        StockList stockList = stockService.getAllStock();
+        TableList stockList = stockService.getAllStock();
         Object[] columnNames = stockList.getColumnsName();
         rowData = stockList.getRowData();
 //        Object[][] rowData = {{"Tesla","TSLA",194.66},{"Alphabet Class A","GOOGL",100.07}};

@@ -11,7 +11,8 @@ import Models.OpenInterest;
 import Models.Stock;
 import Utilities.OpenInterestFactory;
 import Utilities.StockPriceUtils;
-import dto.StockList;
+import dto.TableList;
+
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -33,14 +34,14 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public StockList getAllStock() {
+    public TableList getAllStock() {
         List<Stock> list;
         try {
             list = stockDao.getAllStocks();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        StockList stockList = new StockList();
+        TableList stockList = new TableList();
         stockList.setColumnsName(new Object[]{"Name", "Tag", "Price"});
         Object[][] rowData = new Object[list.size()][];
         for (int i = 0; i < list.size(); i++) {

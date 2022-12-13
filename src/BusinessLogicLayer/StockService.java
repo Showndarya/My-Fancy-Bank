@@ -1,5 +1,6 @@
 package BusinessLogicLayer;
 
+import Models.Stock;
 import dto.TableList;
 
 public interface StockService {
@@ -7,6 +8,7 @@ public interface StockService {
 
     /**
      * buy the stock for this client and stock with this tag
+     *
      * @param clientId
      * @param
      */
@@ -14,6 +16,7 @@ public interface StockService {
 
     /**
      * sell stock for this client and sell stock of this tag
+     *
      * @param clientId
      * @param
      */
@@ -21,6 +24,7 @@ public interface StockService {
 
     /**
      * add a stock to the stock list
+     *
      * @param name
      * @param tag
      * @param price
@@ -30,6 +34,7 @@ public interface StockService {
 
     /**
      * get a stock by tag
+     *
      * @param tag
      * @return
      */
