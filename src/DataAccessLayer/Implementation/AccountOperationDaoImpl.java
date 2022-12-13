@@ -4,6 +4,8 @@ import DataAccessLayer.BaseDao;
 import DataAccessLayer.Interfaces.AccountOperationDao;
 import Enums.TransactionType;
 import Models.MoneyType;
+import dto.UserAccount;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,5 +44,10 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
         results.next();
         BaseDao.close(connection, null, results);
         return results.getDouble("account_money.amount");
+    }
+
+    @Override
+    public UserAccount getAccountsByIdWithBalance(int accounId) {
+        return null;
     }
 }
