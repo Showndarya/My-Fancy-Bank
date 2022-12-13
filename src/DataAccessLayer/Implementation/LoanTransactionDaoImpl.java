@@ -18,26 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoanTransactionDaoImpl implements LoanTransactionDao {
-    @Override
-    public List<Customer> getAllCustomersWithLoan(Connection connection) throws SQLException {
-        Statement statement = null;
-        ResultSet resultSet = null;
-        String sql = "select * from loan_transaction";
-        resultSet = BaseDao.execute(connection, sql, statement, resultSet);
-        List<Customer> list = new ArrayList<>();
-        while (resultSet.next()){
-            String customerSql = "Select * from user" +
-                    "where id = " + resultSet.getInt("customer_id");
-            ResultSet result = null;
-            result = BaseDao.execute(connection, customerSql, statement, result);
-            Customer customer = new Customer(result.getInt("id"), result.getString("user_name"));
-            list.add(customer);
-        }
-
-        BaseDao.close(connection, statement, resultSet);
-        return list;
-    }
-
     // implement getting specific customer's loan in database
     @Override
     public List<LoanTransaction> getCustomerLoan(Connection connection, Customer customer) throws SQLException {
@@ -82,6 +62,8 @@ public class LoanTransactionDaoImpl implements LoanTransactionDao {
         }
 
         LoanTransaction loanTransaction = new LoanTransaction(collateral, customer, amount);
+        loanTransaction.getCollateral().setId(id);
+
         String loanSql = "insert into loan_transaction (customer_id, collateral_id, amount, interest, created_date)\n" +
                 "values \n" +
                 "    (" + loanTransaction.getCustomer().getId() + ","
@@ -92,8 +74,20 @@ public class LoanTransactionDaoImpl implements LoanTransactionDao {
 
         int j = BaseDao.executeUpdate(connection, loanSql, statement);
         BaseDao.close(null, statement, null);
-
-        // account add money
         return i + j;
     }
+
+    @Override
+    public int deleteLoan(Connection connection, Customer customer, LoanTransaction loanTransaction) throws SQLException {
+        Statement statement = null;
+        String sql = "delete from loan_transaction where customer_id = "
+                + customer.getId() + " and collateral_id = "
+                + loanTransaction.getCollateral().getId();
+        System.out.println(sql);
+        int i = BaseDao.executeUpdate(connection, sql, statement);
+        BaseDao.close(null, statement, null);
+        return i ;
+    }
+
+
 }
