@@ -87,6 +87,8 @@ public class ManagerServiceImpl implements ManagerService {
 
 
     public static void main(String[] args) throws SQLException {
-        new ManagerDaoImpl().getAllCustomers();
+        ManagerService managerService = new ManagerServiceImpl();
+        TableList allCustomers = managerService.getAllCustomers();
+        System.out.println("");
     }
 }

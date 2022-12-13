@@ -15,7 +15,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ManagerDaoImpl implements ManagerDao {
     @Override
@@ -35,6 +37,7 @@ public class ManagerDaoImpl implements ManagerDao {
         return list;
     }
 
+    // select all customers with loan
     @Override
     public List<Customer> getCustomersWithLoan() throws SQLException {
         Connection connection = BaseDao.getConnection();
@@ -43,13 +46,18 @@ public class ManagerDaoImpl implements ManagerDao {
         String sql = "select * from loan_transaction";
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         List<Customer> list = new ArrayList<>();
+        HashSet<Integer> idSet = new HashSet<>();
         while (resultSet.next()){
-            String customerSql = "Select * from user" +
+            if (idSet.contains(resultSet.getInt("customer_id"))) continue;
+            idSet.add(resultSet.getInt("customer_id"));
+            String customerSql = "Select * from user " +
                     "where id = " + resultSet.getInt("customer_id");
             ResultSet result = null;
             result = BaseDao.execute(connection, customerSql, statement, result);
-            Customer customer = new Customer(result.getInt("customer_id"), result.getString("user_name"));
-            list.add(customer);
+            while (result.next()) {
+                Customer customer = new Customer(result.getInt("id"), result.getString("user_name"));
+                list.add(customer);
+            }
         }
 
         BaseDao.close(connection, statement, resultSet);
@@ -65,13 +73,11 @@ public class ManagerDaoImpl implements ManagerDao {
         String sql = "select * from current_transaction where created_date = " + simpleDate.getDateString();
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         List<Transaction> list = new ArrayList<>();
-//        Transaction transaction;
-//        while (resultSet.next()){
-//            Customer customer = new
-//            transaction = new Transaction()
-//            list.add(customer);
-//        }
-//        BaseDao.close(connection, statement, resultSet);
+        Transaction transaction;
+        while (resultSet.next()){
+            // String accountSql = "select * from account where "
+        }
+        BaseDao.close(connection, statement, resultSet);
         return list;
     }
 
@@ -81,7 +87,7 @@ public class ManagerDaoImpl implements ManagerDao {
         Statement statement = null;
         ResultSet resultSet = null;
         SimpleDate simpleDate = new SimpleDate();
-        String sql = "select * from current_transacton where created_date = " + simpleDate.getDateString();
+        String sql = "select * from current_transaction where created_date = " + simpleDate.getDateString();
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         List<LoanTransaction> list = new ArrayList<>();
         while (resultSet.next()){
