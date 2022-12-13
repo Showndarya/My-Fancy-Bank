@@ -11,8 +11,8 @@ public class SecurityAccount extends Account {
         super(AccountType.Security);
     }
 
-    public SecurityAccount(int ownerId){
-        super(AccountType.Security, ownerId);
+    public SecurityAccount(int id, int ownerId){
+        super(AccountType.Security, id, ownerId);
     }
 
 }
