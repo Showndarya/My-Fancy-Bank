@@ -41,7 +41,10 @@ public class OpenInterestDaoImpl implements OpenInterestDao {
 
         String sql = "select sum(`num_of_share`) as numOfShare from open_interest where client_id=" + cliendId + " and stock_id=" + stockId + " group by stock_id";
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
-        String numOfShare = resultSet.getString("numOfShare");
+        String numOfShare = null;
+        if (resultSet.next()) {
+            numOfShare = resultSet.getString("numOfShare");
+        }
         BaseDao.close(null, statement, resultSet);
         return Integer.parseInt(numOfShare);
     }
@@ -49,7 +52,8 @@ public class OpenInterestDaoImpl implements OpenInterestDao {
     @Override
     public void updateOpenInterest(Connection connection, int id, int clientId, int stockId, int numOfShare) throws SQLException {
         Statement statement = null;
-        String sql = "update open_interest set num_of_share=" + numOfShare + " where client_id=" + clientId + " and stock_id=" + clientId;
+        String sql = "update open_interest set num_of_share=" + numOfShare + " where id=" + id + " and client_id=" + clientId + " and stock_id=" + stockId;
+        System.out.println(sql);
         BaseDao.executeUpdate(connection, sql, statement);
         BaseDao.close(null, statement, null);
     }
@@ -57,7 +61,7 @@ public class OpenInterestDaoImpl implements OpenInterestDao {
     @Override
     public void deleteOpenInterest(Connection connection, int id, int clientId, int stockId) throws SQLException {
         Statement statement = null;
-        String sql = "delete from open_interest where stock_id=" + stockId + " and client_id=" + clientId;
+        String sql = "delete from open_interest where id=" + id + " and stock_id=" + stockId + " and client_id=" + clientId;
         BaseDao.executeUpdate(connection, sql, statement);
         BaseDao.close(null, statement, null);
     }

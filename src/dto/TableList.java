@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.List;
+
 public class TableList {
     private Object[] columnsName;
     private Object[][] rowData;
@@ -22,5 +24,7 @@ public class TableList {
     }
 
     public TableList() {
+
     }
+
 }

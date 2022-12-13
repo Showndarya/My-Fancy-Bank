@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface OpenInterestService {
 
-    public int addToOpenInterest(Connection connection, int clientId, int stockId, double price, int numOfShare) throws SQLException;
+    public void addToOpenInterest(Connection connection, int clientId, int stockId, double price, int numOfShare) throws SQLException;
 
 
     public int getOpenInterestNum(int clientId, int stockId);
@@ -26,5 +26,6 @@ public interface OpenInterestService {
     public void deleteOpenInterest(Connection connection, int id, int clientId, int stockId) throws SQLException;
 
     public List<OpenInterest> getOpenInterestOrderedByPurchasePrice(Connection connection, int clientId, int stockId) throws SQLException;
+
 
 }

@@ -17,11 +17,6 @@ public class Stock {
     private String tag;
     private double price;
 
-    public Stock(String name, String tag, double price) {
-        this.name = name;
-        this.tag = tag;
-        this.price = price;
-    }
 
     public int getId() {
         return id;
