@@ -8,6 +8,6 @@ import Enums.AccountType;
  */
 public class BankAccount extends Account {
     public BankAccount() {
-        super(AccountType.Bank, 0);
+        super(AccountType.Bank, 0, 0);
     }
 }

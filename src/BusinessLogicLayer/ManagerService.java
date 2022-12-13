@@ -12,7 +12,7 @@ import java.util.List;
 public interface ManagerService {
     public TableList getAllCustomers();
     public TableList getCustomersWithLoan();
-    public TableList getDailyCurrentTransaction() throws SQLException;
-    public TableList getDailyLoanTransaction() throws SQLException;
+    public TableList getDailyCurrentTransaction();
+    public TableList getDailyLoanTransaction();
 
 }

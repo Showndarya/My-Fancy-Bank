@@ -13,9 +13,7 @@ public class Bank extends User {
 
     // fee
 
-
-
-    public Bank(int id, String name) {
-        super(id, name);
+    public Bank(int id, String name, String password) {
+        super(id, name, password);
     }
 }

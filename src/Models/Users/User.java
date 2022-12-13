@@ -9,14 +9,25 @@ public abstract class User {
     private String password;
 
     /**
-     * Construct a user by id and name
+     * Construct a user by id, name and password
      * @param id id
      * @param name name
+     * @param password password
      */
     public User(int id, String name, String password){
         this.id = id;
         this.name = name;
         this.password = password;
+    }
+
+    /**
+     * Construct a user by id and name
+     * @param id id
+     * @param name name
+     */
+    public User(int id, String name){
+        this.id = id;
+        this.name = name;
     }
 
     /**

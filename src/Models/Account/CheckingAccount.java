@@ -11,8 +11,8 @@ public class CheckingAccount extends Account {
         super(AccountType.Checking);
     }
 
-    public CheckingAccount(int ownerId){
-        super(AccountType.Checking);
+    public CheckingAccount(int id, int ownerId){
+        super(AccountType.Checking, id, ownerId);
     }
 
 }
