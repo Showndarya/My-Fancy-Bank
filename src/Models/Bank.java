@@ -15,12 +15,7 @@ public class Bank extends User {
 
 
 
-    public Bank(String id, String name) {
+    public Bank(int id, String name) {
         super(id, name);
-    }
-
-    @Override
-    protected boolean InitializeFromDatabase(String name) {
-        return false;
     }
 }

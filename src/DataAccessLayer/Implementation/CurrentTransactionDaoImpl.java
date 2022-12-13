@@ -16,7 +16,7 @@ import java.util.List;
 
 public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
     @Override
-    public List<Transaction> getAllDeposits(Customer customer) throws SQLException {
+    public List<Transaction> getAllTransactions(Customer customer, TransactionType type) throws SQLException {
         Connection connection = BaseDao.getConnection();
         ResultSet results = null;
 
@@ -27,7 +27,7 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
             Transaction deposit = new Transaction(
                     customer,
                     results.getDouble("amount"),
-                    TransactionType.Deposit,
+                    type,
                     new Date(results.getDate("created_date").getTime())
             );
             deposits.add(deposit);
@@ -38,10 +38,10 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
     }
 
     @Override
-    public Boolean addDeposit(Customer customer, Transaction deposit) throws SQLException {
+    public Boolean addTransaction(Customer customer, Transaction deposit) throws SQLException {
         Connection connection = BaseDao.getConnection();
         String sql = "insert into current_transaction values("
-                +customer.getId()+","
+                +"1"+//+customer.getId()+","
                 +deposit.getAmount()+","
                 +"1,"//todo money type
                 +deposit.getTransactionType()+",'"

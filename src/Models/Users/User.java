@@ -4,40 +4,39 @@ package Models.Users;
  * Abstract class of user
  */
 public abstract class User {
-    private String id;
+    private int id;
     private String name;
 
     /**
-     * Construct a user only by id and name
+     * Construct a user by id and name
      * @param id id
      * @param name name
      */
-    public User(String id, String name){
+    public User(int id, String name){
         this.id = id;
         this.name = name;
     }
 
     /**
-     * Construct a user by database according to the name
-     * @param name name
+     * Construct an empty user
      */
-    public User(String name){
-        InitializeFromDatabase(name);
+    public User(){
+
     }
 
-    /**
-     * Initialize user information from database according to the name
-     * @param name name
-     * @return true if succeeded, false if failed
-     */
-    protected abstract boolean InitializeFromDatabase(String name);
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
 
     public String getName(){
         return name;
     }
 
-    public String getId(){
+    public int getId(){
         return this.id;
     }
-
 }

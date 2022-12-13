@@ -7,7 +7,7 @@ import Enums.AccountType;
  * extends: Account
  */
 public class BankAccount extends Account {
-    public BankAccount(AccountType type) {
-        super(type);
+    public BankAccount() {
+        super(AccountType.Bank, 0);
     }
 }
