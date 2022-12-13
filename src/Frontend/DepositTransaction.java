@@ -8,10 +8,6 @@ import Utilities.Tuple;
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -24,6 +20,7 @@ public class DepositTransaction {
     private JLabel depositLabel;
     private JPanel accountDetailsPanel;
     private JPanel backPanel;
+    private JButton submitButton;
 
     private static DepositTransaction depositTransaction = new DepositTransaction();
 

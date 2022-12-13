@@ -4,6 +4,7 @@ import BusinessLogicLayer.LoanTransactionService;
 import DataAccessLayer.BaseDao;
 import DataAccessLayer.Implementation.LoanTransactionDaoImpl;
 import DataAccessLayer.Interfaces.LoanTransactionDao;
+import Models.MoneyType;
 import Models.Transaction.Collateral;
 import Models.Transaction.LoanTransaction;
 import Models.Users.Customer;
@@ -21,30 +22,13 @@ public class LoanTransactionServiceImpl implements LoanTransactionService {
         this.loanTransactionDao = new LoanTransactionDaoImpl();
     }
 
-    @Override
-    public TableList getAllCustomersWithLoan() {
-        List<Customer> list;
-        try {
-            list = loanTransactionDao.getAllCustomersWithLoan();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        TableList tableList = new TableList();
-        tableList.setColumnsName(new Object[]{"User Id", "User Name"});
-        Object[][] rowData = new Object[list.size()][];
-        for(int i = 0; i < list.size(); i++){
-            Customer customer = list.get(i);
-            rowData[i] = new Object[]{customer.getId(), customer.getName()};
-        }
-        tableList.setRowData(rowData);
-        return tableList;
-    }
-
+    // get the list of customer's loan
     @Override
     public TableList getCustomerLoan(Customer customer) {
+        Connection connection = BaseDao.getConnection();
         List<LoanTransaction> list;
         try {
-            list = loanTransactionDao.getCustomerLoan(customer);
+            list = loanTransactionDao.getCustomerLoan(connection, customer);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -62,14 +46,39 @@ public class LoanTransactionServiceImpl implements LoanTransactionService {
         return tableList;
     }
 
+    // add loan in an account
     @Override
-    public int addLoan(Customer customer, Collateral collateral) {
-        // wait to do add the current date
+    public int addLoan(Customer customer, Collateral collateral, int amount) {
         Connection connection = BaseDao.getConnection();
         try {
             int flag = 0;
-            //add stock to open intereset
+            // add stock to open intereset
+            flag += loanTransactionDao.addLoan(connection, customer, collateral, amount);
+            if (flag < 2){
+                throw new SQLException();
+            }
 
+        } catch (SQLException e) {
+            try {
+                e.printStackTrace();
+                System.out.println("Error occur. Try to rollback");
+                connection.rollback();
+            } catch (SQLException ex) {
+                System.out.println("Rollback failed");
+            }
+        }finally {
+            BaseDao.close(connection, null, null);
+        }
+        return 1;
+    }
+
+    // delete loan in an account
+    @Override
+    public int deleteLoan(Customer customer, LoanTransaction loanTransaction) {
+        Connection connection = BaseDao.getConnection();
+        try {
+            int flag = 0;
+            flag += loanTransactionDao.deleteLoan(connection, customer, loanTransaction);
             if (flag < 1){
                 throw new SQLException();
             }
@@ -86,5 +95,15 @@ public class LoanTransactionServiceImpl implements LoanTransactionService {
             BaseDao.close(connection, null, null);
         }
         return 1;
+    }
+
+    public static void main(String[] args) throws SQLException {
+        Customer customer = new Customer(1, "name");
+        MoneyType moneyType = new MoneyType(1, "USD");
+        Collateral collateral = new Collateral("apartment", moneyType, 100);
+        collateral.setId(19);
+        // new LoanTransactionServiceImpl().addLoan(customer, collateral, 1000);
+        LoanTransaction loanTransaction = new LoanTransaction(collateral, customer ,1000);
+        new LoanTransactionServiceImpl().deleteLoan(customer, loanTransaction);
     }
 }

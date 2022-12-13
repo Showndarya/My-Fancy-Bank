@@ -28,3 +28,10 @@ bin/
 
 ### Mac OS ###
 .DS_Store.idea\
+/MyFancyBank.iml
+/FancyBank.iml
+/lib/mysql-connector-java-8.0.30.jar
+/lib/mysql-connector-java-8.0.30-sources.jar
+/lib/protobuf-java-3.19.4.jar
+/lib/protobuf-java-3.19.4-sources.jar
+

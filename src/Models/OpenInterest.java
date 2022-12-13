@@ -8,6 +8,17 @@ public class OpenInterest {
     private double purchasePrice;
     private int numOfShare;
 
+    public OpenInterest() {
+    }
+
+    public OpenInterest(int id, int clientId, int stockId, double purchasePrice, int numOfShare) {
+        this.id = id;
+        this.clientId = clientId;
+        this.stockId = stockId;
+        this.purchasePrice = purchasePrice;
+        this.numOfShare = numOfShare;
+    }
+
     public int getId() {
         return id;
     }

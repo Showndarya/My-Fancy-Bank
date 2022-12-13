@@ -3,6 +3,8 @@ package Models.Transaction;
 import Models.MoneyType;
 
 public class Collateral {
+    private int id;
+
     private String name;
     private MoneyType moneyType;
     private int money;
@@ -12,7 +14,6 @@ public class Collateral {
         this.moneyType = moneyType;
         this.money = money;
     }
-
 
     public String getName() {
         return name;
@@ -36,6 +37,14 @@ public class Collateral {
 
     public void setMoney(int money) {
         this.money = money;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }
