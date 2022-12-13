@@ -41,7 +41,7 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
     public Boolean addTransaction(Customer customer, Transaction deposit) throws SQLException {
         Connection connection = BaseDao.getConnection();
         String sql = "insert into current_transaction values("
-                +"1"+//+customer.getId()+","
+                +customer.getId()+","
                 +deposit.getAmount()+","
                 +"1,"//todo money type
                 +deposit.getTransactionType()+",'"
