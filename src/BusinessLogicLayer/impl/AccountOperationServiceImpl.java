@@ -65,7 +65,7 @@ public class AccountOperationServiceImpl implements AccountOperationService {
         for (int i = 0; i < list.size(); i++) {
             Transaction transaction = list.get(i);
             rowData[i] = new Object[]{transaction.getTransactionType(),
-                    transaction.getAmount(), transaction.getTransactionDate()};
+                     transaction.getMoneyType().getSymbol()+" "+transaction.getAmount(), transaction.getTransactionDate()};
         }
         transactionsList.setRowData(rowData);
         return transactionsList;

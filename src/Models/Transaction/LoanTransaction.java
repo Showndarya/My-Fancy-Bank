@@ -10,7 +10,7 @@ public class LoanTransaction extends Transaction{
     private Collateral collateral;
 
     public LoanTransaction(Collateral collateral, Customer customer, double amount) {
-        super(customer, amount, TransactionType.Loan, new Date());
+        super(customer, amount, TransactionType.Loan, new Date(), null);
         this.collateral = collateral;
         this.setCustomer(customer);
         this.setAmount(amount);
