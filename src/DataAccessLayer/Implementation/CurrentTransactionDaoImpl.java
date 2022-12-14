@@ -28,7 +28,7 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
             Transaction deposit = new Transaction(
                     customer,
                     results.getDouble("amount"),
-                    type,
+                    TransactionType.getType(results.getInt("transaction_type")),
                     new Date(results.getDate("created_date").getTime())
             );
             deposits.add(deposit);

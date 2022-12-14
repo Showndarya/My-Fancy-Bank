@@ -81,4 +81,8 @@ public class Transaction {
     public int getMoneyType() {
         return moneyType;
     }
+
+    public Date getTransactionDate() {
+        return transactionDate;
+    }
 }

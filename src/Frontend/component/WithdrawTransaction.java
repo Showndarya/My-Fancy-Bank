@@ -85,9 +85,6 @@ public class WithdrawTransaction extends JPanel{
 
             setBalance(moneyTypes, userAccounts);
         });
-//        currencySelect.addActionListener(e ->
-//                //setBalance(moneyTypes, userAccounts)
-//        );
     }
 
     private void setBalance(ArrayList<MoneyType> moneyTypes, ArrayList<UserAccount> userAccounts) {
