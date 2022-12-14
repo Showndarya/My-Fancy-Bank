@@ -39,6 +39,7 @@ public class LoanTransactionDaoImpl implements LoanTransactionDao {
             Collateral collateral = new Collateral(resultSet.getString("collateral.name"),
                     m,
                     resultSet.getInt("collateral.worth"));
+            collateral.setId(resultSet.getInt("collateral.id"));
             loanTransaction = new LoanTransaction(collateral, customer, resultSet.getInt("amount"));
             list.add(loanTransaction);
         }
