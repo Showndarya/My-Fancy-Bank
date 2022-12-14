@@ -1,9 +1,11 @@
 package Frontend;
 
+import ControllerLayer.AccountController;
 import ControllerLayer.TransactionController;
 import Enums.TransactionType;
 import Models.MoneyType;
 import Utilities.Tuple;
+import dto.UserAccount;
 
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
@@ -30,16 +32,25 @@ public class DepositTransaction {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
                 TransactionController controller = new TransactionController();
+                AccountController accountController = new AccountController();
                 ArrayList<MoneyType> moneyTypes;
+                ArrayList<UserAccount> userAccounts;
                 if(depositTransaction.currencySelect.getItemCount() == 0) {
                     try {
                         moneyTypes = controller.getAllmoneyTypes();
+                        userAccounts = accountController.getAccountsByIdWithBalance(2);
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }
+
                     for(MoneyType moneyType: moneyTypes)
-                        depositTransaction.currencySelect.addItem(
+                        currencySelect.addItem(
                                 new Tuple(moneyType.getType()+"("+moneyType.getSymbol()+")", moneyType.getId())
+                        );
+
+                    for(UserAccount userAccount: userAccounts)
+                        accountSelect.addItem(
+                                new Tuple(userAccount.userId+" "+userAccount.accountId, userAccount.accountId)
                         );
                 }
             }

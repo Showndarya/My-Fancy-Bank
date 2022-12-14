@@ -9,6 +9,7 @@ import dto.UserAccount;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class AccountOperationDaoImpl implements AccountOperationDao {
     @Override
@@ -47,7 +48,34 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
     }
 
     @Override
-    public UserAccount getAccountsByIdWithBalance(int accounId) {
-        return null;
+    public ArrayList<UserAccount> getAccountsByIdWithBalance(int userId) throws SQLException {
+        Connection connection = BaseDao.getConnection();
+        ResultSet results = null;
+
+        String sql = "select * from account acc " +
+                "inner join account_money acm " +
+                "on acc.id=acm.account_id " +
+                "inner join money_type mon " +
+                "on mon.id=acm.money_type_id "+
+                "where " +
+                "acc.user_id="+ userId;
+        results = BaseDao.execute(connection, sql, null, results);
+        ArrayList<UserAccount> userAccounts = new ArrayList<>();
+        while(results.next()) {
+            UserAccount userAccount = new UserAccount(
+                    results.getDouble("account_money.amount"),
+                    results.getInt("account.id"),
+                    results.getInt("account.user_id"),
+                    new MoneyType(
+                            results.getInt("money_type.id"),
+                            results.getString("money_type.type"),
+                            results.getString("money_type.symbol")
+                    )
+            );
+            userAccounts.add(userAccount);
+        }
+
+        BaseDao.close(connection, null, results);
+        return userAccounts;
     }
 }

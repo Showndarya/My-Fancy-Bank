@@ -43,4 +43,6 @@ public interface StockService {
     public boolean updateStockPriceByTag(String tag, double price);
 
     public boolean deleteStockByTag(String tag);
+
+    public TableList getUserStockDataByUserId(int userId);
 }

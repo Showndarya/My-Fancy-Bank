@@ -10,8 +10,11 @@ import java.util.List;
 
 public interface ManagerService {
     public TableList getAllCustomers();
+
     public TableList getCustomersWithLoan();
+
     public TableList getDailyCurrentTransaction();
+
     public TableList getDailyLoanTransaction();
 
 }
