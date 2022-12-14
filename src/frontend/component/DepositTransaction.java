@@ -36,6 +36,13 @@ public class DepositTransaction extends JPanel {
                 );
             }
         }
+
+        currencySelect.removeAllItems();
+        for(UserAccount userAccount: userAccounts)
+            if(userAccount.accountId==userAccounts.get(accountSelect.getSelectedIndex()).accountId)
+                currencySelect.addItem(
+                        new Tuple(userAccount.moneyType.getType()+"("+userAccount.moneyType.getSymbol()+")", userAccount.moneyType.getId())
+                );
         submitButton.addActionListener(e -> {
 
             Transaction transaction = new Transaction(
