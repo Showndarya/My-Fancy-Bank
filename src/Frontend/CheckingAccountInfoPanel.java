@@ -1,5 +1,15 @@
 package Frontend;
 
+import Enums.AccountType;
+import Models.Account.BankAccount;
+import Utilities.FancyBank;
+import dto.UserAccount;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 
 public class CheckingAccountInfoPanel extends AccountInfoPanel {
@@ -12,7 +22,7 @@ public class CheckingAccountInfoPanel extends AccountInfoPanel {
      */
     @Override
     protected String getAccountType() {
-        return null;
+        return "Checking Account: ";
     }
 
     /**
@@ -22,7 +32,10 @@ public class CheckingAccountInfoPanel extends AccountInfoPanel {
      */
     @Override
     protected String getAccountNumber() {
-        return null;
+        int accountNumber = accountService.getAccountId(FancyBank.getInstance().getUserId(), AccountType.Checking);
+        int numberLength = String.valueOf(accountNumber).length();
+        String result = String.join("", Collections.nCopies(ACCOUNT_NUMBER_LENGTH-numberLength, "0")) + accountNumber;
+        return result;
     }
 
     /**
@@ -32,6 +45,38 @@ public class CheckingAccountInfoPanel extends AccountInfoPanel {
      */
     @Override
     protected Hashtable<String, Double> getBalances() {
-        return null;
+        int accountId = accountService.getAccountId(FancyBank.getInstance().getUserId(), AccountType.Checking);
+        ArrayList<UserAccount> accounts;
+        try{
+            accounts = accountOperationService.getAccountsByIdWithBalance(accountId);
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+        Hashtable<String, Double> balances =  new Hashtable<>();
+        for(UserAccount userAccount: accounts){
+            balances.put(userAccount.moneyType.getSymbol(), userAccount.amount);
+        }
+        return balances;
+    }
+
+    @Override
+    protected void clickDeleteAccountButton(ActionEvent e) {
+        // check whether there is no balance
+        Hashtable<String, Double> balances = getBalances();
+        boolean has = false;
+        for(String key: balances.keySet()){
+            if(balances.get(key) > 0){
+                has = true;
+                break;
+            }
+        }
+        if(has){
+            removeAccountErrorLabel.setVisible(true);
+            repaint();
+        }
+        else{
+            accountService.removeAccount(FancyBank.getInstance().getUserId(), AccountType.Checking);
+        }
     }
 }

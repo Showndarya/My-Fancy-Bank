@@ -18,7 +18,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public int getCustomerId(String name) throws SQLException {
+    public int getCustomerId(String name){
         Customer customer = null;
         try{
             customer = (Customer) customerDao.getByName(name);
@@ -34,7 +34,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean hasCustomer(String name) throws SQLException {
+    public boolean hasCustomer(String name){
         try{
             return customerDao.hasUser(name);
         } catch (SQLException e){
@@ -43,7 +43,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean addCustomer(String name, String password) throws SQLException {
+    public boolean addCustomer(String name, String password){
         Connection connection = BaseDao.getConnection();
         try{
             // Check whether there is already a customer of name
@@ -71,7 +71,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean loginCustomer(String name, String password) throws SQLException {
+    public boolean loginCustomer(String name, String password){
         try{
             Customer customer = (Customer) customerDao.getByName(name);
             if(customer == null){
@@ -84,10 +84,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean registerCustomer(String name, String password) throws SQLException {
+    public boolean registerCustomer(String name, String password){
         try{
             Customer customer = (Customer) customerDao.getByName(name);
-            if(customer == null){
+            if(customer != null){
                 return false;
             }
            return addCustomer(name, password);

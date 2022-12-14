@@ -1,3 +1,5 @@
+package Utilities;
+
 public class FancyBank {
     private static FancyBank INSTANCE;
     private String userName;

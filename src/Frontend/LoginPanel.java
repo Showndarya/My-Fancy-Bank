@@ -2,11 +2,11 @@ package Frontend;
 
 import BusinessLogicLayer.CustomerService;
 import BusinessLogicLayer.impl.CustomerServiceImpl;
+import Utilities.FancyBank;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.sql.SQLException;
 
 
 public class LoginPanel extends JPanel{
@@ -85,15 +85,27 @@ public class LoginPanel extends JPanel{
 
     private void clickLoginButton(ActionEvent e){
         String name = nameTextField.getText();
-        char[] password = passwordField.getPassword();
-        if(name.length() == 0 || password.length == 0){
+        String password = String.valueOf(passwordField.getPassword());
+        if(name.length() == 0 || password.length() == 0){
             return;
         }
-//        boolean ret = customerService.loginCustomer(name, String.valueOf(password));
+        boolean ret = customerService.loginCustomer(name, password);
+        if(ret){
+            // set customer info
+            int userId = customerService.getCustomerId(name);
+            FancyBank.getInstance().setUserId(userId);
+            FancyBank.getInstance().setUserName(name);
+            // set panel
+            MainFrame.getInstance().setPanel(new MenuPanel());
+        }
+        else{
+            errorLabel.setVisible(true);
+            repaint();
+        }
     }
 
     private void clickReturnButton(ActionEvent e){
-
+        MainFrame.getInstance().setPanel(new WelcomePanel());
     }
 
 }

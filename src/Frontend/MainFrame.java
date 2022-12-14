@@ -8,7 +8,7 @@ import java.awt.event.WindowEvent;
 
 public class MainFrame extends JFrame{
     private static MainFrame INSTANCE;
-    private static final String FRAME_TITLE = "FancyBank";
+    private static final String FRAME_TITLE = "Utilities.FancyBank";
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
     private JPanel currentPanel;
@@ -31,14 +31,7 @@ public class MainFrame extends JFrame{
             }
         });
         setLayout(new GridLayout(1, 1));
-
-
-        WelcomePanel welcomePanel = new WelcomePanel();
-        LoginPanel loginPanel = new LoginPanel();
-        RegisterPanel registerPanel = new RegisterPanel();
-        MenuPanel menuPanel = new MenuPanel();
-        MyAccountPanel myAccountPanel = new MyAccountPanel();
-        setPanel(welcomePanel);
+        setPanel(new WelcomePanel());
     }
 
     public void setPanel(JPanel panel){

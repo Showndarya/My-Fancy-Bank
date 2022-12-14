@@ -1,8 +1,17 @@
 package Frontend;
 
+import BusinessLogicLayer.AccountService;
+import BusinessLogicLayer.SecurityService;
+import BusinessLogicLayer.impl.AccountServiceImpl;
+import BusinessLogicLayer.impl.SecurityServiceImpl;
+import Enums.AccountType;
+import Utilities.FancyBank;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Hashtable;
+
 public class MyAccountPanel extends JPanel{
     private static final int LABEL_FONT_SIZE = 20;
     private static final int BUTTON_FONT_SIZE = 20;
@@ -10,14 +19,14 @@ public class MyAccountPanel extends JPanel{
     private static final int HEIGHT = 600;
 
     private JLabel accountLabel;
-    private JButton checkingAccountButton;
-    private JButton addCheckingAccountButton;
-    private JButton savingsAccountButton;
-    private JButton addSavingsAccountButton;
-    private JButton securityAccountButton;
-    private JButton addSecurityAccountButton;
+    private Hashtable<AccountType, JButton> accountsButton;
+    private Hashtable<AccountType, JButton> addAccountsButton;
     private JButton returnButton;
     private JPanel currentAccountPanel;
+
+    // service
+    private AccountService accountService;
+    private SecurityService securityService;
 
     public MyAccountPanel(){
         // account label
@@ -25,41 +34,50 @@ public class MyAccountPanel extends JPanel{
         accountLabel.setBounds(0, 0, 130, 50);
         accountLabel.setFont(new Font("serif", Font.PLAIN, LABEL_FONT_SIZE));
         add(accountLabel);
+        // Buttons
+        accountsButton = new Hashtable<>();
+        addAccountsButton = new Hashtable<>();
         // checking account button
-        checkingAccountButton = new JButton("checking");
+        JButton checkingAccountButton = new JButton("checking");
         checkingAccountButton.setBounds(0, 50, 120, 40);
         checkingAccountButton.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
         checkingAccountButton.addActionListener(this::clickCheckingAccountButton);
+        accountsButton.put(AccountType.Checking, checkingAccountButton);
         add(checkingAccountButton);
         // add checking account button
-        addCheckingAccountButton = new JButton("add");
+        JButton addCheckingAccountButton = new JButton("add");
         addCheckingAccountButton.setBounds(130, 50, 70, 40);
         addCheckingAccountButton.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
         addCheckingAccountButton.addActionListener(this::clickAddCheckingAccountButton);
+        addAccountsButton.put(AccountType.Checking, addCheckingAccountButton);
         add(addCheckingAccountButton);
         // savings account button
-        savingsAccountButton = new JButton("savings");
+        JButton savingsAccountButton = new JButton("savings");
         savingsAccountButton.setBounds(0, 100, 120, 40);
         savingsAccountButton.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
         savingsAccountButton.addActionListener(this::clickSavingsAccountButton);
+        accountsButton.put(AccountType.Savings, savingsAccountButton);
         add(savingsAccountButton);
         // add savings account button
-        addSavingsAccountButton = new JButton("add");
+        JButton addSavingsAccountButton = new JButton("add");
         addSavingsAccountButton.setBounds(130, 100, 70, 40);
         addSavingsAccountButton.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
         addSavingsAccountButton.addActionListener(this::clickAddSavingsAccountButton);
+        addAccountsButton.put(AccountType.Savings, addSavingsAccountButton);
         add(addSavingsAccountButton);
         // security account button
-        securityAccountButton = new JButton("security");
+        JButton securityAccountButton = new JButton("security");
         securityAccountButton.setBounds(0, 150, 120, 40);
         securityAccountButton.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
         securityAccountButton.addActionListener(this::clickSecurityAccountButton);
+        accountsButton.put(AccountType.Security, securityAccountButton);
         add(securityAccountButton);
         // add security account button
-        addSecurityAccountButton = new JButton("add");
+        JButton addSecurityAccountButton = new JButton("add");
         addSecurityAccountButton.setBounds(130, 150, 70, 40);
         addSecurityAccountButton.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
         addSecurityAccountButton.addActionListener(this::clickAddSecurityAccountButton);
+        addAccountsButton.put(AccountType.Security, addSecurityAccountButton);
         add(addSecurityAccountButton);
         // return button
         returnButton = new JButton("return");
@@ -87,14 +105,15 @@ public class MyAccountPanel extends JPanel{
     }
 
     private void clickAddCheckingAccountButton(ActionEvent e){
-
+        accountService.createAccount(FancyBank.getInstance().getUserId(), AccountType.Checking);
     }
 
     private void clickAddSavingsAccountButton(ActionEvent e){
-
+        accountService.createAccount(FancyBank.getInstance().getUserId(), AccountType.Savings);
     }
 
     private void clickAddSecurityAccountButton(ActionEvent e){
+
 
     }
 
@@ -113,7 +132,30 @@ public class MyAccountPanel extends JPanel{
     }
 
     private void initialize(){
+        accountService = new AccountServiceImpl();
+        securityService = new SecurityServiceImpl();
+        // Find 3 accounts
+        if(accountService.hasAccount(FancyBank.getInstance().getUserId(), AccountType.Checking)){
+            addAccountsButton.get(AccountType.Checking).setEnabled(false);
+        }
+        else{
+            accountsButton.get(AccountType.Checking).setEnabled(false);
+        }
+        if(accountService.hasAccount(FancyBank.getInstance().getUserId(), AccountType.Savings)){
+            addAccountsButton.get(AccountType.Savings).setEnabled(false);
+        }
+        else{
+            accountsButton.get(AccountType.Savings).setEnabled(false);
+        }
 
+//        for(AccountType type: AccountType.values()){
+//            if(accountService.hasAccount(FancyBank.getInstance().getUserId(), type)){
+//                addAccountsButton.get(type).setEnabled(false);
+//            }
+//            else{
+//                accountsButton.get(type).setEnabled(false);
+//            }
+//        }
     }
 
 

@@ -23,7 +23,7 @@ public class MenuPanel extends JPanel{
     }
 
     private void clickMyAccountButton(ActionEvent e){
-
+        MainFrame.getInstance().setPanel(new MyAccountPanel());
     }
 
 

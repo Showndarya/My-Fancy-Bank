@@ -37,7 +37,7 @@ public class SavingsAccountDaoImpl implements SavingsAccountDao {
         Statement statement = null;
         ResultSet resultSet = null;
         String sql = "select id from account " +
-                "where user_id = " + ownerId + " and account_type = " + AccountType.Savings + ";";
+                "where user_id = " + ownerId + " and account_type = " + AccountType.Savings.ordinal() + ";";
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         return resultSet.next();
     }
@@ -48,12 +48,12 @@ public class SavingsAccountDaoImpl implements SavingsAccountDao {
         Statement statement = null;
         ResultSet resultSet = null;
         String sql = "select * from account " +
-                "where user_id = " + ownerId + " and account_type = " + AccountType.Savings + ";";
+                "where user_id = " + ownerId + " and account_type = " + AccountType.Savings.ordinal() + ";";
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         CheckingAccount checkingAccount = null;
         if(resultSet.next()){
             checkingAccount = new CheckingAccount();
-            checkingAccount.setOwnerId(resultSet.getInt("id"));
+            checkingAccount.setId(resultSet.getInt("id"));
             checkingAccount.setType(AccountType.Savings);
             // Set money
 //            checkingAccount.setMoney();
@@ -64,7 +64,7 @@ public class SavingsAccountDaoImpl implements SavingsAccountDao {
     @Override
     public int addAccount(Connection connection, int ownerId) throws SQLException {
         Statement statement = null;
-        String sql = "insert into account ('user_id', 'account_type') values ("+ ownerId + ","+ AccountType.Savings + ");";
+        String sql = "insert into account (user_id, account_type) values ("+ ownerId + ","+ AccountType.Savings.ordinal() + ");";
         int affectRows = BaseDao.executeUpdate(connection, sql, statement);
         return affectRows;
     }

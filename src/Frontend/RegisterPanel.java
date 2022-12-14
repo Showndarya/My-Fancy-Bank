@@ -1,5 +1,9 @@
 package Frontend;
 
+import BusinessLogicLayer.CustomerService;
+import BusinessLogicLayer.impl.CustomerServiceImpl;
+import Utilities.FancyBank;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,8 +22,12 @@ public class RegisterPanel extends JPanel{
     private JTextField nameTextField;
     private JPasswordField passwordField;
     private JPasswordField passwordRepeatField;
+    private JLabel errorLabel;
     private JButton registerButton;
     private JButton returnButton;
+
+    // service
+    private CustomerService customerService;
 
     public RegisterPanel(){
         // Sign up
@@ -57,6 +65,12 @@ public class RegisterPanel extends JPanel{
         passwordRepeatField.setBounds(340,270,150,30);
         passwordRepeatField.setFont(new Font("serif", Font.PLAIN, TEXTFIELD_FONT_SIZE));
         add(passwordRepeatField);
+        // Error label
+        errorLabel = new JLabel("Passwords don't match!", JLabel.CENTER);
+        errorLabel.setBounds(250, 310, 300, 30);
+        errorLabel.setFont(new Font("serif", Font.PLAIN, PROMPT_TEXT_FONT_SIZE));
+        errorLabel.setVisible(false);
+        add(errorLabel);
         // login button
         registerButton = new JButton("Sign up");
         registerButton.setBounds(250, 340, 100, 30);
@@ -69,13 +83,44 @@ public class RegisterPanel extends JPanel{
         returnButton.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
         returnButton.addActionListener(this::clickReturnButton);
         add(returnButton);
+        // initialize
+        initialize();
         // Panel
         setSize(WIDTH, HEIGHT);
         setLayout(null);
     }
 
-    private void clickRegisterButton(ActionEvent e){
+    private void initialize(){
+        customerService = new CustomerServiceImpl();
+    }
 
+    private void clickRegisterButton(ActionEvent e){
+        String name = nameTextField.getText();
+        String password = String.valueOf(passwordField.getPassword());
+        String repeatedPassword = String.valueOf(passwordRepeatField.getPassword());
+        if(name.length() == 0 || password.length() == 0 || repeatedPassword.length() == 0){
+            return;
+        }
+        if(!password.equals(repeatedPassword)){
+            errorLabel.setText("Passwords don't match!");
+            errorLabel.setVisible(true);
+            repaint();
+            return;
+        }
+        boolean ret = customerService.registerCustomer(name, password);
+        if(ret){
+            // set customer info
+            int userId = customerService.getCustomerId(name);
+            FancyBank.getInstance().setUserId(userId);
+            FancyBank.getInstance().setUserName(name);
+            // set panel
+            MainFrame.getInstance().setPanel(new MenuPanel());
+        }
+        else{
+            errorLabel.setText("Name of "+name+" has existed!");
+            errorLabel.setVisible(true);
+            repaint();
+        }
     }
 
     private void clickReturnButton(ActionEvent e){

@@ -1,5 +1,6 @@
 package Frontend;
 
+import java.awt.event.ActionEvent;
 import java.util.Hashtable;
 
 public class SecurityAccountInfoPanel extends AccountInfoPanel {
@@ -31,5 +32,10 @@ public class SecurityAccountInfoPanel extends AccountInfoPanel {
     @Override
     protected Hashtable<String, Double> getBalances() {
         return null;
+    }
+
+    @Override
+    protected void clickDeleteAccountButton(ActionEvent e) {
+
     }
 }

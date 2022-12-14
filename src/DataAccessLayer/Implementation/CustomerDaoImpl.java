@@ -6,11 +6,10 @@ import Enums.AccountType;
 import Enums.UserType;
 import Models.Users.Customer;
 import Models.Users.User;
+import Utilities.SimpleDate;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
 
 public class CustomerDaoImpl implements CustomerDao {
 
@@ -51,6 +50,7 @@ public class CustomerDaoImpl implements CustomerDao {
             customer = new Customer();
             customer.setName(resultSet.getString("user_name"));
             customer.setId(resultSet.getInt("id"));
+            customer.setPassword(resultSet.getString("password"));
             // query checking account
 
             // query savings account
@@ -88,7 +88,12 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public int add(Connection connection, String name, String password) throws SQLException {
         Statement statement = null;
-        String sql = "insert into user ('user_name', 'user_type', 'password') values ('"+ name + "',"+ UserType.Customer + ",'"+ password +"');";
+        String sql = "insert into user (user_name, user_type, password, created_date, modified_date) values ('"+
+                name + "'," +
+                UserType.Customer.ordinal() + ",'" +
+                password + "','" +
+                java.sql.Date.valueOf(LocalDate.now()) + "','" +
+                java.sql.Date.valueOf(LocalDate.now()) + "');";
         int affectRows = BaseDao.executeUpdate(connection, sql, statement);
         return affectRows;
     }
