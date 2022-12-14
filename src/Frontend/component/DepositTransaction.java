@@ -29,15 +29,14 @@ public class DepositTransaction extends JPanel {
         add(makeTransaction);
         submitButton.setActionCommand("submit");
         if(currencySelect.getItemCount() == 0) {
-            for(MoneyType moneyType: moneyTypes)
-                currencySelect.addItem(
-                        new Tuple(moneyType.getType()+"("+moneyType.getSymbol()+")", moneyType.getId())
-                );
-
-            for(UserAccount userAccount: userAccounts)
+            for(UserAccount userAccount: userAccounts) {
                 accountSelect.addItem(
-                        new Tuple(userAccount.userId+" "+userAccount.accountId, userAccount.accountId)
+                        new Tuple(userAccount.accountType.getDisplay(), userAccount.accountId)
                 );
+                currencySelect.addItem(
+                        new Tuple(userAccount.moneyType.getType()+"("+userAccount.moneyType.getSymbol()+")", userAccount.moneyType.getId())
+                );
+            }
         }
         submitButton.addActionListener(e -> {
 

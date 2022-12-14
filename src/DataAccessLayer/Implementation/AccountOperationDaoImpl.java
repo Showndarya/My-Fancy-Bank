@@ -2,6 +2,7 @@ package DataAccessLayer.Implementation;
 
 import DataAccessLayer.BaseDao;
 import DataAccessLayer.Interfaces.AccountOperationDao;
+import Enums.AccountType;
 import Enums.TransactionType;
 import Models.MoneyType;
 import dto.UserAccount;
@@ -65,7 +66,7 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
                 "inner join money_type mon " +
                 "on mon.id=acm.money_type_id "+
                 "where " +
-                "acc.user_id="+ userId;
+                "acc.user_id="+ userId +" and account_type between 1 and 2";
         results = BaseDao.execute(connection, sql, null, results);
         ArrayList<UserAccount> userAccounts = new ArrayList<>();
         while(results.next()) {
@@ -77,7 +78,8 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
                             results.getInt("mon.id"),
                             results.getString("mon.type"),
                             results.getString("mon.symbol")
-                    )
+                    ),
+                    AccountType.getType(results.getInt("acc.account_type"))
             );
             userAccounts.add(userAccount);
         }

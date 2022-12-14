@@ -33,4 +33,8 @@ public class AccountController {
         return accountOperationService.changeBalance(type,accountId, amount, moneyType);
     }
 
+    public double getBalance(int accountId, int moneyType) throws SQLException {
+        return accountOperationService.getBalance(accountId, moneyType);
+    }
+
 }
