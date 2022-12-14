@@ -6,14 +6,15 @@ import java.sql.SQLException;
 public interface SecurityService {
     /**
      * mondify the money for the client
+     *
      * @param clientId
      * @param amount
      * @return
      */
-    public int modifyMoneyInSecurityAccount(Connection connection,int clientId, double amount) throws SQLException;
+    public void modifyMoneyInSecurityAccount(Connection connection, int clientId, double amount) throws SQLException;
 
 
-    public int createNewSecurityAccount(Connection connection,int clientId, int money) throws SQLException;
+    public int createNewSecurityAccount(Connection connection, int clientId, int money) throws SQLException;
 
     public double getCustomerMoney(int clientId) throws SQLException;
 }

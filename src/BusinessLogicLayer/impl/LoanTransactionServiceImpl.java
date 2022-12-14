@@ -33,14 +33,15 @@ public class LoanTransactionServiceImpl implements LoanTransactionService {
             throw new RuntimeException(e);
         }
         TableList tableList = new TableList();
-        tableList.setColumnsName(new Object[]{"Customer Name", "Collateral Name", "Amount", "Interest"});
+        tableList.setColumnsName(new Object[]{"Collateral ID", "Collateral Name", "Loan Amount", "Money Type"});
         Object[][] rowData = new Object[list.size()][];
         for(int i = 0; i < list.size(); i++){
             LoanTransaction loanTransaction = list.get(i);
-            rowData[i] = new Object[]{loanTransaction.getCustomer().getName(),
+            rowData[i] = new Object[]{
+                    loanTransaction.getCollateral().getId(),
                     loanTransaction.getCollateral().getName(),
                     loanTransaction.getAmount(),
-                    loanTransaction.getInterest()};
+                    loanTransaction.getCollateral().getMoneyType().getType()};
         }
         tableList.setRowData(rowData);
         return tableList;
@@ -102,8 +103,8 @@ public class LoanTransactionServiceImpl implements LoanTransactionService {
         MoneyType moneyType = new MoneyType(1, "USD");
         Collateral collateral = new Collateral("apartment", moneyType, 100);
         collateral.setId(19);
-        // new LoanTransactionServiceImpl().addLoan(customer, collateral, 1000);
-        LoanTransaction loanTransaction = new LoanTransaction(collateral, customer ,1000);
-        new LoanTransactionServiceImpl().deleteLoan(customer, loanTransaction);
+        LoanTransactionService loanTransactionService = new LoanTransactionServiceImpl();
+        TableList tableList = loanTransactionService.getCustomerLoan(customer);
+        System.out.println("");
     }
 }

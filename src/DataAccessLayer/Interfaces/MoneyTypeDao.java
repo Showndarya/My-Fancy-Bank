@@ -28,5 +28,7 @@ public interface MoneyTypeDao {
      */
     public MoneyType getMoneyTypeById(int moneyTypeId);
 
+    // get money type id by type
+    public int getMoneyTypeIdByType(String type) throws SQLException;
 }
 

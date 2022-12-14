@@ -2,27 +2,39 @@ package Frontend.component;
 
 import BusinessLogicLayer.ManagerService;
 import BusinessLogicLayer.impl.ManagerServiceImpl;
+import Models.Users.Customer;
 import dto.TableList;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class DailyLoanTransactionComponent extends JScrollPane{
+public class CurrentTransactionComponent  extends JScrollPane {
     private ManagerService managerService;
     private Object[][] rowData;
     private JTable table;
+    private static CurrentTransactionComponent currentTransactionComponent;
 
-    public DailyLoanTransactionComponent() {
+    public static CurrentTransactionComponent getInstance() {
+        if (currentTransactionComponent == null) {
+            currentTransactionComponent = new CurrentTransactionComponent();
+        }
+        return currentTransactionComponent;
+    }
+
+    public CurrentTransactionComponent() {
         managerService = new ManagerServiceImpl();
-        TableList customerList = managerService.getDailyLoanTransaction();
-        Object[] columnNames = customerList.getColumnsName();
-        rowData = customerList.getRowData();
+        TableList list = managerService.getDailyCurrentTransaction();
+        Object[] columnNames = list.getColumnsName();
+        rowData = list.getRowData();
         table = new JTable(rowData, columnNames) {
             public boolean editCellAt(int row, int column, java.util.EventObject e) {
                 return false;
             }
         };
+        setTable();
+    }
 
+    public void setTable() {
         table.setForeground(Color.BLACK);
         table.setFont(new Font(null, Font.PLAIN, 14));
         table.setSelectionForeground(Color.DARK_GRAY);
@@ -46,14 +58,12 @@ public class DailyLoanTransactionComponent extends JScrollPane{
 
         setViewportView(table);
         setVisible(true);
-
     }
 
     public static void main(String[] args) {
         JFrame jf = new JFrame();
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        jf.setContentPane(new DailyLoanTransactionComponent());
+        jf.setContentPane(CurrentTransactionComponent.getInstance());
 
         jf.pack();
         jf.setLocationRelativeTo(null);

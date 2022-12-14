@@ -1,6 +1,7 @@
 package BusinessLogicLayer.impl;
 
 import BusinessLogicLayer.OpenInterestService;
+import DataAccessLayer.BaseDao;
 import DataAccessLayer.OpenInterestDao;
 import DataAccessLayer.impl.OpenInterestDaoImpl;
 import Models.OpenInterest;
@@ -17,13 +18,14 @@ public class OpenInterestServiceImpl implements OpenInterestService {
     }
 
     @Override
-    public int addToOpenInterest(Connection connection, int clientId, int stockId, double price, int numOfShare) throws SQLException {
-        return openInterestDao.addStockToOpenInterest(connection, clientId, stockId, price, numOfShare);
+    public void addToOpenInterest(Connection connection, int clientId, int stockId, double price, int numOfShare) throws SQLException {
+        openInterestDao.addStockToOpenInterest(connection, clientId, stockId, price, numOfShare);
     }
 
     @Override
     public int getOpenInterestNum(int clientId, int stockId) {
         try {
+            System.out.println(clientId + " " + stockId);
             return openInterestDao.getNumOfShare(clientId, stockId);
         } catch (SQLException e) {
             System.out.println("get open interest failed");
@@ -53,5 +55,9 @@ public class OpenInterestServiceImpl implements OpenInterestService {
     public List<OpenInterest> getOpenInterestOrderedByPurchasePrice(Connection connection, int clientId, int stockId) throws SQLException {
         return openInterestDao.getOpenInterestOrderedByPurchasePrice(connection, clientId, stockId);
 
+    }
+
+    public static void main(String[] args) throws SQLException {
+        new OpenInterestServiceImpl().updateOpenInterest(BaseDao.getConnection(), 42, 1, 3, 50);
     }
 }

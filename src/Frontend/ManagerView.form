@@ -41,14 +41,24 @@
             <border type="none"/>
             <children/>
           </grid>
-          <grid id="7eea0" binding="dailyReport" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+          <scrollpane id="b9ca1" binding="dailyReport">
             <constraints>
               <tabbedpane title="Daily Report"/>
             </constraints>
-            <properties/>
+            <properties>
+              <horizontalScrollBarPolicy value="30"/>
+              <verticalScrollBarPolicy value="20"/>
+            </properties>
             <border type="none"/>
-            <children/>
-          </grid>
+            <children>
+              <grid id="e8bd4" binding="dailyReportContent" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints/>
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </scrollpane>
           <grid id="73783" binding="stock" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints>
               <tabbedpane title="Stock"/>

@@ -23,18 +23,23 @@ public class LoanTransactionDaoImpl implements LoanTransactionDao {
     public List<LoanTransaction> getCustomerLoan(Connection connection, Customer customer) throws SQLException {
         Statement statement = null;
         ResultSet resultSet = null;
-        String sql = "select * from loan_transaction " +
-                "inner join collateral " +
-                "on loan_transaction.collateral_id = collateral.id " +
-                "where customer_id = " + customer.getId();
+        String sql = "select * from loan_transaction\n" +
+                "    join collateral\n" +
+                "        on loan_transaction.collateral_id = collateral.id\n" +
+                "    join money_type\n" +
+                "        on collateral.money_type = money_type.type\n" +
+                "    where customer_id = " + customer.getId();
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         List<LoanTransaction> list = new ArrayList<>();
         LoanTransaction loanTransaction;
         while (resultSet.next()){
-            MoneyType m = new MoneyType(resultSet.getInt("collateral.money_type"));
+            MoneyType m = new MoneyType(resultSet.getInt("money_type.id"),
+                    resultSet.getString("money_type.type"),
+                    resultSet.getString("money_type.symbol"));
             Collateral collateral = new Collateral(resultSet.getString("collateral.name"),
                     m,
                     resultSet.getInt("collateral.worth"));
+            collateral.setId(resultSet.getInt("collateral.id"));
             loanTransaction = new LoanTransaction(collateral, customer, resultSet.getInt("amount"));
             list.add(loanTransaction);
         }

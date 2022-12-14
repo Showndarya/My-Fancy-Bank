@@ -1,6 +1,8 @@
 package DataAccessLayer;
 
+import Models.OpenInterest;
 import Models.Stock;
+import dto.UserStock;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -9,6 +11,7 @@ import java.util.List;
 public interface StockDao {
     /**
      * get all stocks in the database
+     *
      * @return
      * @throws SQLException
      */
@@ -16,6 +19,7 @@ public interface StockDao {
 
     /**
      * get a stock by stock id
+     *
      * @param tag
      * @return
      */
@@ -27,4 +31,6 @@ public interface StockDao {
     public void updateStock(Connection connection, String tag, double price) throws SQLException;
 
     public void deleteStockByTag(Connection connection, String tag) throws SQLException;
+
+    List<UserStock> getUserStock(Connection connection, int clientId) throws SQLException;
 }

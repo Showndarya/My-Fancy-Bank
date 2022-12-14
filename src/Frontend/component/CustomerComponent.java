@@ -3,12 +3,12 @@ package Frontend.component;
 import BusinessLogicLayer.ManagerService;
 import BusinessLogicLayer.impl.ManagerServiceImpl;
 import dto.TableList;
-import javafx.scene.control.Tab;
+
 
 import javax.swing.*;
 import java.awt.*;
 
-public class CustomerComponent extends JScrollPane{
+public class CustomerComponent extends JScrollPane {
     private CustomerComponent customerComponent;
     private ManagerService managerService;
     private Object[][] rowData;

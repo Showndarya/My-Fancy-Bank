@@ -7,6 +7,7 @@ import DataAccessLayer.Interfaces.ManagerDao;
 import Models.MoneyType;
 import Models.Transaction.Collateral;
 import Models.Transaction.LoanTransaction;
+import Models.Transaction.Transaction;
 import Models.Users.Customer;
 import dto.TableList;
 
@@ -61,7 +62,23 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public TableList getDailyCurrentTransaction(){
-        return null;
+        List<Transaction> list;
+        try {
+            list = managerDao.getDailyCurrentTransaction();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        TableList tableList = new TableList();
+        tableList.setColumnsName(new Object[]{"Customer", "Transaction Type", "Amount"});
+        Object[][] rowData = new Object[list.size()][];
+        for(int i = 0; i < list.size(); i++){
+            Transaction transaction = list.get(i);
+            rowData[i] = new Object[]{transaction.getCustomer().getName(),
+                    transaction.getTransactionType().toString(),
+                    transaction.getAmount()};
+        }
+        tableList.setRowData(rowData);
+        return tableList;
     }
 
     @Override
@@ -88,7 +105,7 @@ public class ManagerServiceImpl implements ManagerService {
 
     public static void main(String[] args) throws SQLException {
         ManagerService managerService = new ManagerServiceImpl();
-        TableList daily = managerService.getDailyLoanTransaction();
+        TableList daily = managerService.getDailyCurrentTransaction();
 
         System.out.println("");
     }
