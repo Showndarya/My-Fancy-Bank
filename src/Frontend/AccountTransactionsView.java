@@ -46,7 +46,7 @@ public class AccountTransactionsView extends JPanel {
         deposit.addActionListener(actionEvent -> {
             list.remove(0);
             list.removeAll();
-            list.add(new MakeTransaction(TransactionType.Deposit, list, finalMoneyTypes, finalUserAccounts));
+            list.add(new DepositTransaction(TransactionType.Deposit, list, finalMoneyTypes, finalUserAccounts));
             AccountTransactionsListComponent.getInstance().reloadTable();
             list.validate();
             list.repaint();

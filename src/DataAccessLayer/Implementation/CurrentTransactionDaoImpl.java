@@ -41,17 +41,17 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
     @Override
     public Boolean addTransaction(Customer customer, Transaction deposit) throws SQLException {
         Connection connection = BaseDao.getConnection();
-        String sql = "insert into current_transaction values("
+        String sql = "insert into current_transaction(account_id,amount,money_type,transaction_type,modified_date,created_date)" +
+                " values("
                 +customer.getId()+","
                 +deposit.getAmount()+","
-                +"1,"//todo money type
+                +deposit.getMoneyType()+","
                 +deposit.getTransactionType().getValue()+",'"
                 +java.sql.Date.valueOf(LocalDate.now())+"','"
-                +java.sql.Date.valueOf(LocalDate.now())+"'";
-        ResultSet results = null;
-        results = BaseDao.execute(connection, sql, null, results);
+                +java.sql.Date.valueOf(LocalDate.now())+"')";
+        int result = BaseDao.executeUpdate(connection, sql, null);
 
-        BaseDao.close(connection, null, results);
-        return true;
+        BaseDao.close(connection, null, null);
+        return result>0;
     }
 }

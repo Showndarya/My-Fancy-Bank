@@ -2,6 +2,9 @@ package ControllerLayer;
 
 import BusinessLogicLayer.AccountOperationService;
 import BusinessLogicLayer.impl.AccountOperationServiceImpl;
+import Enums.TransactionType;
+import Models.MoneyType;
+import Models.Transaction.Transaction;
 import dto.TableList;
 import dto.UserAccount;
 
@@ -23,4 +26,11 @@ public class AccountController {
     public TableList getAllTransactions(int userId) {
         return accountOperationService.getAllTransactions(userId);
     }
+
+    public Boolean addTransaction(int userId, Transaction transaction) { return accountOperationService.addTransaction(userId, transaction);}
+
+    public Boolean changeBalance(TransactionType type, int accountId, double amount, int moneyType) throws SQLException {
+        return accountOperationService.changeBalance(type,accountId, amount, moneyType);
+    }
+
 }

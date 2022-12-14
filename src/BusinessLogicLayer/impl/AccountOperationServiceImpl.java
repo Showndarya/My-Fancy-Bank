@@ -30,13 +30,21 @@ public class AccountOperationServiceImpl implements AccountOperationService {
     }
 
     @Override
-    public Boolean changeBalance(TransactionType type, int accountId, double amount, MoneyType moneyType) throws SQLException {
-        return accountOperationDao.changeBalance(type,accountId, amount, moneyType);
+    public Boolean changeBalance(TransactionType type, int accountId, double amount, int moneyType) {
+        try {
+            return accountOperationDao.changeBalance(type, accountId, amount, moneyType);
+        } catch(SQLException e) {
+            return false;
+        }
     }
 
     @Override
-    public double getBalance(int accountId, MoneyType moneyType) throws SQLException {
-        return accountOperationDao.getBalance(accountId,moneyType);
+    public double getBalance(int accountId, int moneyType) {
+        try {
+            return accountOperationDao.getBalance(accountId, moneyType);
+        } catch(SQLException e) {
+            return -1.0;
+        }
     }
 
     @Override
@@ -61,5 +69,14 @@ public class AccountOperationServiceImpl implements AccountOperationService {
         }
         transactionsList.setRowData(rowData);
         return transactionsList;
+    }
+
+    @Override
+    public Boolean addTransaction(int userId, Transaction transaction) {
+        try {
+            return currentTransactionDao.addTransaction(new Customer(userId, "name"), transaction);
+        } catch(SQLException e) {
+            return false;
+        }
     }
 }
