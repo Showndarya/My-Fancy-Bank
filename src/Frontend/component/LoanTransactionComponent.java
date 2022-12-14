@@ -4,6 +4,8 @@ import BusinessLogicLayer.LoanTransactionService;
 import BusinessLogicLayer.ManagerService;
 import BusinessLogicLayer.impl.LoanTransactionServiceImpl;
 import BusinessLogicLayer.impl.ManagerServiceImpl;
+import Models.Transaction.Collateral;
+import Models.Transaction.LoanTransaction;
 import Models.Users.Customer;
 import dto.TableList;
 
@@ -82,6 +84,16 @@ public class LoanTransactionComponent extends JScrollPane{
             }
         };
         setTable();
+    }
+
+    // select loan transaction from selected row
+    public LoanTransaction getLoanTransaction() {
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow < 0) return null;
+        Collateral collateral = new Collateral((Integer) rowData[selectedRow][0],
+                (String) rowData[selectedRow][1]);
+        return new LoanTransaction(collateral, customer,
+                (Double) rowData[selectedRow][2]);
     }
 
     public static void main(String[] args) {

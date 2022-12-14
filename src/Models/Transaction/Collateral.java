@@ -9,6 +9,11 @@ public class Collateral {
     private MoneyType moneyType;
     private int money;
 
+    public Collateral(int id, String name) {
+       this.id = id;
+       this.name = name;
+    }
+
     public Collateral(String name, MoneyType moneyType, int money) {
         this.name = name;
         this.moneyType = moneyType;
