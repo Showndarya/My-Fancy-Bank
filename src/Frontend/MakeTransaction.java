@@ -4,7 +4,6 @@ import ControllerLayer.AccountController;
 import ControllerLayer.TransactionController;
 import Enums.TransactionType;
 import Frontend.component.AccountTransactionsListComponent;
-import Frontend.component.StockListComponent;
 import Models.MoneyType;
 import Utilities.Tuple;
 import dto.UserAccount;
@@ -12,18 +11,14 @@ import dto.UserAccount;
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
-import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class DepositTransaction extends JPanel{
-    private JPanel depositPanel;
+public class MakeTransaction extends JPanel {
+    private JPanel makeTransaction;
     private JComboBox accountSelect;
-    private JTextField amount;
     private JComboBox currencySelect;
     private JLabel depositLabel;
-    private JPanel accountDetailsPanel;
-    private JPanel backPanel;
     private JButton submitButton;
 
     private TransactionType type;
@@ -31,18 +26,16 @@ public class DepositTransaction extends JPanel{
     TransactionController controller = new TransactionController();
     AccountController accountController = new AccountController();
 
-    public DepositTransaction(TransactionType type, JPanel jPanel) {
+    public MakeTransaction(TransactionType type, JPanel jPanel) {
         type = type;
 
-        add(depositPanel);
+        add(makeTransaction);
         submitButton.setActionCommand("submit");
         switch (type) {
             case Deposit:
-                accountDetailsPanel.setVisible(false);
                 depositLabel.setText("Make a deposit");
                 break;
             case Withdraw:
-                accountDetailsPanel.setVisible(false);
                 depositLabel.setText("Withdraw money");
                 break;
         }

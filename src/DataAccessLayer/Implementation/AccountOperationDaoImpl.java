@@ -63,13 +63,13 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
         ArrayList<UserAccount> userAccounts = new ArrayList<>();
         while(results.next()) {
             UserAccount userAccount = new UserAccount(
-                    results.getDouble("account_money.amount"),
-                    results.getInt("account.id"),
-                    results.getInt("account.user_id"),
+                    results.getDouble("acm.amount"),
+                    results.getInt("acc.id"),
+                    results.getInt("acc.user_id"),
                     new MoneyType(
-                            results.getInt("money_type.id"),
-                            results.getString("money_type.type"),
-                            results.getString("money_type.symbol")
+                            results.getInt("mon.id"),
+                            results.getString("mon.type"),
+                            results.getString("mon.symbol")
                     )
             );
             userAccounts.add(userAccount);

@@ -19,8 +19,9 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
     public List<Transaction> getAllTransactions(Customer customer, TransactionType type) throws SQLException {
         Connection connection = BaseDao.getConnection();
         ResultSet results = null;
+        String sql="select * from current_transaction";
+        if(type != null) sql += " where transaction_type="+type.getValue();
 
-        String sql = "select * from current_transaction where transaction_type=0";
         results = BaseDao.execute(connection, sql, null, results);
         List<Transaction> deposits = new ArrayList<>();
         while (results.next()){
@@ -44,7 +45,7 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
                 +customer.getId()+","
                 +deposit.getAmount()+","
                 +"1,"//todo money type
-                +deposit.getTransactionType()+",'"
+                +deposit.getTransactionType().getValue()+",'"
                 +java.sql.Date.valueOf(LocalDate.now())+"','"
                 +java.sql.Date.valueOf(LocalDate.now())+"'";
         ResultSet results = null;
