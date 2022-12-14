@@ -102,8 +102,8 @@ public class LoanTransactionServiceImpl implements LoanTransactionService {
         MoneyType moneyType = new MoneyType(1, "USD");
         Collateral collateral = new Collateral("apartment", moneyType, 100);
         collateral.setId(19);
-        // new LoanTransactionServiceImpl().addLoan(customer, collateral, 1000);
-        LoanTransaction loanTransaction = new LoanTransaction(collateral, customer ,1000);
-        new LoanTransactionServiceImpl().deleteLoan(customer, loanTransaction);
+        LoanTransactionService loanTransactionService = new LoanTransactionServiceImpl();
+        TableList tableList = loanTransactionService.getCustomerLoan(customer);
+        System.out.println("");
     }
 }
