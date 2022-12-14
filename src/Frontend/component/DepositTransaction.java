@@ -19,6 +19,7 @@ public class DepositTransaction extends JPanel {
     private JLabel depositLabel;
     private JButton submitButton;
     private JTextField amount;
+    private JButton cancelButton;
 
     private TransactionType type;
     AccountController accountController = new AccountController();
@@ -32,9 +33,6 @@ public class DepositTransaction extends JPanel {
             for(UserAccount userAccount: userAccounts) {
                 accountSelect.addItem(
                         new Tuple(userAccount.accountType.getDisplay(), userAccount.accountId)
-                );
-                currencySelect.addItem(
-                        new Tuple(userAccount.moneyType.getType()+"("+userAccount.moneyType.getSymbol()+")", userAccount.moneyType.getId())
                 );
             }
         }
@@ -66,6 +64,25 @@ public class DepositTransaction extends JPanel {
             jPanel.repaint();
         });
 
+        cancelButton.addActionListener(e -> {
+            AccountTransactionsListComponent.getInstance().reloadTable();
+            jPanel.remove(0);
+            jPanel.add(AccountTransactionsListComponent.getInstance());
+            jPanel.validate();
+            jPanel.repaint();
+        });
+
+        accountSelect.addActionListener(e -> {
+            currencySelect.removeAllItems();
+            ArrayList<MoneyType> moneyTypesForAccount = new ArrayList<>();
+            for(UserAccount userAccount: userAccounts)
+                if(userAccount.accountId==userAccounts.get(accountSelect.getSelectedIndex()).accountId) {
+                    currencySelect.addItem(
+                            new Tuple(userAccount.moneyType.getType() + "(" + userAccount.moneyType.getSymbol() + ")", userAccount.moneyType.getId())
+                    );
+                    moneyTypesForAccount.add(userAccount.moneyType);
+                }
+        });
         setVisible(true);
     }
 }

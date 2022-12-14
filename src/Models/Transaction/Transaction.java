@@ -1,6 +1,7 @@
 package Models.Transaction;
 
 import Enums.TransactionType;
+import Models.MoneyType;
 import Models.Users.Customer;
 import Utilities.SimpleDate;
 
@@ -16,7 +17,9 @@ public class Transaction {
     private Date transactionDate;
     private SimpleDate simpleDate;
     private Customer customer;
-    private int moneyType;
+    private int moneyTypeId;
+
+    private MoneyType moneyType;
 
     public Transaction(Customer customer, Double amount, TransactionType transactionType) {
         this.customer=customer;
@@ -29,14 +32,15 @@ public class Transaction {
         this.amount=amount;
         this.transaction_type=transactionType;
         this.accountId=accountId;
-        this.moneyType=moneyType;
+        this.moneyTypeId=moneyType;
     }
 
-    public Transaction(Customer customer, Double amount, TransactionType transactionType, Date transactionDate) {
+    public Transaction(Customer customer, Double amount, TransactionType transactionType, Date transactionDate, MoneyType moneyType) {
         this.customer=customer;
         this.amount=amount;
         this.transactionDate=transactionDate;
         this.transaction_type=transactionType;
+        this.moneyType=moneyType;
     }
 
     public Customer getCustomer() {
@@ -78,7 +82,11 @@ public class Transaction {
         return transaction_type;
     }
 
-    public int getMoneyType() {
+    public int getMoneyTypeId() {
+        return moneyTypeId;
+    }
+
+    public MoneyType getMoneyType() {
         return moneyType;
     }
 

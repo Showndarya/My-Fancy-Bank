@@ -2,6 +2,7 @@ package DataAccessLayer.Implementation;
 
 import DataAccessLayer.Interfaces.CurrentTransactionDao;
 import Enums.TransactionType;
+import Models.MoneyType;
 import Models.Users.Customer;
 import Models.Transaction.Transaction;
 import DataAccessLayer.BaseDao;
@@ -19,17 +20,26 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
     public List<Transaction> getAllTransactions(Customer customer, TransactionType type) throws SQLException {
         Connection connection = BaseDao.getConnection();
         ResultSet results = null;
-        String sql="select * from current_transaction";
-        if(type != null) sql += " where transaction_type="+type.getValue();
+        String sql="select * from current_transaction currt " +
+                "inner join account_money acm " +
+                "on acm.account_id=currt.account_id " +
+                "inner join money_type mt " +
+                "on mt.id=acm.money_type_id";
+        if(type != null) sql += " where currt.transaction_type="+type.getValue();
+        sql += " order by currt.created_date desc";
 
         results = BaseDao.execute(connection, sql, null, results);
         List<Transaction> deposits = new ArrayList<>();
         while (results.next()){
             Transaction deposit = new Transaction(
                     customer,
-                    results.getDouble("amount"),
-                    TransactionType.getType(results.getInt("transaction_type")),
-                    new Date(results.getDate("created_date").getTime())
+                    results.getDouble("currt.amount"),
+                    TransactionType.getType(results.getInt("currt.transaction_type")),
+                    new Date(results.getDate("currt.created_date").getTime()),
+                    new MoneyType(
+                            results.getInt("mt.id"),
+                            results.getString("mt.type"),
+                            results.getString("mt.symbol") )
             );
             deposits.add(deposit);
         }
@@ -45,7 +55,7 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
                 " values("
                 +customer.getId()+","
                 +deposit.getAmount()+","
-                +deposit.getMoneyType()+","
+                +deposit.getMoneyTypeId()+","
                 +deposit.getTransactionType().getValue()+",'"
                 +java.sql.Date.valueOf(LocalDate.now())+"','"
                 +java.sql.Date.valueOf(LocalDate.now())+"')";

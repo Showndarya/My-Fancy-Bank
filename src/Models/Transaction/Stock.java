@@ -55,6 +55,6 @@ public class Stock extends Transaction  {
     }
 
     public Stock() {
-        super(null, 0.0, TransactionType.Stock, new Date());
+        super(null, 0.0, TransactionType.Stock, new Date(), null);
     }
 }

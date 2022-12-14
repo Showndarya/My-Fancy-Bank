@@ -9,8 +9,6 @@ import Utilities.Tuple;
 import dto.UserAccount;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -23,6 +21,7 @@ public class WithdrawTransaction extends JPanel{
     private JTextField amount;
     private JLabel accountBalance;
     private JLabel accountBalanceValue;
+    private JButton cancelButton;
     private TransactionType type;
     AccountController accountController = new AccountController();
 
@@ -74,16 +73,27 @@ public class WithdrawTransaction extends JPanel{
             jPanel.repaint();
         });
 
+        cancelButton.addActionListener(e -> {
+            AccountTransactionsListComponent.getInstance().reloadTable();
+            jPanel.remove(0);
+            jPanel.add(AccountTransactionsListComponent.getInstance());
+            jPanel.validate();
+            jPanel.repaint();
+        });
+
         setVisible(true);
         accountSelect.addActionListener(e -> {
             currencySelect.removeAllItems();
+            ArrayList<MoneyType> moneyTypesForAccount = new ArrayList<>();
             for(UserAccount userAccount: userAccounts)
-                if(userAccount.accountId==userAccounts.get(accountSelect.getSelectedIndex()).accountId)
+                if(userAccount.accountId==userAccounts.get(accountSelect.getSelectedIndex()).accountId) {
                     currencySelect.addItem(
-                            new Tuple(userAccount.moneyType.getType()+"("+userAccount.moneyType.getSymbol()+")", userAccount.moneyType.getId())
+                            new Tuple(userAccount.moneyType.getType() + "(" + userAccount.moneyType.getSymbol() + ")", userAccount.moneyType.getId())
                     );
+                    moneyTypesForAccount.add(userAccount.moneyType);
+                }
 
-            setBalance(moneyTypes, userAccounts);
+            setBalance(moneyTypesForAccount, userAccounts);
         });
     }
 
