@@ -29,7 +29,15 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
                 updatedAmount = existingAmount+amount-25;
                 break;
             case Withdraw:
+                if(existingAmount<amount) return false;
                 updatedAmount = existingAmount-amount-25;
+                break;
+            case LoanAdd:
+                updatedAmount = existingAmount+amount;
+                break;
+            case LoanDeduct:
+                if(existingAmount<amount) return false;
+                updatedAmount = existingAmount-amount;
                 break;
         }
 
@@ -66,7 +74,7 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
                 "inner join money_type mon " +
                 "on mon.id=acm.money_type_id "+
                 "where " +
-                "acc.user_id="+ userId +" and account_type between 1 and 2";
+                "acc.user_id="+ userId +" and account_type between 1 and 4";
         results = BaseDao.execute(connection, sql, null, results);
         ArrayList<UserAccount> userAccounts = new ArrayList<>();
         while(results.next()) {
