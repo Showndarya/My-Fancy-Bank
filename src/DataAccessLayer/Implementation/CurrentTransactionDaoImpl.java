@@ -20,8 +20,11 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
     public List<Transaction> getAllTransactions(Customer customer, TransactionType type) throws SQLException {
         Connection connection = BaseDao.getConnection();
         ResultSet results = null;
-        String sql="select * from current_transaction currt inner join account_money acm " +
-                "on acm.account_id=currt.account_id inner join money_type mt on mt.id=acm.money_type_id";
+        String sql="select * from current_transaction currt " +
+                "inner join account_money acm " +
+                "on acm.account_id=currt.account_id " +
+                "inner join money_type mt " +
+                "on mt.id=acm.money_type_id";
         if(type != null) sql += " where currt.transaction_type="+type.getValue();
         sql += " order by currt.created_date desc";
 
@@ -33,7 +36,10 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
                     results.getDouble("currt.amount"),
                     TransactionType.getType(results.getInt("currt.transaction_type")),
                     new Date(results.getDate("currt.created_date").getTime()),
-                    new MoneyType(results.getInt("mt.id"),results.getString("mt.type"),results.getString("mt.symbol") )
+                    new MoneyType(
+                            results.getInt("mt.id"),
+                            results.getString("mt.type"),
+                            results.getString("mt.symbol") )
             );
             deposits.add(deposit);
         }
