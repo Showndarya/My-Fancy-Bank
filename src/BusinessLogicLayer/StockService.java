@@ -12,7 +12,7 @@ public interface StockService {
      * @param clientId
      * @param
      */
-    public boolean buyStock(int clientId, int stockId, int amount);
+    public boolean buyStock(int clientId, int stockId, int amount, double stockPrice);
 
     /**
      * sell stock for this client and sell stock of this tag
@@ -20,7 +20,7 @@ public interface StockService {
      * @param clientId
      * @param
      */
-    public boolean sellStock(int clientId, int stockId, int amount);
+    public boolean sellStock(int clientId, int stockId, int amount, double stockPrice);
 
     /**
      * add a stock to the stock list

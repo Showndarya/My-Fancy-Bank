@@ -34,13 +34,17 @@ public class UserStockView extends JPanel {
 
     private SecurityService securityService;
 
+    private double customerMoney;
+
+    private int clientId;
+
 
     public UserStockView() {
-        int userId = 1;
+        clientId = 1;
         securityService = new SecurityServiceImpl();
         stockService = new StockServiceImpl();
         add(userStockView);
-        double customerMoney = 0;
+        customerMoney = 0;
         String name = "YYJ"; //user service get user by id
         try {
             customerMoney = securityService.getCustomerMoney(1);
@@ -54,7 +58,7 @@ public class UserStockView extends JPanel {
         textField1.setPreferredSize(new Dimension(130, 25));
         btn1.setPreferredSize(new Dimension(100, 25));
         btn2.setPreferredSize(new Dimension(100, 25));
-        TableList userStock = stockService.getUserStockDataByUserId(userId);
+        TableList userStock = stockService.getUserStockDataByUserId(clientId);
 
         DefaultTableModel model = (DefaultTableModel) table1.getModel();
         Object[][] rowData = userStock.getRowData();
@@ -100,14 +104,22 @@ public class UserStockView extends JPanel {
                     JOptionPane.showMessageDialog(userStockPanel, "Please select a stock", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
+
+                double stockPrice = stockListComponent.getSelectedStockPrice();
                 Stock stock = stockService.getStockByTag(tag);
                 String num = textField1.getText();
                 if (num.equals("")) {
                     JOptionPane.showMessageDialog(userStockPanel, "Please enter a number", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                stockService.buyStock(1, stock.getId(), Integer.parseInt(num));
+
+                int i = JOptionPane.showConfirmDialog(userStockView, "Buy stock at price " + stockPrice + "?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                if (i == 1) {
+                    return;
+                }
+                stockService.buyStock(1, stock.getId(), Integer.parseInt(num), stockPrice);
                 reloadTable();
+
                 userStockView.validate();
                 userStockView.repaint();
 
@@ -122,14 +134,21 @@ public class UserStockView extends JPanel {
                     JOptionPane.showMessageDialog(userStockPanel, "Please select a stock on the left", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
+
                 int stockId = (int) model.getValueAt(selectedRow, 0);
+                String tag = (String) model.getValueAt(selectedRow, 1);
+                double stockPrice = stockListComponent.getSellPrice(tag);
 
                 String num = textField1.getText();
                 if (num.equals("")) {
                     JOptionPane.showMessageDialog(userStockPanel, "Please enter a number", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                stockService.sellStock(1, stockId, Integer.parseInt(num));
+                int i = JOptionPane.showConfirmDialog(userStockView, "Sell stock at price " + stockPrice + "?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                if (i == 1) {
+                    return;
+                }
+                stockService.sellStock(1, stockId, Integer.parseInt(num), stockPrice);
                 reloadTable();
                 userStockView.validate();
                 userStockView.repaint();
@@ -138,6 +157,12 @@ public class UserStockView extends JPanel {
     }
 
     public void reloadTable() {
+        try {
+            customerMoney = securityService.getCustomerMoney(clientId);
+        } catch (SQLException e) {
+            System.out.println("get customer money failed");
+        }
+        securityBalance.setText("Security Balance: " + customerMoney);
         int userId = 1;
         TableList userStock = stockService.getUserStockDataByUserId(userId);
 

@@ -60,11 +60,10 @@ public class StockServiceImpl implements StockService {
      * @param
      */
     @Override
-    public boolean buyStock(int clientId, int stockId, int numberOfShare) {
+    public boolean buyStock(int clientId, int stockId, int numberOfShare, double stockPrice) {
         // wait to do add the current date
         Connection connection = BaseDao.getConnection();
-
-        double stockPrice = StockPriceUtils.getRandomPrice();
+        System.out.println("Stock boughout at price: " + stockPrice);
         try {
             connection.setAutoCommit(false);
             //calculate new money
@@ -110,9 +109,10 @@ public class StockServiceImpl implements StockService {
      * @param numOfShare is the the amount want to sold
      */
     @Override
-    public boolean sellStock(int clientId, int stockId, int numOfShare) {
+    public boolean sellStock(int clientId, int stockId, int numOfShare, double stockPrice) {
         //check if has these num of share if not return false, check if has these stock
         int openInterestNum = openInterestService.getOpenInterestNum(clientId, stockId);
+        System.out.println("You sell stock at price: " + stockPrice);
         boolean flag = true;
         if (openInterestNum < numOfShare) {
             return false;
@@ -123,13 +123,12 @@ public class StockServiceImpl implements StockService {
         //add money
         try {
             double customerMoney = securityService.getCustomerMoney(clientId);
-            double randomPrice = StockPriceUtils.getRandomPrice();
-            double totalPrice = randomPrice * numOfShare;
+            double totalPrice = stockPrice * numOfShare;
             customerMoney += totalPrice;
             connection.setAutoCommit(false);
             securityService.modifyMoneyInSecurityAccount(connection, clientId, customerMoney);
             //add transaction
-            stockTransactionService.addTransaction(connection, clientId, stockId, randomPrice, true, numOfShare);
+            stockTransactionService.addTransaction(connection, clientId, stockId, stockPrice, true, numOfShare);
 
             //modify open interest
             List<OpenInterest> list = openInterestService.getOpenInterestOrderedByPurchasePrice(connection, clientId, stockId);
@@ -259,11 +258,6 @@ public class StockServiceImpl implements StockService {
             System.out.println("Get User stock failed");
         }
         return tableList;
-    }
-
-    public static void main(String[] args) {
-        StockServiceImpl stockService = new StockServiceImpl();
-        stockService.sellStock(1, 3, 60);
     }
 
 

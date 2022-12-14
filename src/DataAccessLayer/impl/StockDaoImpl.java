@@ -93,7 +93,8 @@ public class StockDaoImpl implements StockDao {
         List<UserStock> list = new ArrayList<>();
         UserStock userStock;
         while (resultSet.next()) {
-            userStock = new UserStock(resultSet.getInt("stock_id"), resultSet.getString("tag"), resultSet.getInt("total_share"), resultSet.getDouble("avg_price"));
+            double avg_price = resultSet.getDouble("avg_price");
+            userStock = new UserStock(resultSet.getInt("stock_id"), resultSet.getString("tag"), resultSet.getInt("total_share"), Math.round(avg_price * 100.00) / 100.00);
             list.add(userStock);
         }
         return list;

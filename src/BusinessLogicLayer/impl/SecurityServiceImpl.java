@@ -34,7 +34,7 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public double getCustomerMoney(int clientId) throws SQLException {
-        double customerMoney = securityDao.getCustomerMoney(clientId);
+        double customerMoney = Math.round(securityDao.getCustomerMoney(clientId) * 100.00) / 100.00;
         return customerMoney;
     }
 }
