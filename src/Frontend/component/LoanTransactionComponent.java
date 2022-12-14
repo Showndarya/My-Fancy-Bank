@@ -15,6 +15,9 @@ public class LoanTransactionComponent extends JScrollPane{
     private LoanTransactionService loanTransactionService;
     private Object[][] rowData;
     private JTable table;
+    private Customer customer;
+
+    private static LoanTransactionComponent loanTransactionComponent;
 
     public LoanTransactionComponent() {
         managerService = new ManagerServiceImpl();
@@ -30,6 +33,7 @@ public class LoanTransactionComponent extends JScrollPane{
     }
 
     public LoanTransactionComponent(Customer customer) {
+        this.customer = customer;
         loanTransactionService = new LoanTransactionServiceImpl();
         TableList loanList = loanTransactionService.getCustomerLoan(customer);
         Object[] columnNames = loanList.getColumnsName();
@@ -68,6 +72,18 @@ public class LoanTransactionComponent extends JScrollPane{
         setVisible(true);
     }
 
+    public void reloadTable(Customer customer) {
+        TableList loanList = loanTransactionService.getCustomerLoan(customer);
+        Object[] columnNames = loanList.getColumnsName();
+        rowData = loanList.getRowData();
+        table = new JTable(rowData, columnNames) {
+            public boolean editCellAt(int row, int column, java.util.EventObject e) {
+                return false;
+            }
+        };
+        setTable();
+    }
+
     public static void main(String[] args) {
         JFrame jf = new JFrame();
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -77,5 +93,12 @@ public class LoanTransactionComponent extends JScrollPane{
         jf.pack();
         jf.setLocationRelativeTo(null);
         jf.setVisible(true);
+    }
+
+    public static LoanTransactionComponent getInstance(Customer customer) {
+        if (loanTransactionComponent == null) {
+            loanTransactionComponent = new LoanTransactionComponent(customer);
+        }
+        return loanTransactionComponent;
     }
 }

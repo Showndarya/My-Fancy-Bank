@@ -8,6 +8,7 @@ import Models.Transaction.Transaction;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class MoneyTypeDaoImpl implements MoneyTypeDao {
@@ -39,5 +40,20 @@ public class MoneyTypeDaoImpl implements MoneyTypeDao {
     @Override
     public MoneyType getMoneyTypeById(int moneyTypeId) {
         return null;
+    }
+
+    public int getMoneyTypeIdByType(String type) throws SQLException {
+        Connection connection = BaseDao.getConnection();
+        ResultSet results = null;
+
+        String sql = "select * from money_type where type = '" + type + "'";
+        results = BaseDao.execute(connection, sql, null, results);
+        int id = 0;
+        while (results.next()){
+            id = results.getInt("id");
+        }
+
+        BaseDao.close(connection, null, results);
+        return 0;
     }
 }
