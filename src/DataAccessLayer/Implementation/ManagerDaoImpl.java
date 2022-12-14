@@ -2,6 +2,7 @@ package DataAccessLayer.Implementation;
 
 import DataAccessLayer.BaseDao;
 import DataAccessLayer.Interfaces.ManagerDao;
+import Enums.TransactionType;
 import Models.MoneyType;
 import Models.Stock;
 import Models.Transaction.Collateral;
@@ -66,7 +67,24 @@ public class ManagerDaoImpl implements ManagerDao {
 
     @Override
     public List<Transaction> getDailyCurrentTransaction() throws SQLException {
-        return null;
+        Connection connection = BaseDao.getConnection();
+        Statement statement = null;
+        ResultSet resultSet = null;
+        SimpleDate simpleDate = new SimpleDate();
+        String sql = "select * from current_transaction\n" +
+                "    join account on current_transaction.account_id = account.id\n" +
+                "    join user on account.user_id = user.id\n" +
+                "    where current_transaction.created_date = '" + simpleDate.getDateString() + "'";
+        resultSet = BaseDao.execute(connection, sql, statement, resultSet);
+        List<Transaction> list = new ArrayList<>();
+        while (resultSet.next()) {
+            Customer customer = new Customer(resultSet.getInt("user_id"),
+                    resultSet.getString("user.user_name"));
+            TransactionType transactionType = TransactionType.values()[resultSet.getInt("transaction_type")];
+            Transaction transaction = new Transaction(customer, resultSet.getDouble("amount"), transactionType);
+            list.add(transaction);
+        }
+        return list;
     }
 
     @Override

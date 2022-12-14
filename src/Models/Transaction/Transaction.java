@@ -16,6 +16,12 @@ public class Transaction {
     private SimpleDate simpleDate;
     private Customer customer;
 
+    public Transaction(Customer customer, Double amount, TransactionType transactionType) {
+        this.customer=customer;
+        this.amount=amount;
+        this.transaction_type=transactionType;
+    }
+
     public Transaction(Customer customer, Double amount, TransactionType transactionType, Date transactionDate) {
         this.customer=customer;
         this.amount=amount;
