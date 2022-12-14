@@ -31,16 +31,20 @@ public class WithdrawTransaction extends JPanel{
 
         add(withdrawTransactionPanel);
         submitButton.setActionCommand("submit");
-        if(currencySelect.getItemCount() == 0) {
+        if(accountSelect.getItemCount() == 0) {
             for(UserAccount userAccount: userAccounts) {
                 accountSelect.addItem(
                         new Tuple(userAccount.accountType.getDisplay(), userAccount.accountId)
                 );
+            }
+
+        }
+        currencySelect.removeAllItems();
+        for(UserAccount userAccount: userAccounts)
+            if(userAccount.accountId==userAccounts.get(accountSelect.getSelectedIndex()).accountId)
                 currencySelect.addItem(
                         new Tuple(userAccount.moneyType.getType()+"("+userAccount.moneyType.getSymbol()+")", userAccount.moneyType.getId())
                 );
-            }
-        }
         setBalance(moneyTypes, userAccounts);
         submitButton.addActionListener(e -> {
             Transaction transaction = new Transaction(
@@ -71,12 +75,19 @@ public class WithdrawTransaction extends JPanel{
         });
 
         setVisible(true);
-        accountSelect.addActionListener(e ->
-            setBalance(moneyTypes, userAccounts)
-        );
-        currencySelect.addActionListener(e ->
-                setBalance(moneyTypes, userAccounts)
-        );
+        accountSelect.addActionListener(e -> {
+            currencySelect.removeAllItems();
+            for(UserAccount userAccount: userAccounts)
+                if(userAccount.accountId==userAccounts.get(accountSelect.getSelectedIndex()).accountId)
+                    currencySelect.addItem(
+                            new Tuple(userAccount.moneyType.getType()+"("+userAccount.moneyType.getSymbol()+")", userAccount.moneyType.getId())
+                    );
+
+            setBalance(moneyTypes, userAccounts);
+        });
+//        currencySelect.addActionListener(e ->
+//                //setBalance(moneyTypes, userAccounts)
+//        );
     }
 
     private void setBalance(ArrayList<MoneyType> moneyTypes, ArrayList<UserAccount> userAccounts) {
