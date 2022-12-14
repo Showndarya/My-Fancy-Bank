@@ -1,7 +1,7 @@
 package dto;
 
-import Enums.AccountType;
-import Models.MoneyType;
+import enums.AccountType;
+import models.transaction.MoneyType;
 
 public class UserAccount {
     public double amount;
