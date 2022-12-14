@@ -2,9 +2,12 @@ package DataAccessLayer.impl;
 
 
 import DataAccessLayer.StockDao;
+import Models.OpenInterest;
 import Models.Stock;
 import DataAccessLayer.BaseDao;
+import Utilities.OpenInterestFactory;
 import Utilities.StockFactory;
+import dto.UserStock;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,7 +26,7 @@ public class StockDaoImpl implements StockDao {
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         List<Stock> list = new ArrayList<>();
         Stock stock;
-        while (resultSet.next()){
+        while (resultSet.next()) {
             stock = new Stock();
             stock.setName(resultSet.getString("name"));
             stock.setTag(resultSet.getString("tag"));
@@ -47,11 +50,11 @@ public class StockDaoImpl implements StockDao {
         Connection connection = BaseDao.getConnection();
         Statement statement = null;
         ResultSet resultSet = null;
-        String sql = "select * from stock where tag = '"+tag+"'";
+        String sql = "select * from stock where tag = '" + tag + "'";
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         Stock stock = null;
-        if (resultSet.next()){
-           stock= StockFactory.getStock(resultSet.getString("name"), resultSet.getString("tag"), resultSet.getDouble("price"));
+        if (resultSet.next()) {
+            stock = StockFactory.getStock(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("tag"), resultSet.getDouble("price"));
         }
         BaseDao.close(null, statement, resultSet);
         return stock;
@@ -59,14 +62,14 @@ public class StockDaoImpl implements StockDao {
 
     @Override
     public void addStock(Connection connection, String name, String tag, double price) throws SQLException {
-        Statement statement=null;
-        String sql = "insert into stock (`name`,`tag`,`price`) values (\'"+name+"\',\'"+tag+"\',"+price+")";
-        int i = BaseDao.executeUpdate(connection,sql,statement);
-        BaseDao.close(null,statement,null);
+        Statement statement = null;
+        String sql = "insert into stock (`name`,`tag`,`price`) values (\'" + name + "\',\'" + tag + "\'," + price + ")";
+        int i = BaseDao.executeUpdate(connection, sql, statement);
+        BaseDao.close(null, statement, null);
     }
 
     @Override
-    public void updateStock(Connection connection, String tag,  double price) throws SQLException {
+    public void updateStock(Connection connection, String tag, double price) throws SQLException {
         Statement statement = null;
         String sql = "update stock set price='" + price + "' where tag='" + tag + "'";
         BaseDao.executeUpdate(connection, sql, statement);
@@ -75,10 +78,25 @@ public class StockDaoImpl implements StockDao {
 
     @Override
     public void deleteStockByTag(Connection connection, String tag) throws SQLException {
-        Statement statement=null;
+        Statement statement = null;
         String sql = "delete from stock where tag='" + tag + "'";
         BaseDao.executeUpdate(connection, sql, statement);
         BaseDao.close(null, statement, null);
+    }
+
+    @Override
+    public List<UserStock> getUserStock(Connection connection, int clientId) throws SQLException {
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String sql = "select `stock_id`,`tag`, avg(`purchase_price`) as 'avg_price', sum(`num_of_share`) as `total_share` from open_interest join stock s on open_interest.stock_id = s.id  where client_id= " + clientId + " group by stock_id";
+        resultSet = BaseDao.execute(connection, sql, statement, resultSet);
+        List<UserStock> list = new ArrayList<>();
+        UserStock userStock;
+        while (resultSet.next()) {
+            userStock = new UserStock(resultSet.getInt("stock_id"), resultSet.getString("tag"), resultSet.getInt("total_share"), resultSet.getDouble("avg_price"));
+            list.add(userStock);
+        }
+        return list;
     }
 
 

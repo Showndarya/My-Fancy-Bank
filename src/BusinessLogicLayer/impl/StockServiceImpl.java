@@ -12,6 +12,7 @@ import Models.Stock;
 import Utilities.OpenInterestFactory;
 import Utilities.StockPriceUtils;
 import dto.TableList;
+import dto.UserStock;
 
 
 import java.sql.Connection;
@@ -71,22 +72,20 @@ public class StockServiceImpl implements StockService {
             if (customerMoney < stockPrice * numberOfShare) {
                 return false;
             }
-            int flag = 0;
             //add stock to open intereset
-            flag += openInterestService.addToOpenInterest(connection, clientId, stockId, stockPrice, numberOfShare);
+            openInterestService.addToOpenInterest(connection, clientId, stockId, stockPrice, numberOfShare);
 
 
             customerMoney -= stockPrice * numberOfShare;
 
 
             //modify money in security account
-            flag += securityService.modifyMoneyInSecurityAccount(connection, clientId, customerMoney);
+            securityService.modifyMoneyInSecurityAccount(connection, clientId, customerMoney);
 
             //add transaction to transaction list
-            flag += stockTransactionService.addTransaction(connection, clientId, stockId, stockPrice, false, numberOfShare);
-            if (flag < 3) {
-                throw new SQLException();
-            }
+            stockTransactionService.addTransaction(connection, clientId, stockId, stockPrice, false, numberOfShare);
+
+            connection.commit();
 
         } catch (SQLException e) {
             try {
@@ -114,6 +113,7 @@ public class StockServiceImpl implements StockService {
     public boolean sellStock(int clientId, int stockId, int numOfShare) {
         //check if has these num of share if not return false, check if has these stock
         int openInterestNum = openInterestService.getOpenInterestNum(clientId, stockId);
+        boolean flag = true;
         if (openInterestNum < numOfShare) {
             return false;
         }
@@ -144,7 +144,11 @@ public class StockServiceImpl implements StockService {
                     openInterestService.updateOpenInterest(connection, i.getId(), i.getClientId(), i.getStockId(), restShares);
                 }
             }
+            connection.commit();
+
         } catch (Exception e) {
+            flag = false;
+            e.printStackTrace();
             try {
                 System.out.println("Transaction failed start to rollback.");
                 connection.rollback();
@@ -153,7 +157,7 @@ public class StockServiceImpl implements StockService {
             }
         }
 
-        return false;
+        return flag;
     }
 
     /**
@@ -237,10 +241,29 @@ public class StockServiceImpl implements StockService {
 
     }
 
+    @Override
+    public TableList getUserStockDataByUserId(int userId) {
+        Connection connection = BaseDao.getConnection();
+        TableList tableList = new TableList();
+        try {
+            List<UserStock> userStocks = stockDao.getUserStock(connection, userId);
+            Object[][] rowData = new Object[userStocks.size()][];
+            int rowIndex = 0;
+            for (UserStock i : userStocks) {
+                rowData[rowIndex++] = new Object[]{i.getStockId(), i.getStockName(), i.getAveragePurchasePrice(), i.getNumOfShare()};
+            }
+            tableList.setRowData(rowData);
+            tableList.setColumnsName(new Object[]{"Stock ID", "Stock Tag", "Average Price", "Total Shares"});
+        } catch (SQLException e) {
+
+            System.out.println("Get User stock failed");
+        }
+        return tableList;
+    }
+
     public static void main(String[] args) {
-        Stock tsla = new StockServiceImpl().getStockByTag("TSLA");
-        System.out.println(1
-        );
+        StockServiceImpl stockService = new StockServiceImpl();
+        stockService.sellStock(1, 3, 60);
     }
 
 
