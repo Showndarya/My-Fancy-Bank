@@ -1,17 +1,11 @@
-package Frontend;
+package Frontend.component;
 
-import ControllerLayer.AccountController;
-import ControllerLayer.TransactionController;
 import Enums.TransactionType;
-import Frontend.component.AccountTransactionsListComponent;
 import Models.MoneyType;
 import Utilities.Tuple;
 import dto.UserAccount;
 
 import javax.swing.*;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class WithdrawTransaction extends JPanel{

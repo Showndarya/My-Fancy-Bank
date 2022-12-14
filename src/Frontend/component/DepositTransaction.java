@@ -1,8 +1,7 @@
-package Frontend;
+package Frontend.component;
 
 import ControllerLayer.AccountController;
 import Enums.TransactionType;
-import Frontend.component.AccountTransactionsListComponent;
 import Models.MoneyType;
 import Models.Transaction.Transaction;
 import Models.Users.Customer;

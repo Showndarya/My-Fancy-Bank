@@ -4,6 +4,8 @@ import ControllerLayer.AccountController;
 import ControllerLayer.TransactionController;
 import Enums.TransactionType;
 import Frontend.component.AccountTransactionsListComponent;
+import Frontend.component.DepositTransaction;
+import Frontend.component.WithdrawTransaction;
 import Models.MoneyType;
 import dto.UserAccount;
 
