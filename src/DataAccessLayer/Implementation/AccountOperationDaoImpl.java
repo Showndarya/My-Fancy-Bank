@@ -48,17 +48,17 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
     }
 
     @Override
-    public ArrayList<UserAccount> getAccountsByIdWithBalance(int accountId) throws SQLException {
+    public ArrayList<UserAccount> getAccountsByIdWithBalance(int userId) throws SQLException {
         Connection connection = BaseDao.getConnection();
         ResultSet results = null;
 
         String sql = "select * from account acc " +
                 "inner join account_money acm " +
                 "on acc.id=acm.account_id " +
-                "inner join money_type mon" +
-                "on mon.id=acm.id"+
+                "inner join money_type mon " +
+                "on mon.id=acm.money_type_id "+
                 "where " +
-                "acc.id="+accountId;
+                "acc.user_id="+ userId;
         results = BaseDao.execute(connection, sql, null, results);
         ArrayList<UserAccount> userAccounts = new ArrayList<>();
         while(results.next()) {
