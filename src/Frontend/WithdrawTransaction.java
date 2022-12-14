@@ -14,19 +14,18 @@ import javax.swing.event.PopupMenuListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class MakeTransaction extends JPanel {
-    private JPanel makeTransaction;
+public class WithdrawTransaction extends JPanel{
+    private JLabel withdrawLabel;
     private JComboBox accountSelect;
     private JComboBox currencySelect;
-    private JLabel depositLabel;
     private JButton submitButton;
-
+    private JPanel withdrawTransactionPanel;
     private TransactionType type;
 
-    public MakeTransaction(TransactionType transactionType, JPanel jPanel, ArrayList<MoneyType> moneyTypes, ArrayList<UserAccount> userAccounts) {
+    public WithdrawTransaction(TransactionType transactionType, JPanel jPanel, ArrayList<MoneyType> moneyTypes, ArrayList<UserAccount> userAccounts) {
         type = transactionType;
 
-        add(makeTransaction);
+        add(withdrawTransactionPanel);
         submitButton.setActionCommand("submit");
         if(currencySelect.getItemCount() == 0) {
             for(MoneyType moneyType: moneyTypes)
