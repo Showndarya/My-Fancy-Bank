@@ -4,6 +4,7 @@ import business_logic_layer.interfaces.ManagerService;
 import frontend.component.CurrentTransactionComponent;
 import frontend.component.CustomerComponent;
 import frontend.component.LoanTransactionComponent;
+import frontend.component.SearchCustomerComponent;
 
 import javax.swing.*;
 
@@ -30,6 +31,7 @@ public class ManagerView extends JPanel{
         add(managerView);
         allCustomer.add(new CustomerComponent());
         customerWithLoan.add(new CustomerComponent(1));
+        searchCustomer.add(new SearchCustomerComponent());
         dailyReportContent.add(new JLabel("Loan Transaction"));
         dailyReportContent.add(new LoanTransactionComponent());
         dailyReportContent.add(new JLabel("Current Transaction"));
