@@ -35,6 +35,7 @@ public abstract class OpenAccountPanel extends JPanel {
 
     private JLabel openAccountPrompt;
     private JLabel inputPrompt;
+    private JLabel inputMoneyTypePrompt;
     protected JTextField initialMoneyTextField;
     private JButton openButton;
     protected Hashtable<Integer, JCheckBox> moneyTypeBoxes;
@@ -49,7 +50,7 @@ public abstract class OpenAccountPanel extends JPanel {
     }
 
     public void reload() {
-        // initial money label
+        // open account label
         openAccountPrompt = new JLabel("", JLabel.RIGHT);
         openAccountPrompt.setBounds(130, 150, 200, 30);
         openAccountPrompt.setFont(new Font("serif", Font.PLAIN, LABEL_FONT_SIZE));
@@ -64,6 +65,11 @@ public abstract class OpenAccountPanel extends JPanel {
         initialMoneyTextField.setBounds(210, 200, 200, 30);
         initialMoneyTextField.setFont(new Font("serif", Font.PLAIN, LABEL_FONT_SIZE));
         add(initialMoneyTextField);
+        // input money type label
+        inputMoneyTypePrompt = new JLabel("$", JLabel.LEFT);
+        inputMoneyTypePrompt.setBounds(420, 200, 50, 30);
+        inputMoneyTypePrompt.setFont(new Font("serif", Font.PLAIN, LABEL_FONT_SIZE));
+        add(inputMoneyTypePrompt);
         // checking account button
         openButton = new JButton("Open");
         openButton.setBounds(200, 320, 100, 40);
@@ -98,7 +104,7 @@ public abstract class OpenAccountPanel extends JPanel {
         int i = 0;
         for (MoneyType moneyType : moneyTypes) {
             moneyTypeBoxes.put(moneyType.getId(), new JCheckBox(moneyType.getType()));
-            moneyTypeBoxes.get(moneyType.getId()).setBounds(130 + 100 * i, 260, 80, 30);
+            moneyTypeBoxes.get(moneyType.getId()).setBounds(30 + 100 * i, 260, 80, 30);
             moneyTypeBoxes.get(moneyType.getId()).setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
             add(moneyTypeBoxes.get(moneyType.getId()));
             i++;
