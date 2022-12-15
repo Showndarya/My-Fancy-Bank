@@ -102,7 +102,7 @@ public class CustomerComponent extends JScrollPane {
         JFrame jf = new JFrame();
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        jf.setContentPane(new CustomerComponent());
+        jf.setContentPane(new CustomerComponent("Peiying"));
 
         jf.pack();
         jf.setLocationRelativeTo(null);
