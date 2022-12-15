@@ -1,9 +1,7 @@
 package business_logic_layer.impl;
 
-import business_logic_layer.interfaces.OpenInterestService;
-import business_logic_layer.interfaces.SecurityService;
-import business_logic_layer.interfaces.StockService;
-import business_logic_layer.interfaces.StockTransactionService;
+import business_logic_layer.interfaces.*;
+import enums.AccountType;
 import utilities.BaseDao;
 import data_access_layer.interfaces.StockDao;
 import data_access_layer.impl.StockDaoImpl;
@@ -11,6 +9,7 @@ import models.transaction.OpenInterest;
 import models.transaction.Stock;
 import dto.TableList;
 import dto.UserStock;
+import utilities.FancyBank;
 
 
 import java.sql.Connection;
@@ -19,9 +18,13 @@ import java.util.List;
 
 public class StockServiceImpl implements StockService {
 
+    private static final int MINIMUM_SAVINGS_MONEY = 2500;
+
     private StockDao stockDao;
     private OpenInterestService openInterestService;
     private SecurityService securityService;
+    private AccountService accountService;
+    private AccountOperationService accountOperationService;
 
     private StockTransactionService stockTransactionService;
 
@@ -30,6 +33,8 @@ public class StockServiceImpl implements StockService {
         openInterestService = new OpenInterestServiceImpl();
         securityService = new SecurityServiceImpl();
         stockTransactionService = new StockTransactionServiceImpl();
+        accountService = new AccountServiceImpl();
+        accountOperationService = new AccountOperationServiceImpl();
     }
 
     @Override
