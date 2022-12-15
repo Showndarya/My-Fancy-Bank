@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 public class CheckingAccountDaoImpl implements CheckingAccountDao {
     @Override
@@ -64,7 +65,11 @@ public class CheckingAccountDaoImpl implements CheckingAccountDao {
     @Override
     public int addAccount(Connection connection, int ownerId) throws SQLException {
         Statement statement = null;
-        String sql = "insert into account (user_id, account_type) values ("+ ownerId + ","+ AccountType.Checking.ordinal() + ");";
+        String sql = "insert into account (user_id, account_type, created_date, modified_date) values ("+
+                ownerId + ","+
+                AccountType.Checking.ordinal() + ",'" +
+                java.sql.Date.valueOf(LocalDate.now()) + "','" +
+                java.sql.Date.valueOf(LocalDate.now()) + "');";
         int affectRows = BaseDao.executeUpdate(connection, sql, statement);
         return affectRows;
     }

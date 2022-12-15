@@ -74,7 +74,9 @@ public class SavingsAccountInfoPanel extends AccountInfoPanel {
             repaint();
         }
         else{
-            accountService.removeAccount(FancyBank.getInstance().getUserId(), AccountType.Savings);
+            if(accountService.removeAccount(FancyBank.getInstance().getUserId(), AccountType.Savings)){
+                MainFrame.getInstance().setPanel(new MenuPanel());
+            }
         }
     }
 

@@ -76,7 +76,9 @@ public class CheckingAccountInfoPanel extends AccountInfoPanel {
             repaint();
         }
         else{
-            accountService.removeAccount(FancyBank.getInstance().getUserId(), AccountType.Checking);
+            if(accountService.removeAccount(FancyBank.getInstance().getUserId(), AccountType.Checking)){
+                MainFrame.getInstance().setPanel(new MenuPanel());
+            }
         }
     }
 }
