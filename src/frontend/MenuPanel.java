@@ -8,15 +8,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 
-public class MenuPanel extends JTabbedPane {
+
+public class MenuPanel extends JTabbedPane{
     private static final int BUTTON_FONT_SIZE = 20;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
-    //    private JTabbedPane mainTabbedPane;
+//    private JTabbedPane mainTabbedPane;
     private JPanel stockPanel;
     private JPanel myAccountPanel;
     private JPanel returnPanel;
+    private JPanel transactionsPanel;
 
     private JPanel stockTransaction;
 
@@ -48,6 +50,12 @@ public class MenuPanel extends JTabbedPane {
         StockTransactionView stockTransactionView = new StockTransactionView();
         stockTransaction.add(stockTransactionView);
         addTab("StockTransaction", stockTransaction);
+        //Account Transactions
+        transactionsPanel = generateTabPanel();
+        transactionsPanel.setLayout(new FlowLayout());
+        transactionsPanel.add(new AccountTransactionsView());
+        addTab("Account Transactions", transactionsPanel);
+
         // Return
         returnPanel = generateTabPanel();
         returnPanel.add(new ReturnPanel());
@@ -58,7 +66,7 @@ public class MenuPanel extends JTabbedPane {
             @Override
             public void stateChanged(ChangeEvent e) {
                 int index = getSelectedIndex();
-                if (index == 0) {
+                if(index == 0){
                     myAccountPanel.removeAll();
                     myAccountPanel.add(new MyAccountPanel());
                     myAccountPanel.repaint();
@@ -68,6 +76,11 @@ public class MenuPanel extends JTabbedPane {
                     stockTransactionView.reload();
 
                 } else if (index == 3) {
+                    transactionsPanel.removeAll();
+                    transactionsPanel.add(new AccountTransactionsView());
+                    transactionsPanel.repaint();
+                }
+                else if(index == 4){
                     returnPanel.removeAll();
                     returnPanel.add(new ReturnPanel());
                     returnPanel.repaint();
@@ -79,11 +92,11 @@ public class MenuPanel extends JTabbedPane {
         setVisible(true);
     }
 
-    private void clickMyAccountButton(ActionEvent e) {
+    private void clickMyAccountButton(ActionEvent e){
         MainFrame.getInstance().setPanel(new MyAccountPanel());
     }
 
-    private JPanel generateTabPanel() {
+    private JPanel generateTabPanel(){
         JPanel jPanel = new JPanel();
         jPanel.setLayout(null);
         jPanel.setSize(800, 600);
