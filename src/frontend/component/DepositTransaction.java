@@ -9,6 +9,7 @@ import utilities.Tuple;
 import dto.UserAccount;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -27,6 +28,9 @@ public class DepositTransaction extends JPanel {
     public DepositTransaction(TransactionType transactionType, JPanel jPanel, ArrayList<MoneyType> moneyTypes, ArrayList<UserAccount> userAccounts) {
         type = transactionType;
 
+        makeTransaction.setMaximumSize(new Dimension(400, 300));
+        makeTransaction.setMinimumSize(new Dimension(400, 300));
+        makeTransaction.setPreferredSize(new Dimension(400, 300));
         add(makeTransaction);
         submitButton.setActionCommand("submit");
         if(currencySelect.getItemCount() == 0) {

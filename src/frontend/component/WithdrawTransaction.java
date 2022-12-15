@@ -9,6 +9,7 @@ import utilities.Tuple;
 import dto.UserAccount;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -27,6 +28,10 @@ public class WithdrawTransaction extends JPanel{
 
     public WithdrawTransaction(TransactionType transactionType, JPanel jPanel, ArrayList<MoneyType> moneyTypes, ArrayList<UserAccount> userAccounts) {
         type = transactionType;
+
+        withdrawTransactionPanel.setMaximumSize(new Dimension(400, 300));
+        withdrawTransactionPanel.setMinimumSize(new Dimension(400, 300));
+        withdrawTransactionPanel.setPreferredSize(new Dimension(400, 300));
 
         add(withdrawTransactionPanel);
         submitButton.setActionCommand("submit");
