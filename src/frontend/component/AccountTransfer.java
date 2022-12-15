@@ -1,79 +1,70 @@
 package frontend.component;
 
 import controller_layer.AccountController;
+import dto.UserAccount;
 import enums.TransactionType;
 import models.transaction.MoneyType;
 import models.transaction.Transaction;
 import models.users.Customer;
 import utilities.FancyBank;
 import utilities.Tuple;
-import dto.UserAccount;
 
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-public class WithdrawTransaction extends JPanel{
-    private JLabel withdrawLabel;
+public class AccountTransfer extends JPanel {
+    private JPanel accountTransferPanel;
     private JComboBox accountSelect;
-    private JComboBox currencySelect;
-    private JButton submitButton;
-    private JPanel withdrawTransactionPanel;
-    private JTextField amount;
-    private JLabel accountBalance;
-    private JLabel accountBalanceValue;
+    private JTextField accountNumber;
+    private JTextField swiftCode;
+    private JTextField transferAmount;
+    private JButton transferButton;
     private JButton cancelButton;
-    private TransactionType type;
+    private JLabel accountBalanceValue;
+    private JComboBox currencySelect;
     AccountController accountController = new AccountController();
-    ArrayList<MoneyType> moneyTypesForAccount = new ArrayList<>();
 
-    public WithdrawTransaction(TransactionType transactionType, JPanel jPanel, ArrayList<UserAccount> userAccounts) {
-        type = transactionType;
+    public AccountTransfer(JPanel jPanel, ArrayList<MoneyType> moneyTypes, ArrayList<UserAccount> userAccounts) {
+        accountTransferPanel.setMaximumSize(new Dimension(600, 600));
+        accountTransferPanel.setMinimumSize(new Dimension(600, 600));
+        accountTransferPanel.setPreferredSize(new Dimension(600, 600));
 
-        withdrawTransactionPanel.setMaximumSize(new Dimension(400, 300));
-        withdrawTransactionPanel.setMinimumSize(new Dimension(400, 300));
-        withdrawTransactionPanel.setPreferredSize(new Dimension(400, 300));
-
-        add(withdrawTransactionPanel);
-        submitButton.setActionCommand("submit");
+        add(accountTransferPanel);
+        transferButton.setActionCommand("transfer");
         if(accountSelect.getItemCount() == 0) {
-            Map<Object, List<UserAccount>> groupedAccounts = userAccounts.stream().collect(Collectors.groupingBy(x->x.accountId));
-            for(Object key: groupedAccounts.keySet())
+            for(UserAccount userAccount: userAccounts) {
                 accountSelect.addItem(
-                        new Tuple(groupedAccounts.get(key).get(0).accountType.getDisplay(), (int) key)
+                        new Tuple(userAccount.accountType.getDisplay(), userAccount.accountId)
                 );
+            }
         }
         currencySelect.removeAllItems();
         for(UserAccount userAccount: userAccounts)
-            if(userAccount.accountId==userAccounts.get(accountSelect.getSelectedIndex()).accountId) {
+            if(userAccount.accountId==userAccounts.get(accountSelect.getSelectedIndex()).accountId)
                 currencySelect.addItem(
-                        new Tuple(userAccount.moneyType.getType() + "(" + userAccount.moneyType.getSymbol() + ")", userAccount.moneyType.getId())
+                        new Tuple(userAccount.moneyType.getType()+"("+userAccount.moneyType.getSymbol()+")", userAccount.moneyType.getId())
                 );
-                moneyTypesForAccount.add(userAccount.moneyType);
-            }
+        if(userAccounts.size()>0) setBalance(moneyTypes, userAccounts);
 
-        if(userAccounts.size()>0) setBalance(moneyTypesForAccount, userAccounts);
-        submitButton.addActionListener(e -> {
+        transferButton.addActionListener(e -> {
             Transaction transaction = new Transaction(
                     new Customer(FancyBank.getInstance().getUserId(),"name"),
-                    Double.parseDouble(amount.getText()),
+                    Double.parseDouble(transferAmount.getText()),
                     TransactionType.Withdraw,
                     userAccounts.get(accountSelect.getSelectedIndex()).accountId,
-                    moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
+                    moneyTypes.get(currencySelect.getSelectedIndex()).getId()
             );
 
             accountController.addTransaction(FancyBank.getInstance().getUserId(), transaction);
             try {
-                double amountWithFee = Double.parseDouble(amount.getText())+25;
+                double amountWithFee = Double.parseDouble(transferAmount.getText())+25;
                 accountController.changeBalance(
                         TransactionType.Withdraw,
                         userAccounts.get(accountSelect.getSelectedIndex()).accountId,
                         amountWithFee,
-                        moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
+                        moneyTypes.get(currencySelect.getSelectedIndex()).getId()
                 );
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
@@ -97,7 +88,7 @@ public class WithdrawTransaction extends JPanel{
         setVisible(true);
         accountSelect.addActionListener(e -> {
             currencySelect.removeAllItems();
-            moneyTypesForAccount = new ArrayList<>();
+            ArrayList<MoneyType> moneyTypesForAccount = new ArrayList<>();
             for(UserAccount userAccount: userAccounts)
                 if(userAccount.accountId==userAccounts.get(accountSelect.getSelectedIndex()).accountId) {
                     currencySelect.addItem(
@@ -106,10 +97,6 @@ public class WithdrawTransaction extends JPanel{
                     moneyTypesForAccount.add(userAccount.moneyType);
                 }
 
-            setBalance(moneyTypesForAccount, userAccounts);
-        });
-
-        currencySelect.addActionListener(e -> {
             setBalance(moneyTypesForAccount, userAccounts);
         });
     }
@@ -123,11 +110,11 @@ public class WithdrawTransaction extends JPanel{
         }
         if(value<0) {
             accountBalanceValue.setText("Account-Currency combination does not exist");
-            submitButton.setEnabled(false);
+            transferButton.setEnabled(false);
         }
         else {
             accountBalanceValue.setText(String.valueOf(value));
-            submitButton.setEnabled(true);
+            transferButton.setEnabled(true);
         }
     }
 }

@@ -21,11 +21,13 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
         Connection connection = BaseDao.getConnection();
         ResultSet results = null;
         String sql="select * from current_transaction currt " +
+                "inner join account acc " +
+                "on acc.id=currt.account_id "+
                 "inner join account_money acm " +
-                "on acm.account_id=currt.account_id " +
+                "on acm.account_id=acc.id " +
                 "inner join money_type mt " +
-                "on mt.id=acm.money_type_id";
-        if(type != null) sql += " where currt.transaction_type="+type.getValue();
+                "on mt.id=acm.money_type_id where acc.user_id="+customer.getId();
+        if(type != null) sql += " and currt.transaction_type="+type.getValue();
         sql += " order by currt.created_date desc";
 
         results = BaseDao.execute(connection, sql, null, results);

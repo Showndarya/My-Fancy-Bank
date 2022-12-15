@@ -2,6 +2,7 @@ package frontend.component;
 
 import controller_layer.AccountController;
 import dto.TableList;
+import utilities.FancyBank;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +39,7 @@ public class AccountTransactionsListComponent extends JScrollPane {
 
     public AccountTransactionsListComponent() throws SQLException {
         controller = new AccountController();
-        TableList transactionList = controller.getAllTransactions(2);
+        TableList transactionList = controller.getAllTransactions(FancyBank.getInstance().getUserId());
         Object[] columnNames = transactionList.getColumnsName();
         rowData = transactionList.getRowData();
         transactions = new JTable(rowData, columnNames) {
@@ -65,7 +66,7 @@ public class AccountTransactionsListComponent extends JScrollPane {
 
     public void reloadTable() {
         controller = new AccountController();
-        TableList transactionList = controller.getAllTransactions(2);
+        TableList transactionList = controller.getAllTransactions(FancyBank.getInstance().getUserId());
         rowData = transactionList.getRowData();
         Object[] columnNames = transactionList.getColumnsName();
         transactions = new JTable(rowData, columnNames) {
