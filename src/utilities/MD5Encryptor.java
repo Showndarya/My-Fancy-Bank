@@ -6,6 +6,11 @@ import java.util.Arrays;
 
 public class MD5Encryptor {
 
+    // Your can use this function to neglect encryption
+//    public static String getMD5(String str){
+//        return str;
+//    }
+
     public static String getMD5(String str){
         MessageDigest encryptor = null;
         try{
