@@ -69,7 +69,7 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
                 "inner join money_type mon " +
                 "on mon.id=acm.money_type_id "+
                 "where " +
-                "acc.user_id="+ userId +" and account_type between 1 and 4";
+                "acc.user_id="+ userId +" and account_type between 1 and 6";
         results = BaseDao.execute(connection, sql, null, results);
         ArrayList<UserAccount> userAccounts = new ArrayList<>();
         while(results.next()) {

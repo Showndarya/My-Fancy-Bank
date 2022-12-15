@@ -7,6 +7,7 @@ import business_logic_layer.impl.StockServiceImpl;
 import frontend.component.StockListComponent;
 import models.transaction.Stock;
 import dto.TableList;
+import utilities.FancyBank;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -40,7 +41,7 @@ public class UserStockView extends JPanel {
 
 
     public UserStockView() {
-        clientId = 1;
+        clientId = FancyBank.getInstance().getUserId();
         securityService = new SecurityServiceImpl();
         stockService = new StockServiceImpl();
         add(userStockView);

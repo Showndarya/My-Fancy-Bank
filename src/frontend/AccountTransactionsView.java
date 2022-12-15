@@ -8,6 +8,7 @@ import frontend.component.DepositTransaction;
 import frontend.component.WithdrawTransaction;
 import models.transaction.MoneyType;
 import dto.UserAccount;
+import utilities.Tuple;
 
 import javax.swing.*;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ public class AccountTransactionsView extends JPanel {
     private JButton deposit;
     private JButton withdraw;
     private JPanel list;
+    private JComboBox filter;
     TransactionController controller = new TransactionController();
     AccountController accountController = new AccountController();
 
@@ -41,6 +43,7 @@ public class AccountTransactionsView extends JPanel {
         } catch(SQLException e) {
 
         }
+
         deposit.setActionCommand("deposit");
         withdraw.setActionCommand("withdraw");
         ArrayList<MoneyType> finalMoneyTypes = moneyTypes;
