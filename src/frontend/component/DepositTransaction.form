@@ -48,14 +48,6 @@
           <text value="Submit"/>
         </properties>
       </component>
-      <component id="1d92f" class="javax.swing.JComboBox" binding="accountSelect">
-        <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <model/>
-        </properties>
-      </component>
       <component id="31541" class="javax.swing.JLabel" binding="depositLabel">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
@@ -78,6 +70,14 @@
         </constraints>
         <properties>
           <text value="Cancel"/>
+        </properties>
+      </component>
+      <component id="1d92f" class="javax.swing.JComboBox" binding="accountSelect">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <model/>
         </properties>
       </component>
     </children>
