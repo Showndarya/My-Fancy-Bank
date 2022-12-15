@@ -89,15 +89,14 @@ public class OpenSecurityAccountPanel extends JPanel {
         int accountId = accountService.getAccountId(FancyBank.getInstance().getUserId(), AccountType.Savings);
         ArrayList<UserAccount> userAccounts = null;
         try {
-            
-            userAccounts = accountOperationService.getAccountsByIdWithBalance(accountId);
+            userAccounts = accountOperationService.getAccountsByIdWithBalance(FancyBank.getInstance().getUserId());
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
         double savingsMoney = 0;
         boolean ok = false;
         for (UserAccount userAccount : userAccounts) {
-            if (userAccount.moneyType.getType().equals("usd")) {
+            if (userAccount.moneyType.getId() == USD_TYPE && userAccount.accountId == accountId) {
                 savingsMoney = userAccount.amount;
                 if (userAccount.amount >= MINIMUM_SAVINGS_MONEY) {
                     ok = true;
