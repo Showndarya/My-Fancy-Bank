@@ -120,7 +120,10 @@ public class UserStockView extends JPanel {
                 if (i == 1) {
                     return;
                 }
-                stockService.buyStock(clientId, stock.getId(), Integer.parseInt(num), stockPrice);
+                boolean b = stockService.buyStock(clientId, stock.getId(), Integer.parseInt(num), stockPrice);
+                if (!b) {
+                    JOptionPane.showMessageDialog(userStockView, "No enough monet in savings account", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
                 reloadTable();
 
                 userStockView.validate();
@@ -151,7 +154,10 @@ public class UserStockView extends JPanel {
                 if (i == 1) {
                     return;
                 }
-                stockService.sellStock(clientId, stockId, Integer.parseInt(num), stockPrice);
+                boolean b = stockService.sellStock(clientId, stockId, Integer.parseInt(num), stockPrice);
+                if (!b) {
+                    JOptionPane.showMessageDialog(userStockView, "No enough monet in savings account", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
                 reloadTable();
                 userStockView.validate();
                 userStockView.repaint();
