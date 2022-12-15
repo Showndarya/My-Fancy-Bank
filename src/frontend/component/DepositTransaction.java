@@ -10,6 +10,8 @@ import utilities.Tuple;
 import dto.UserAccount;
 
 import javax.swing.*;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.awt.*;
 import java.sql.SQLException;
@@ -47,20 +49,23 @@ public class DepositTransaction extends JPanel {
             }
 
         currencySelect.removeAllItems();
-        for(UserAccount userAccount: userAccounts)
-            if(userAccount.accountId==userAccounts.get(accountSelect.getSelectedIndex()).accountId) {
+        for(UserAccount userAccount: userAccounts) {
+            Tuple item = (Tuple) accountSelect.getSelectedItem();
+            if (userAccount.accountId == item.getValue()) {
                 currencySelect.addItem(
                         new Tuple(userAccount.moneyType.getType() + "(" + userAccount.moneyType.getSymbol() + ")", userAccount.moneyType.getId())
                 );
                 moneyTypesForAccount.add(userAccount.moneyType);
             }
+        }
         submitButton.addActionListener(e -> {
 
+            Tuple item = (Tuple) accountSelect.getSelectedItem();
             Transaction transaction = new Transaction(
                     new Customer(FancyBank.getInstance().getUserId(), "name"),
                     Double.parseDouble(amount.getText()),
                     TransactionType.Deposit,
-                    userAccounts.get(accountSelect.getSelectedIndex()).accountId,
+                    item.getValue(),
                     moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
             );
 
@@ -69,7 +74,7 @@ public class DepositTransaction extends JPanel {
                 double amountWithFee = Double.parseDouble(amount.getText())-25;
                 accountController.changeBalance(
                         TransactionType.Deposit,
-                        userAccounts.get(accountSelect.getSelectedIndex()).accountId,
+                        item.getValue(),
                         amountWithFee,
                         moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
                 );
@@ -91,17 +96,31 @@ public class DepositTransaction extends JPanel {
             jPanel.repaint();
         });
 
-        accountSelect.addActionListener(e -> {
-            currencySelect.removeAllItems();
-            moneyTypesForAccount = new ArrayList<>();
-            for(UserAccount userAccount: userAccounts)
-                if(userAccount.accountId==userAccounts.get(accountSelect.getSelectedIndex()).accountId) {
-                    currencySelect.addItem(
-                            new Tuple(userAccount.moneyType.getType() + "(" + userAccount.moneyType.getSymbol() + ")", userAccount.moneyType.getId())
-                    );
-                    moneyTypesForAccount.add(userAccount.moneyType);
-                }
-        });
         setVisible(true);
+        accountSelect.addPopupMenuListener(new PopupMenuListener() {
+            @Override
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+
+            }
+
+            @Override
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+                currencySelect.removeAllItems();
+                moneyTypesForAccount = new ArrayList<>();
+                Tuple item = (Tuple) accountSelect.getSelectedItem();
+                for(UserAccount userAccount: userAccounts)
+                    if(userAccount.accountId==item.getValue()) {
+                        currencySelect.addItem(
+                                new Tuple(userAccount.moneyType.getType() + "(" + userAccount.moneyType.getSymbol() + ")", userAccount.moneyType.getId())
+                        );
+                        moneyTypesForAccount.add(userAccount.moneyType);
+                    }
+            }
+
+            @Override
+            public void popupMenuCanceled(PopupMenuEvent e) {
+
+            }
+        });
     }
 }

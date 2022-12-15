@@ -5,6 +5,7 @@ import data_access_layer.impl.AccountOperationDaoImpl;
 import data_access_layer.impl.CurrentTransactionDaoImpl;
 import data_access_layer.interfaces.AccountOperationDao;
 import data_access_layer.interfaces.CurrentTransactionDao;
+import enums.AccountType;
 import enums.TransactionType;
 import models.transaction.Transaction;
 import models.users.Customer;
@@ -56,12 +57,12 @@ public class AccountOperationServiceImpl implements AccountOperationService {
             throw new RuntimeException(e);
         }
         TableList transactionsList = new TableList();
-        transactionsList.setColumnsName(new Object[]{"Type", "Amount", "Date"});
+        transactionsList.setColumnsName(new Object[]{"Transaction", "Amount", "Account"});
         Object[][] rowData = new Object[list.size()][];
         for (int i = 0; i < list.size(); i++) {
             Transaction transaction = list.get(i);
             rowData[i] = new Object[]{transaction.getTransactionType(),
-                     transaction.getMoneyType().getSymbol()+" "+transaction.getAmount(), transaction.getTransactionDate()};
+                     transaction.getMoneyType().getSymbol()+" "+transaction.getAmount(), AccountType.getType(transaction.getAccountType()).getDisplay()};
         }
         transactionsList.setRowData(rowData);
         return transactionsList;

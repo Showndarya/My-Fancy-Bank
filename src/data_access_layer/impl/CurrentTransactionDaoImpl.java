@@ -20,13 +20,11 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
     public List<Transaction> getAllTransactions(Customer customer, TransactionType type) throws SQLException {
         Connection connection = BaseDao.getConnection();
         ResultSet results = null;
-        String sql="select * from current_transaction currt " +
+        String sql="select distinct * from current_transaction currt " +
                 "inner join account acc " +
                 "on acc.id=currt.account_id "+
-                "inner join account_money acm " +
-                "on acm.account_id=acc.id " +
                 "inner join money_type mt " +
-                "on mt.id=acm.money_type_id where acc.user_id="+customer.getId();
+                "on mt.id=currt.money_type where acc.user_id="+customer.getId();
         if(type != null) sql += " and currt.transaction_type="+type.getValue();
         sql += " order by currt.created_date desc";
 
@@ -37,7 +35,7 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
                     customer,
                     results.getDouble("currt.amount"),
                     TransactionType.getType(results.getInt("currt.transaction_type")),
-                    new Date(results.getDate("currt.created_date").getTime()),
+                    results.getInt("acc.account_type"),
                     new MoneyType(
                             results.getInt("mt.id"),
                             results.getString("mt.type"),
@@ -55,7 +53,7 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
         Connection connection = BaseDao.getConnection();
         String sql = "insert into current_transaction(account_id,amount,money_type,transaction_type,modified_date,created_date)" +
                 " values("
-                +customer.getId()+","
+                +deposit.getAccountId()+","
                 +deposit.getAmount()+","
                 +deposit.getMoneyTypeId()+","
                 +deposit.getTransactionType().getValue()+",'"
