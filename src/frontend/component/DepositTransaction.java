@@ -59,10 +59,11 @@ public class DepositTransaction extends JPanel {
 
             accountController.addTransaction(2, transaction);
             try {
+                double amountWithFee = Double.parseDouble(amount.getText())-25;
                 accountController.changeBalance(
                         TransactionType.Deposit,
                         userAccounts.get(accountSelect.getSelectedIndex()).accountId,
-                        Double.parseDouble(amount.getText()),
+                        amountWithFee,
                         moneyTypes.get(currencySelect.getSelectedIndex()).getId()
                 );
             } catch (SQLException ex) {

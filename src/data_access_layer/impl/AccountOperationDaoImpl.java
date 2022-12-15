@@ -26,15 +26,10 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
         }
         switch (type) {
             case Deposit:
-                updatedAmount = existingAmount+amount-25;
-                break;
-            case Withdraw:
-                if(existingAmount<amount) return false;
-                updatedAmount = existingAmount-amount-25;
-                break;
             case LoanAdd:
                 updatedAmount = existingAmount+amount;
                 break;
+            case Withdraw:
             case LoanDeduct:
                 if(existingAmount<amount) return false;
                 updatedAmount = existingAmount-amount;
