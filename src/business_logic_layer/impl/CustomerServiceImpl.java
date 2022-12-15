@@ -1,6 +1,7 @@
 package business_logic_layer.impl;
 
 import business_logic_layer.interfaces.CustomerService;
+import dto.TableList;
 import enums.UserType;
 import utilities.BaseDao;
 import data_access_layer.impl.CustomerDaoImpl;
@@ -9,6 +10,7 @@ import models.users.Customer;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerDao customerDao;
@@ -42,6 +44,24 @@ public class CustomerServiceImpl implements CustomerService {
             throw new RuntimeException(e);
         }
         return customer.getType();
+    }
+
+    @Override
+    public TableList getCustomerAsTableListByName(String name) {
+        Customer customer = null;
+        try {
+            customer = (Customer) customerDao.getByName(name);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        TableList tableList = new TableList();
+        if(customer != null){
+            tableList.setColumnsName(new Object[]{"User Id", "User Name"});
+            Object[][] rowData = new Object[1][];
+            rowData[0] = new Object[]{customer.getId(), customer.getName()};
+            tableList.setRowData(rowData);
+        }
+        return tableList;
     }
 
     @Override
