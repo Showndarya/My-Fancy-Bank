@@ -5,10 +5,12 @@ import enums.TransactionType;
 import models.transaction.MoneyType;
 import models.transaction.Transaction;
 import models.users.Customer;
+import utilities.FancyBank;
 import utilities.Tuple;
 import dto.UserAccount;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -27,6 +29,9 @@ public class DepositTransaction extends JPanel {
     public DepositTransaction(TransactionType transactionType, JPanel jPanel, ArrayList<MoneyType> moneyTypes, ArrayList<UserAccount> userAccounts) {
         type = transactionType;
 
+        makeTransaction.setMaximumSize(new Dimension(400, 300));
+        makeTransaction.setMinimumSize(new Dimension(400, 300));
+        makeTransaction.setPreferredSize(new Dimension(400, 300));
         add(makeTransaction);
         submitButton.setActionCommand("submit");
         if(currencySelect.getItemCount() == 0) {
@@ -36,10 +41,17 @@ public class DepositTransaction extends JPanel {
                 );
             }
         }
+
+        currencySelect.removeAllItems();
+        for(UserAccount userAccount: userAccounts)
+            if(userAccount.accountId==userAccounts.get(accountSelect.getSelectedIndex()).accountId)
+                currencySelect.addItem(
+                        new Tuple(userAccount.moneyType.getType()+"("+userAccount.moneyType.getSymbol()+")", userAccount.moneyType.getId())
+                );
         submitButton.addActionListener(e -> {
 
             Transaction transaction = new Transaction(
-                    new Customer(2,"name"),
+                    new Customer(2, "name"),
                     Double.parseDouble(amount.getText()),
                     TransactionType.Deposit,
                     userAccounts.get(accountSelect.getSelectedIndex()).accountId,
@@ -48,10 +60,11 @@ public class DepositTransaction extends JPanel {
 
             accountController.addTransaction(2, transaction);
             try {
+                double amountWithFee = Double.parseDouble(amount.getText())-25;
                 accountController.changeBalance(
                         TransactionType.Deposit,
                         userAccounts.get(accountSelect.getSelectedIndex()).accountId,
-                        Double.parseDouble(amount.getText()),
+                        amountWithFee,
                         moneyTypes.get(currencySelect.getSelectedIndex()).getId()
                 );
             } catch (SQLException ex) {
