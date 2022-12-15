@@ -1,9 +1,7 @@
 package business_logic_layer.impl;
 
-import business_logic_layer.interfaces.OpenInterestService;
-import business_logic_layer.interfaces.SecurityService;
-import business_logic_layer.interfaces.StockService;
-import business_logic_layer.interfaces.StockTransactionService;
+import business_logic_layer.interfaces.*;
+import enums.AccountType;
 import utilities.BaseDao;
 import data_access_layer.interfaces.StockDao;
 import data_access_layer.impl.StockDaoImpl;
@@ -11,6 +9,7 @@ import models.transaction.OpenInterest;
 import models.transaction.Stock;
 import dto.TableList;
 import dto.UserStock;
+import utilities.FancyBank;
 
 
 import java.sql.Connection;
@@ -19,9 +18,13 @@ import java.util.List;
 
 public class StockServiceImpl implements StockService {
 
+    private static final int MINIMUM_SAVINGS_MONEY = 2500;
+
     private StockDao stockDao;
     private OpenInterestService openInterestService;
     private SecurityService securityService;
+    private AccountService accountService;
+    private AccountOperationService accountOperationService;
 
     private StockTransactionService stockTransactionService;
 
@@ -30,6 +33,8 @@ public class StockServiceImpl implements StockService {
         openInterestService = new OpenInterestServiceImpl();
         securityService = new SecurityServiceImpl();
         stockTransactionService = new StockTransactionServiceImpl();
+        accountService = new AccountServiceImpl();
+        accountOperationService = new AccountOperationServiceImpl();
     }
 
     @Override
@@ -59,6 +64,16 @@ public class StockServiceImpl implements StockService {
      */
     @Override
     public boolean buyStock(int clientId, int stockId, int numberOfShare, double stockPrice) {
+        int accountId = accountService.getAccountId(FancyBank.getInstance().getUserId(), AccountType.Savings);
+        double moneyInSavings = 0;
+        try {
+            moneyInSavings = accountOperationService.getBalance(accountId, 1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (moneyInSavings < MINIMUM_SAVINGS_MONEY) {
+            return false;
+        }
         // wait to do add the current date
         Connection connection = BaseDao.getConnection();
         System.out.println("Stock boughout at price: " + stockPrice);
@@ -109,6 +124,16 @@ public class StockServiceImpl implements StockService {
      */
     @Override
     public boolean sellStock(int clientId, int stockId, int numOfShare, double stockPrice) {
+        int accountId = accountService.getAccountId(FancyBank.getInstance().getUserId(), AccountType.Savings);
+        double moneyInSavings = 0;
+        try {
+            moneyInSavings = accountOperationService.getBalance(accountId, 1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (moneyInSavings < MINIMUM_SAVINGS_MONEY) {
+            return false;
+        }
         //check if has these num of share if not return false, check if has these stock
         int openInterestNum = openInterestService.getOpenInterestNum(clientId, stockId);
         System.out.println("You sell stock at price: " + stockPrice);
