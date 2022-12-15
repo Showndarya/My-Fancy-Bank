@@ -105,17 +105,11 @@ public class MyAccountPanel extends JPanel{
     }
 
     private void clickAddCheckingAccountButton(ActionEvent e){
-        if(accountService.createAccount(FancyBank.getInstance().getUserId(), AccountType.Checking)){
-            accountsButton.get(AccountType.Checking).setEnabled(true);
-            addAccountsButton.get(AccountType.Checking).setEnabled(false);
-        }
+        setCurrentPanel(new OpenCheckingAccountPanel());
     }
 
     private void clickAddSavingsAccountButton(ActionEvent e){
-        if(accountService.createAccount(FancyBank.getInstance().getUserId(), AccountType.Savings)){
-            accountsButton.get(AccountType.Savings).setEnabled(true);
-            addAccountsButton.get(AccountType.Savings).setEnabled(false);
-        }
+        setCurrentPanel(new OpenSavingsAccountPanel());
     }
 
     private void clickAddSecurityAccountButton(ActionEvent e){

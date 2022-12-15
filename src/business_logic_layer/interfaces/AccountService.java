@@ -2,6 +2,8 @@ package business_logic_layer.interfaces;
 
 import enums.AccountType;
 
+import java.util.ArrayList;
+
 public interface AccountService {
     public int getAccountId(int ownerId, AccountType type);
     public boolean hasAccount(int ownerId, AccountType type);
@@ -20,6 +22,6 @@ public interface AccountService {
      * @param type type
      * @return true:succeed, false:fail
      */
-    public boolean createAccount(int ownerId, AccountType type);
+    public boolean createAccount(int ownerId, AccountType type, ArrayList<Integer> moneyTypes);
 
 }

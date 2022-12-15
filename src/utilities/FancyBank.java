@@ -1,6 +1,7 @@
 package utilities;
 
 public class FancyBank {
+    public static final int OPEN_ACCOUNT_MONEY = 20;
     private static FancyBank INSTANCE;
     private String userName;
     private int userId;

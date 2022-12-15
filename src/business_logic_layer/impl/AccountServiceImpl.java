@@ -10,6 +10,7 @@ import models.account.Account;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class AccountServiceImpl implements AccountService {
@@ -78,7 +79,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean createAccount(int ownerId, AccountType type) {
+    public boolean createAccount(int ownerId, AccountType type, ArrayList<Integer> moneyTypes) {
         Connection connection = BaseDao.getConnection();
         try{
             // Check whether there already is an account of type
@@ -89,6 +90,13 @@ public class AccountServiceImpl implements AccountService {
             int affectRows = accountDaos.get(type).addAccount(connection, ownerId);
             if(affectRows < 1){
                 return false;
+            }
+            int accountId = accountDaos.get(type).getByOwnerId(ownerId).getId();
+            for(int moneyTypeId: moneyTypes){
+                affectRows += accountDaos.get(type).addMoneyType(connection, accountId, moneyTypeId);
+            }
+            if(affectRows < 1+moneyTypes.size()){
+                throw new SQLException();
             }
         } catch (SQLException e){
             try {

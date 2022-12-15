@@ -83,4 +83,15 @@ public class CheckingAccountDaoImpl implements CheckingAccountDao {
         return affectRows;
     }
 
+    @Override
+    public int addMoneyType(Connection connection, int accountId, int moneyTypeId) throws SQLException {
+        Statement statement = null;
+        String sql = "insert into account_money (account_id, money_type_id, amount) values ("+
+                accountId + ","+
+                moneyTypeId + "," +
+                0 + ");";
+        int affectRows = BaseDao.executeUpdate(connection, sql, statement);
+        return affectRows;
+    }
+
 }

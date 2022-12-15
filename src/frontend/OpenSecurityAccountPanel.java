@@ -44,10 +44,10 @@ public class OpenSecurityAccountPanel extends JPanel{
 
     public void reload(){
         // initial money label
-        inputPrompt = new JLabel("Open Security Account ", JLabel.RIGHT);
-        inputPrompt.setBounds(280, 150, 200, 30);
-        inputPrompt.setFont(new Font("serif", Font.PLAIN, LABEL_FONT_SIZE));
-        add(inputPrompt);
+        openAccountPrompt = new JLabel("Open Security Account", JLabel.RIGHT);
+        openAccountPrompt.setBounds(280, 150, 200, 30);
+        openAccountPrompt.setFont(new Font("serif", Font.PLAIN, LABEL_FONT_SIZE));
+        add(openAccountPrompt);
         // initial money label
         inputPrompt = new JLabel("Initial Money: ", JLabel.RIGHT);
         inputPrompt.setBounds(200, 200, 160, 30);

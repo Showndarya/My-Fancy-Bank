@@ -111,7 +111,8 @@ public class CustomerServiceImpl implements CustomerService {
             if(customer == null){
                 return false;
             }
-            String encryptedPassword = Objects.requireNonNull(MD5Encryptor.getMD5(password)).substring(0, ENCRYPTION_PASSWORD_LENGTH);
+            String encryptedPassword = Objects.requireNonNull(MD5Encryptor.getMD5(password));
+            encryptedPassword = encryptedPassword.substring(0, Math.min(ENCRYPTION_PASSWORD_LENGTH, encryptedPassword.length()));
             return name.equals(customer.getName()) && encryptedPassword.equals(customer.getPassword());
         } catch (SQLException e){
             throw new RuntimeException(e);
