@@ -28,7 +28,7 @@ public class SecurityDaoImpl implements SecurityDao {
     }
 
     @Override
-    public int createNewSecurityAccount(Connection connection, int clientId, int money) throws SQLException {
+    public int createNewSecurityAccount(Connection connection, int clientId, double money) throws SQLException {
 
         Statement statement = null;
         String sql = "insert into security_account (`client_id`,`money`) values (" + clientId + "," + money + ")";

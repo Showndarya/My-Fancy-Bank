@@ -1,7 +1,11 @@
 package business_logic_layer.interfaces;
 
+import enums.UserType;
+
 public interface CustomerService {
     public int getCustomerId(String name);
+
+    public UserType getUserType(int id);
 
     /**
      * Check whether there is a customer with "name"

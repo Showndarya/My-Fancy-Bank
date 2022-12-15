@@ -1,5 +1,8 @@
 package models.users;
 
+
+import enums.UserType;
+
 /**
  * Abstract class of user
  */
@@ -7,6 +10,7 @@ public abstract class User {
     private int id;
     private String name;
     private String password;
+    private UserType type;
 
     /**
      * Construct a user by id, name and password
@@ -58,6 +62,14 @@ public abstract class User {
 
     public String getPassword(){
         return password;
+    }
+
+    public void setType(UserType type){
+        this.type = type;
+    }
+
+    public UserType getType(){
+        return type;
     }
 
 }

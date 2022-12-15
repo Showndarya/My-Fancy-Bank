@@ -27,7 +27,7 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public int createNewSecurityAccount(Connection connection, int clientId, int money) throws SQLException {
+    public int createNewSecurityAccount(Connection connection, int clientId, double money) throws SQLException {
         int i = securityDao.createNewSecurityAccount(connection, clientId, money);
         return i;
     }

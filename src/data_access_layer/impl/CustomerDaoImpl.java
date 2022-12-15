@@ -49,12 +49,13 @@ public class CustomerDaoImpl implements CustomerDao {
             customer.setName(resultSet.getString("user_name"));
             customer.setId(resultSet.getInt("id"));
             customer.setPassword(resultSet.getString("password"));
-            // query checking account
-
-            // query savings account
-
-            // query security account
-
+            int userType = resultSet.getInt("user_type");
+            if(userType == 1){
+                customer.setType(UserType.Manager);
+            }
+            else if(userType == 2){
+                customer.setType(UserType.Customer);
+            }
         }
         return customer;
     }
@@ -66,19 +67,21 @@ public class CustomerDaoImpl implements CustomerDao {
         Statement statement = null;
         ResultSet resultSet = null;
         String sql = "select * from user " +
-                "where user_name = " + id + ";";
+                "where id = " + id + ";";
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         Customer customer = null;
         if(resultSet.next()) {
             customer = new Customer();
             customer.setName(resultSet.getString("user_name"));
             customer.setId(resultSet.getInt("id"));
-            // query checking account
-
-            // query savings account
-
-            // query security account
-
+            customer.setPassword(resultSet.getString("password"));
+            int userType = resultSet.getInt("user_type");
+            if(userType == 1){
+                customer.setType(UserType.Manager);
+            }
+            else if(userType == 2){
+                customer.setType(UserType.Customer);
+            }
         }
         return customer;
     }

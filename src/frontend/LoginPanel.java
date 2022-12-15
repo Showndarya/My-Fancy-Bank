@@ -2,6 +2,7 @@ package frontend;
 
 import business_logic_layer.interfaces.CustomerService;
 import business_logic_layer.impl.CustomerServiceImpl;
+import enums.UserType;
 import utilities.FancyBank;
 
 import javax.swing.*;
@@ -96,7 +97,15 @@ public class LoginPanel extends JPanel{
             FancyBank.getInstance().setUserId(userId);
             FancyBank.getInstance().setUserName(name);
             // set panel
-            MainFrame.getInstance().setPanel(new MenuPanel());
+            UserType userType = customerService.getUserType(userId);
+            switch (userType){
+                case Manager:
+                    MainFrame.getInstance().setPanel(new ManagerView());
+                    break;
+                case Customer:
+                    MainFrame.getInstance().setPanel(new MenuPanel());
+                    break;
+            }
         }
         else{
             errorLabel.setVisible(true);
