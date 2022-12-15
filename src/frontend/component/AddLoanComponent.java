@@ -4,16 +4,20 @@ import business_logic_layer.interfaces.LoanTransactionService;
 import business_logic_layer.interfaces.MoneyTypeService;
 import business_logic_layer.impl.LoanTransactionServiceImpl;
 import business_logic_layer.impl.MoneyTypeServiceImpl;
+import controller_layer.TransactionController;
 import models.transaction.MoneyType;
 import models.transaction.Collateral;
 import models.users.Customer;
+import utilities.Tuple;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class AddLoanComponent extends JPanel{
+    ArrayList<MoneyType> moneyTypes;
     private JPanel addLoanPanel;
     private JLabel collateralName;
     private JTextField textField1;
@@ -24,31 +28,42 @@ public class AddLoanComponent extends JPanel{
     private JTextField textField4;
     private JButton saveButton;
     private JButton cancelButton;
-    private JTextField textField3;
+    private JComboBox moneyTypeBox;
     private LoanTransactionService loanTransactionService;
-    private MoneyTypeService moneyTypeService;
+    TransactionController controller = new TransactionController();
 
     public AddLoanComponent(JPanel jPanel, Customer customer) {
-        moneyTypeService = new MoneyTypeServiceImpl();
+        moneyTypes = new ArrayList<>();
+        try {
+            moneyTypes = controller.getAllmoneyTypes();
+        } catch(SQLException e) {
+
+        }
+
+        for (MoneyType type: moneyTypes) {
+            moneyTypeBox.addItem(new Tuple(type.getType() + "("
+                    + type.getSymbol() + ")",
+                    type.getId()));
+        }
+
         loanTransactionService = new LoanTransactionServiceImpl();
         add(addLoanPanel);
         saveButton.setActionCommand("save");
         cancelButton.setActionCommand("cancel");
+
+
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String name = textField1.getText();
                 String worth = textField2.getText();
-                String type = textField3.getText();
                 String loanAmount = textField4.getText();
-                int moneyId = 0;
-                try {
-                    moneyId = moneyTypeService.getMoneyTypeIdByType(type);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-                MoneyType moneyType = new MoneyType(moneyId, type);
-                Collateral collateral = new Collateral(name, moneyType, Integer.parseInt(worth));
+                MoneyType currMoneyType = new MoneyType(moneyTypes.get(moneyTypeBox.getSelectedIndex()).getId(),
+                        moneyTypes.get(moneyTypeBox.getSelectedIndex()).getType(),
+                        moneyTypes.get(moneyTypeBox.getSelectedIndex()).getSymbol());
+                Collateral collateral = new Collateral(name,
+                        currMoneyType,
+                        Integer.parseInt(worth));
                 loanTransactionService.addLoan(customer, collateral, Integer.parseInt(loanAmount));
                 LoanTransactionComponent.getInstance(customer).reloadTable(customer);
                 jPanel.remove(0);
