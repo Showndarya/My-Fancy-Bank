@@ -1,6 +1,7 @@
 package business_logic_layer.impl;
 
 import business_logic_layer.interfaces.CustomerService;
+import business_logic_layer.interfaces.ManagerService;
 import dto.TableList;
 import enums.UserType;
 import utilities.BaseDao;
@@ -58,9 +59,13 @@ public class CustomerServiceImpl implements CustomerService {
             throw new RuntimeException(e);
         }
         TableList tableList = new TableList();
-        if(customer != null){
-            tableList.setColumnsName(new Object[]{"User Id", "User Name"});
-            Object[][] rowData = new Object[1][];
+        tableList.setColumnsName(new Object[]{"User Id", "User Name"});
+        Object[][] rowData = new Object[1][];
+        if (customer == null) {
+            rowData[0] = new Object[]{"N/A", "N/A"};
+            tableList.setRowData(rowData);
+        }
+        else {
             rowData[0] = new Object[]{customer.getId(), customer.getName()};
             tableList.setRowData(rowData);
         }
@@ -142,4 +147,5 @@ public class CustomerServiceImpl implements CustomerService {
             throw new RuntimeException(e);
         }
     }
+
 }

@@ -18,17 +18,31 @@ public class SearchCustomerComponent extends JPanel{
 
     public SearchCustomerComponent() {
         customerService = new CustomerServiceImpl();
+        contentPanel.add(new CustomerComponent(""));
         add(searchPanel);
         searchButton.setActionCommand("search");
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (textField1.getText() == "") return;
+
                 contentPanel.remove(0);
+
                 contentPanel.add(new CustomerComponent(textField1.getText()));
                 contentPanel.validate();
                 contentPanel.repaint();
             }
         });
+    }
+
+    public static void main(String[] args) {
+        JFrame jf = new JFrame();
+        jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        jf.setContentPane(new SearchCustomerComponent());
+
+        jf.pack();
+        jf.setLocationRelativeTo(null);
+        jf.setVisible(true);
     }
 }
