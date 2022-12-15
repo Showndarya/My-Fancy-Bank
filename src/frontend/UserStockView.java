@@ -22,7 +22,6 @@ public class UserStockView extends JPanel {
     private JScrollPane userStockPanel;
     private JPanel leftPanel;
     private JPanel userStockView;
-    private JLabel userName;
     private StockService stockService;
     private JLabel securityBalance;
     private JTable table1;
@@ -32,12 +31,15 @@ public class UserStockView extends JPanel {
     private JButton btn2;
     private JPanel bottomPanel;
     private JTextField textField1;
+    private JLabel unrealizedProfit;
 
     private SecurityService securityService;
 
     private double customerMoney;
 
     private int clientId;
+
+    private DefaultTableModel model;
 
 
     public UserStockView() {
@@ -46,24 +48,24 @@ public class UserStockView extends JPanel {
         stockService = new StockServiceImpl();
         add(userStockView);
         customerMoney = 0;
-        String name = "YYJ"; //user service get user by id
         try {
-            customerMoney = securityService.getCustomerMoney(1);
+            customerMoney = securityService.getCustomerMoney(clientId);
         } catch (SQLException e) {
             System.out.println("get customer money failed");
         }
         StockListComponent stockListComponent = StockListComponent.getInstance();
         stockListPanel.add(stockListComponent);
-        userName.setText("User: " + name);
         securityBalance.setText("Security Balance: " + customerMoney);
         textField1.setPreferredSize(new Dimension(130, 25));
         btn1.setPreferredSize(new Dimension(100, 25));
         btn2.setPreferredSize(new Dimension(100, 25));
         TableList userStock = stockService.getUserStockDataByUserId(clientId);
 
-        DefaultTableModel model = (DefaultTableModel) table1.getModel();
+        model = (DefaultTableModel) table1.getModel();
         Object[][] rowData = userStock.getRowData();
         model.setDataVector(rowData, userStock.getColumnsName());
+
+        unrealizedProfit.setText("Estimate unrealized profit: " + calculateUnrealizedProfit() + "");
 
 //        table1 = new JTable(userStock.getRowData(), userStock.getColumnsName()) {
 //            public boolean editCellAt(int row, int column, java.util.EventObject e) {
@@ -118,7 +120,7 @@ public class UserStockView extends JPanel {
                 if (i == 1) {
                     return;
                 }
-                stockService.buyStock(1, stock.getId(), Integer.parseInt(num), stockPrice);
+                stockService.buyStock(clientId, stock.getId(), Integer.parseInt(num), stockPrice);
                 reloadTable();
 
                 userStockView.validate();
@@ -149,7 +151,7 @@ public class UserStockView extends JPanel {
                 if (i == 1) {
                     return;
                 }
-                stockService.sellStock(1, stockId, Integer.parseInt(num), stockPrice);
+                stockService.sellStock(clientId, stockId, Integer.parseInt(num), stockPrice);
                 reloadTable();
                 userStockView.validate();
                 userStockView.repaint();
@@ -164,12 +166,23 @@ public class UserStockView extends JPanel {
             System.out.println("get customer money failed");
         }
         securityBalance.setText("Security Balance: " + customerMoney);
-        int userId = 1;
-        TableList userStock = stockService.getUserStockDataByUserId(userId);
+        TableList userStock = stockService.getUserStockDataByUserId(clientId);
 
         DefaultTableModel model = (DefaultTableModel) table1.getModel();
         Object[][] rowData = userStock.getRowData();
         model.setDataVector(rowData, userStock.getColumnsName());
+        unrealizedProfit.setText("Estimate unrealized profit: " + calculateUnrealizedProfit() + "");
+
+    }
+
+    private double calculateUnrealizedProfit() {
+        int rowCount = model.getRowCount();
+        double result = 0;
+        for (int i = 0; i < rowCount; i++) {
+            result += (double) model.getValueAt(i, 2) * (int) model.getValueAt(i, 3);
+        }
+        result = Math.round(result * 100.00) / 100.00;
+        return result;
     }
 
     public static void main(String[] args) {

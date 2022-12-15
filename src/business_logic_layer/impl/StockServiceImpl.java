@@ -66,6 +66,7 @@ public class StockServiceImpl implements StockService {
             connection.setAutoCommit(false);
             //calculate new money
             double customerMoney = securityService.getCustomerMoney(clientId);
+            System.out.println(customerMoney + " is customer money");
             if (customerMoney < stockPrice * numberOfShare) {
                 return false;
             }

@@ -93,8 +93,8 @@ public class StockListComponent extends JScrollPane {
                     int rowCount = model.getRowCount();
 
                     for (int i = 0; i < rowCount; i++) {
-                        int i1 = random.nextInt(10);
-                        double percentage = (double) i1 / 100;
+                        int i1 = random.nextInt(20);
+                        double percentage = (double) i1 / 1000;
                         System.out.println(percentage);
                         if (i1 % 2 == 0) {
                             double v = (double) model.getValueAt(i, 2) * (1 + percentage);

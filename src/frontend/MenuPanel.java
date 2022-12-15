@@ -38,14 +38,15 @@ public class MenuPanel extends JTabbedPane {
         // Stock
         stockPanel = generateTabPanel();
         stockPanel.setLayout(new FlowLayout());
-
-        stockPanel.add(new UserStockView());
+        UserStockView userStockView = new UserStockView();
+        stockPanel.add(userStockView);
 
         addTab("Stock", stockPanel);
 
         stockTransaction = generateTabPanel();
         stockTransaction.setLayout(new FlowLayout());
-        stockTransaction.add(new StockTransactionView());
+        StockTransactionView stockTransactionView = new StockTransactionView();
+        stockTransaction.add(stockTransactionView);
         addTab("StockTransaction", stockTransaction);
         // Return
         returnPanel = generateTabPanel();
@@ -62,9 +63,11 @@ public class MenuPanel extends JTabbedPane {
                     myAccountPanel.add(new MyAccountPanel());
                     myAccountPanel.repaint();
                 } else if (index == 1) {
-
-
+                    userStockView.reloadTable();
                 } else if (index == 2) {
+                    stockTransactionView.reload();
+
+                } else if (index == 3) {
                     returnPanel.removeAll();
                     returnPanel.add(new ReturnPanel());
                     returnPanel.repaint();

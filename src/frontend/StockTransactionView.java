@@ -27,13 +27,15 @@ public class StockTransactionView extends JPanel {
 
     private StockTransactionService stockTransactionService;
 
+    private DefaultTableModel model;
+
     public StockTransactionView() {
         clientId = FancyBank.getInstance().getUserId();
 
         stockTransactionService = new StockTransactionServiceImpl();
         add(panel1);
 
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model = (DefaultTableModel) table.getModel();
         Object[] columnName = new Object[]{"Name", "Tag", "Price", "Transaction Type", "Number of share"};
 
         TableList transactionDetails = stockTransactionService.getTransactionDetails(clientId);
@@ -86,6 +88,11 @@ public class StockTransactionView extends JPanel {
 
             }
         });
+    }
+
+    public void reload() {
+        TableList transactionDetails = stockTransactionService.getTransactionDetails(clientId);
+        model.setDataVector(transactionDetails.getRowData(), transactionDetails.getColumnsName());
     }
 
     public static void main(String[] args) {
