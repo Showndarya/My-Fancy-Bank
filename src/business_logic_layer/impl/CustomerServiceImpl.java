@@ -1,6 +1,7 @@
 package business_logic_layer.impl;
 
 import business_logic_layer.interfaces.CustomerService;
+import enums.UserType;
 import utilities.BaseDao;
 import data_access_layer.impl.CustomerDaoImpl;
 import data_access_layer.interfaces.CustomerDao;
@@ -30,6 +31,17 @@ public class CustomerServiceImpl implements CustomerService {
         else{
             return -1;
         }
+    }
+
+    @Override
+    public UserType getUserType(int id) {
+        Customer customer = null;
+        try{
+            customer = (Customer) customerDao.getById(id);
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return customer.getType();
     }
 
     @Override

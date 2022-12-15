@@ -14,7 +14,7 @@ public interface SecurityDao {
     public int modifyMoneyInSecurityAccount(Connection connection,int clientId, double amount) throws SQLException;
 
 
-    public int createNewSecurityAccount(Connection connection,int clientId, int money) throws SQLException;
+    public int createNewSecurityAccount(Connection connection,int clientId, double money) throws SQLException;
 
 
     public double getCustomerMoney(int clientId) throws SQLException;
