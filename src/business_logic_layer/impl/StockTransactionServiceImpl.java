@@ -61,4 +61,30 @@ public class StockTransactionServiceImpl implements StockTransactionService {
         return null;
     }
 
+    /**
+     * get all the transaction details
+     *
+     * @param clientId
+     * @return
+     */
+    @Override
+    public TableList getTransactionDetails(int clientId) {
+        try {
+            List<StockTransactionDetail> transactionDetail = stockTransactionDao.getAllTransactions(clientId);
+            TableList tableList = new TableList();
+            Object[] columnName = new Object[]{"Name", "Tag", "Price", "Transaction Type", "Number of share"};
+            Object[][] rowData = new Object[transactionDetail.size()][];
+            int index = 0;
+            for (StockTransactionDetail i : transactionDetail) {
+                rowData[index++] = new Object[]{i.getStockName(), i.getStockTag(), i.getDealPrice(), i.getTransactionType(), i.getNumOfShare()};
+            }
+            tableList.setColumnsName(columnName);
+            tableList.setRowData(rowData);
+            return tableList;
+        } catch (SQLException e) {
+            System.out.println("Get transaction detail failed");
+        }
+        return null;
+    }
+
 }

@@ -3,6 +3,7 @@ package frontend;
 import business_logic_layer.interfaces.StockTransactionService;
 import business_logic_layer.impl.StockTransactionServiceImpl;
 import dto.TableList;
+import utilities.FancyBank;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -22,10 +23,12 @@ public class StockTransactionView extends JPanel {
     private JTable table;
     private JButton button;
 
+    private int clientId;
+
     private StockTransactionService stockTransactionService;
 
     public StockTransactionView() {
-        int clientId = 1;
+        clientId = FancyBank.getInstance().getUserId();
 
         stockTransactionService = new StockTransactionServiceImpl();
         add(panel1);
@@ -33,7 +36,8 @@ public class StockTransactionView extends JPanel {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         Object[] columnName = new Object[]{"Name", "Tag", "Price", "Transaction Type", "Number of share"};
 
-        model.setDataVector(new Object[0][], columnName);
+        TableList transactionDetails = stockTransactionService.getTransactionDetails(clientId);
+        model.setDataVector(transactionDetails.getRowData(), transactionDetails.getColumnsName());
 
 
         table.setDefaultEditor(Object.class, null);
@@ -64,9 +68,16 @@ public class StockTransactionView extends JPanel {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (textField1.getText().equals("") || textField2.getText().equals("") || textField3.getText().equals("")) {
+                String text = textField1.getText();
+                String text1 = textField2.getText();
+                String text2 = textField3.getText();
+                if (!text.matches("\\d+") || !text1.matches("\\d+") || !text2.matches("\\d+")) {
                     System.out.println("Must enter right date");
+                    JOptionPane.showMessageDialog(panel1, "Please the right date", "Warning", JOptionPane.WARNING_MESSAGE);
+
+                    return;
                 }
+
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
                 TableList tableList = stockTransactionService.getTransactionDetails(clientId, textField1.getText() + "-" + textField2.getText() + "-" + textField3.getText());
                 model.setDataVector(tableList.getRowData(), tableList.getColumnsName());
@@ -78,6 +89,7 @@ public class StockTransactionView extends JPanel {
     }
 
     public static void main(String[] args) {
+        FancyBank.getInstance().setUserId(1);
         StockTransactionView stockTransactionView = new StockTransactionView();
         JFrame frame = new JFrame("UserStockView");
         frame.setContentPane(stockTransactionView);

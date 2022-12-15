@@ -40,7 +40,25 @@ public class StockTransactionDaoImpl implements StockTransactionDao {
         Statement statement = null;
         ResultSet resultSet = null;
         String[] strings = simpleDate.split("-");
-        String sql = "select `name`,`tag`,`stock_transaction`.price,`transaction_type`,`number_of_share` from stock_transaction join stock s on s.id = stock_transaction.stock_id where (client_id=" + clientId + " and year(created_date)=" + strings[0] + " and month(created_date)=" + strings[1] + " and day(created_date)=" + strings[2] + ")";
+        String sql = "select `name`,`tag`,`stock_transaction`.price,`transaction_type`,`number_of_share` from stock_transaction join stock s on s.id = stock_transaction.stock_id where (client_id=" + clientId + " and year(created_date)=" + strings[0] + " and month(created_date)=" + strings[1] + " and day(created_date)=" + strings[2] + "  ) order by created_date desc ";
+        resultSet = BaseDao.execute(connection, sql, statement, resultSet);
+        StockTransactionDetail stockTransactionDetail;
+        while (resultSet.next()) {
+            String transType = resultSet.getInt("transaction_type") == 0 ? "Buy" : "Sell";
+            stockTransactionDetail = new StockTransactionDetail(resultSet.getString("name"), resultSet.getString("tag"), resultSet.getDouble("price"), transType, resultSet.getInt("number_of_share"));
+            list.add(stockTransactionDetail);
+        }
+        BaseDao.close(connection, statement, resultSet);
+        return list;
+    }
+
+    @Override
+    public List<StockTransactionDetail> getAllTransactions(int clientId) throws SQLException {
+        Connection connection = BaseDao.getConnection();
+        List<StockTransactionDetail> list = new ArrayList<>();
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String sql = "select `name`,`tag`,`stock_transaction`.price,`transaction_type`,`number_of_share` from stock_transaction join stock s on s.id = stock_transaction.stock_id where (client_id=" + clientId + "  ) order by created_date desc";
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         StockTransactionDetail stockTransactionDetail;
         while (resultSet.next()) {

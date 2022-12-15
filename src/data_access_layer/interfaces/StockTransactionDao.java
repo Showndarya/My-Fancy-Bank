@@ -20,4 +20,6 @@ public interface StockTransactionDao {
     public int addTransaction(Connection connection, int clientId, int stockId, double price, boolean transType, int numOfShare) throws SQLException;
 
     List<StockTransactionDetail> getTransactionDetail(int clientId, String simpleDate) throws SQLException;
+
+    List<StockTransactionDetail> getAllTransactions(int clientId) throws SQLException;
 }

@@ -26,4 +26,13 @@ public interface StockTransactionService {
      * @return
      */
     public TableList getTransactionDetails(int clientId, String simpleDate);
+
+
+    /**
+     * get all the transaction details
+     *
+     * @param clientId
+     * @return
+     */
+    public TableList getTransactionDetails(int clientId);
 }
