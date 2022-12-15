@@ -31,7 +31,7 @@ public class MyAccountPanel extends JPanel{
     public MyAccountPanel(){
         // account label
         accountLabel = new JLabel("My accounts", JLabel.RIGHT);
-        accountLabel.setBounds(0, 0, 130, 50);
+        accountLabel.setBounds(20, 0, 130, 50);
         accountLabel.setFont(new Font("serif", Font.PLAIN, LABEL_FONT_SIZE));
         add(accountLabel);
         // Buttons
@@ -39,52 +39,52 @@ public class MyAccountPanel extends JPanel{
         addAccountsButton = new Hashtable<>();
         // checking account button
         JButton checkingAccountButton = new JButton("checking");
-        checkingAccountButton.setBounds(0, 50, 120, 40);
+        checkingAccountButton.setBounds(20, 50, 120, 40);
         checkingAccountButton.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
         checkingAccountButton.addActionListener(this::clickCheckingAccountButton);
         accountsButton.put(AccountType.Checking, checkingAccountButton);
         add(checkingAccountButton);
         // add checking account button
         JButton addCheckingAccountButton = new JButton("add");
-        addCheckingAccountButton.setBounds(130, 50, 70, 40);
+        addCheckingAccountButton.setBounds(150, 50, 70, 40);
         addCheckingAccountButton.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
         addCheckingAccountButton.addActionListener(this::clickAddCheckingAccountButton);
         addAccountsButton.put(AccountType.Checking, addCheckingAccountButton);
         add(addCheckingAccountButton);
         // savings account button
         JButton savingsAccountButton = new JButton("savings");
-        savingsAccountButton.setBounds(0, 100, 120, 40);
+        savingsAccountButton.setBounds(20, 100, 120, 40);
         savingsAccountButton.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
         savingsAccountButton.addActionListener(this::clickSavingsAccountButton);
         accountsButton.put(AccountType.Savings, savingsAccountButton);
         add(savingsAccountButton);
         // add savings account button
         JButton addSavingsAccountButton = new JButton("add");
-        addSavingsAccountButton.setBounds(130, 100, 70, 40);
+        addSavingsAccountButton.setBounds(150, 100, 70, 40);
         addSavingsAccountButton.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
         addSavingsAccountButton.addActionListener(this::clickAddSavingsAccountButton);
         addAccountsButton.put(AccountType.Savings, addSavingsAccountButton);
         add(addSavingsAccountButton);
         // security account button
         JButton securityAccountButton = new JButton("security");
-        securityAccountButton.setBounds(0, 150, 120, 40);
+        securityAccountButton.setBounds(20, 150, 120, 40);
         securityAccountButton.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
         securityAccountButton.addActionListener(this::clickSecurityAccountButton);
         accountsButton.put(AccountType.Security, securityAccountButton);
-        add(securityAccountButton);
+//        add(securityAccountButton);
         // add security account button
         JButton addSecurityAccountButton = new JButton("add");
-        addSecurityAccountButton.setBounds(130, 150, 70, 40);
+        addSecurityAccountButton.setBounds(150, 150, 70, 40);
         addSecurityAccountButton.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
         addSecurityAccountButton.addActionListener(this::clickAddSecurityAccountButton);
         addAccountsButton.put(AccountType.Security, addSecurityAccountButton);
-        add(addSecurityAccountButton);
+//        add(addSecurityAccountButton);
         // return button
         returnButton = new JButton("return");
-        returnButton.setBounds(0, 450, 160, 40);
+        returnButton.setBounds(20, 400, 160, 40);
         returnButton.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
         returnButton.addActionListener(this::clickReturnButton);
-        add(returnButton);
+//        add(returnButton);
         // Initialize
         initialize();
         // Panel

@@ -85,6 +85,8 @@ public class LoginPanel extends JPanel{
     }
 
     private void clickLoginButton(ActionEvent e){
+        errorLabel.setVisible(false);
+        repaint();
         String name = nameTextField.getText();
         String password = String.valueOf(passwordField.getPassword());
         if(name.length() == 0 || password.length() == 0){

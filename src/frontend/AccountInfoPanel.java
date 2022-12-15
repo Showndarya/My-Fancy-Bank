@@ -53,13 +53,13 @@ public abstract class AccountInfoPanel extends JPanel{
         add(balancePrompt);
         // delete account button
         removeAccountButton = new JButton("delete account");
-        removeAccountButton.setBounds(50, 500, 200, 40);
+        removeAccountButton.setBounds(50, 450, 200, 40);
         removeAccountButton.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
         removeAccountButton.addActionListener(this::clickDeleteAccountButton);
         add(removeAccountButton);
         // delete account error label
         removeAccountErrorLabel = new JLabel("Can only delete account without balances!");
-        removeAccountErrorLabel.setBounds(50, 550, 400, 30);
+        removeAccountErrorLabel.setBounds(50, 500, 400, 30);
         removeAccountErrorLabel.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
         removeAccountErrorLabel.setVisible(false);
         add(removeAccountErrorLabel);
@@ -69,7 +69,7 @@ public abstract class AccountInfoPanel extends JPanel{
         initialize();
         // Panel
 //        setSize(WIDTH, HEIGHT);
-        setBounds(210, 10, 540, 540);
+        setBounds(250, 10, 540, 540);
         setBackground(Color.LIGHT_GRAY);
         setLayout(null);
         setVisible(true);

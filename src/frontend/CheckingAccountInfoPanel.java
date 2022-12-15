@@ -46,14 +46,16 @@ public class CheckingAccountInfoPanel extends AccountInfoPanel {
         int accountId = accountService.getAccountId(FancyBank.getInstance().getUserId(), AccountType.Checking);
         ArrayList<UserAccount> accounts;
         try{
-            accounts = accountOperationService.getAccountsByIdWithBalance(accountId);
+            accounts = accountOperationService.getAccountsByIdWithBalance(FancyBank.getInstance().getUserId());
         } catch (SQLException e){
             e.printStackTrace();
             return null;
         }
         Hashtable<String, Double> balances =  new Hashtable<>();
         for(UserAccount userAccount: accounts){
-            balances.put(userAccount.moneyType.getSymbol(), userAccount.amount);
+            if(userAccount.accountId == accountId){
+                balances.put(userAccount.moneyType.getSymbol(), userAccount.amount);
+            }
         }
         return balances;
     }

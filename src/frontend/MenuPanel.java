@@ -8,61 +8,76 @@ import java.awt.event.ActionEvent;
 
 
 
-public class MenuPanel extends JPanel{
+public class MenuPanel extends JTabbedPane{
     private static final int BUTTON_FONT_SIZE = 20;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
-    private JTabbedPane mainTabbedPane;
+//    private JTabbedPane mainTabbedPane;
     private JPanel stockPanel;
     private JPanel myAccountPanel;
+    private JPanel returnPanel;
 
     public MenuPanel(){
-        mainTabbedPane = new JTabbedPane(SwingConstants.LEFT);
+        super(SwingConstants.LEFT);
+//        mainTabbedPane = new JTabbedPane(SwingConstants.LEFT);
         // panels
-        myAccountPanel = new JPanel();
-        myAccountPanel.add(new MyAccountPanel());
-        mainTabbedPane.addTab("Accounts", myAccountPanel);
-
-        stockPanel = new JPanel();
-
-        mainTabbedPane.addTab("Stock", stockPanel);
 
         // To add a panel
         // new a panel
         // add your panel to that panel
         // add the panel to mainTabbedPane
 
-        mainTabbedPane.addChangeListener(new ChangeListener() {
+        // My Account
+        myAccountPanel = generateTabPanel();
+        myAccountPanel.add(new MyAccountPanel());
+        addTab("Accounts", myAccountPanel);
+
+        // Stock
+        stockPanel = generateTabPanel();
+
+        addTab("Stock", stockPanel);
+
+        // Return
+        returnPanel = generateTabPanel();
+        returnPanel.add(new ReturnPanel());
+        addTab("Log out", returnPanel);
+
+        // Panel
+        addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                int index = mainTabbedPane.getSelectedIndex();
+                int index = getSelectedIndex();
                 if(index == 0){
                     myAccountPanel.removeAll();
                     myAccountPanel.add(new MyAccountPanel());
-                    myAccountPanel.validate();
                     myAccountPanel.repaint();
                 }
                 else if(index == 1){
 
 
-
                 }
-                System.out.println("Current index: " + mainTabbedPane.getSelectedIndex());
+                else if(index == 2){
+                    returnPanel.removeAll();
+                    returnPanel.add(new ReturnPanel());
+                    returnPanel.repaint();
+                }
+                System.out.println("Current index: " + getSelectedIndex());
             }
         });
-
-        mainTabbedPane.setSelectedIndex(0);
-        MainFrame.getInstance().setContentPane(mainTabbedPane);
-        // Panel
-        setSize(WIDTH, HEIGHT);
-        setLayout(null);
+        setSelectedIndex(0);
         setVisible(true);
-        repaint();
     }
 
     private void clickMyAccountButton(ActionEvent e){
         MainFrame.getInstance().setPanel(new MyAccountPanel());
+    }
+
+    private JPanel generateTabPanel(){
+        JPanel jPanel = new JPanel();
+        jPanel.setLayout(null);
+        jPanel.setSize(800, 600);
+        return jPanel;
     }
 
 
