@@ -19,7 +19,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class OpenSecurityAccountPanel extends JPanel{
+public class OpenSecurityAccountPanel extends JPanel {
     private static final int USD_TYPE = 1;
     private static final double MINIMUM_INITIAL_MONEY = 1000;
     private static final double MINIMUM_SAVINGS_MONEY = 5000;
@@ -38,11 +38,11 @@ public class OpenSecurityAccountPanel extends JPanel{
     private AccountService accountService;
     private SecurityService securityService;
 
-    public OpenSecurityAccountPanel(){
+    public OpenSecurityAccountPanel() {
         reload();
     }
 
-    public void reload(){
+    public void reload() {
         // initial money label
         openAccountPrompt = new JLabel("Open Security Account", JLabel.RIGHT);
         openAccountPrompt.setBounds(280, 150, 200, 30);
@@ -68,51 +68,52 @@ public class OpenSecurityAccountPanel extends JPanel{
         accountOperationService = new AccountOperationServiceImpl();
         accountService = new AccountServiceImpl();
         securityService = new SecurityServiceImpl();
+        setSize(WIDTH, HEIGHT);
         // panel
         setLayout(null);
         setVisible(true);
     }
 
-    private void clickOpenButton(ActionEvent e){
+    private void clickOpenButton(ActionEvent e) {
         double initialMoney = 0;
-        try{
+        try {
             initialMoney = Integer.parseInt(initialMoneyTextField.getText());
-        } catch (NumberFormatException nfe){
+        } catch (NumberFormatException nfe) {
             nfe.printStackTrace();
         }
-        if(initialMoney < MINIMUM_INITIAL_MONEY){
+        if (initialMoney < MINIMUM_INITIAL_MONEY) {
             JOptionPane.showMessageDialog(this, "Initial money must be larger than 1000", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         int accountId = accountService.getAccountId(FancyBank.getInstance().getUserId(), AccountType.Savings);
         ArrayList<UserAccount> userAccounts = null;
-        try{
+        try {
+            
             userAccounts = accountOperationService.getAccountsByIdWithBalance(accountId);
-        } catch (SQLException sqlException){
+        } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
         double savingsMoney = 0;
         boolean ok = false;
-        for(UserAccount userAccount: userAccounts){
-            if(userAccount.moneyType.getType().equals("usd")){
+        for (UserAccount userAccount : userAccounts) {
+            if (userAccount.moneyType.getType().equals("usd")) {
                 savingsMoney = userAccount.amount;
-                if(userAccount.amount >= MINIMUM_SAVINGS_MONEY){
+                if (userAccount.amount >= MINIMUM_SAVINGS_MONEY) {
                     ok = true;
                 }
             }
         }
-        if(ok){
-            if(savingsMoney < initialMoney){
+        if (ok) {
+            if (savingsMoney < initialMoney) {
                 JOptionPane.showMessageDialog(this, "No enough monet in savings account", "Warning", JOptionPane.WARNING_MESSAGE);
                 return;
             }
             Connection connection = BaseDao.getConnection();
-            try{
+            try {
                 accountOperationService.changeBalance(TransactionType.Withdraw, accountId, initialMoney, USD_TYPE);
                 securityService.createNewSecurityAccount(connection, FancyBank.getInstance().getUserId(), initialMoney);
-                securityService.modifyMoneyInSecurityAccount(connection, FancyBank.getInstance().getUserId(), initialMoney);
-            } catch (SQLException sqle){
+            } catch (SQLException sqle) {
                 try {
                     sqle.printStackTrace();
                     System.out.println("Error occur. Try to rollback");
@@ -120,18 +121,23 @@ public class OpenSecurityAccountPanel extends JPanel{
                 } catch (SQLException ex) {
                     System.out.println("Rollback failed");
                 }
-            }
-            finally {
+            } finally {
                 BaseDao.close(connection, null, null);
             }
+            MainFrame.getInstance().setPanel(new MenuPanel());
         }
 
 
-
-        JOptionPane.showMessageDialog(this, "Please select a data", "Warning", JOptionPane.WARNING_MESSAGE);
-
     }
 
+    public static void main(String[] args) {
+        JFrame jFrame = new JFrame();
+        jFrame.setContentPane(new OpenSecurityAccountPanel());
+        jFrame.setLayout(null);
+        jFrame.pack();
+        jFrame.setVisible(true);
+
+    }
 
 
 }
