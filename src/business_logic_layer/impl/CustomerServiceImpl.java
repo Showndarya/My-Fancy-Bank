@@ -7,12 +7,15 @@ import utilities.BaseDao;
 import data_access_layer.impl.CustomerDaoImpl;
 import data_access_layer.interfaces.CustomerDao;
 import models.users.Customer;
+import utilities.MD5Encryptor;
 
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Objects;
 
 public class CustomerServiceImpl implements CustomerService {
+    private static final int ENCRYPTION_PASSWORD_LENGTH = 16;
     private final CustomerDao customerDao;
 
     public CustomerServiceImpl(){
@@ -108,7 +111,8 @@ public class CustomerServiceImpl implements CustomerService {
             if(customer == null){
                 return false;
             }
-            return name.equals(customer.getName()) && password.equals(customer.getPassword());
+            String encryptedPassword = Objects.requireNonNull(MD5Encryptor.getMD5(password)).substring(0, ENCRYPTION_PASSWORD_LENGTH);
+            return name.equals(customer.getName()) && encryptedPassword.equals(customer.getPassword());
         } catch (SQLException e){
             throw new RuntimeException(e);
         }
@@ -121,7 +125,8 @@ public class CustomerServiceImpl implements CustomerService {
             if(customer != null){
                 return false;
             }
-           return addCustomer(name, password);
+            String encryptedPassword = Objects.requireNonNull(MD5Encryptor.getMD5(password)).substring(0, ENCRYPTION_PASSWORD_LENGTH);
+           return addCustomer(name, encryptedPassword);
         } catch (SQLException e){
             throw new RuntimeException(e);
         }

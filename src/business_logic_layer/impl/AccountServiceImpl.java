@@ -70,6 +70,7 @@ public class AccountServiceImpl implements AccountService {
             } catch (SQLException ex) {
                 System.out.println("Rollback failed");
             }
+            return false;
         } finally {
             BaseDao.close(connection, null, null);
         }
