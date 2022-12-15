@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 
@@ -17,6 +18,7 @@ public class MenuPanel extends JTabbedPane{
     private JPanel stockPanel;
     private JPanel myAccountPanel;
     private JPanel returnPanel;
+    private JPanel transactionsPanel;
 
     public MenuPanel(){
         super(SwingConstants.LEFT);
@@ -38,6 +40,12 @@ public class MenuPanel extends JTabbedPane{
 
         addTab("Stock", stockPanel);
 
+        //Account Transactions
+        transactionsPanel = generateTabPanel();
+        transactionsPanel.setLayout(new FlowLayout());
+        transactionsPanel.add(new AccountTransactionsView());
+        addTab("Account Transactions", transactionsPanel);
+
         // Return
         returnPanel = generateTabPanel();
         returnPanel.add(new ReturnPanel());
@@ -58,6 +66,11 @@ public class MenuPanel extends JTabbedPane{
 
                 }
                 else if(index == 2){
+                    transactionsPanel.removeAll();
+                    transactionsPanel.add(new AccountTransactionsView());
+                    transactionsPanel.repaint();
+                }
+                else if(index == 3){
                     returnPanel.removeAll();
                     returnPanel.add(new ReturnPanel());
                     returnPanel.repaint();
