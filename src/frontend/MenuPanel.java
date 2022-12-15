@@ -22,6 +22,9 @@ public class MenuPanel extends JTabbedPane{
 
     private JPanel stockTransaction;
 
+    private JPanel loanPanel;
+
+
     public MenuPanel() {
         super(SwingConstants.LEFT);
 //        mainTabbedPane = new JTabbedPane(SwingConstants.LEFT);
@@ -56,10 +59,17 @@ public class MenuPanel extends JTabbedPane{
         transactionsPanel.add(new AccountTransactionsView());
         addTab("Account Transactions", transactionsPanel);
 
+        // Loan
+        loanPanel = generateTabPanel();
+        loanPanel.setLayout(new FlowLayout());
+        loanPanel.add(new LoanListView());
+        addTab("Loan Transactions", loanPanel);
+
         // Return
         returnPanel = generateTabPanel();
         returnPanel.add(new ReturnPanel());
         addTab("Log out", returnPanel);
+
 
         // Panel
         addChangeListener(new ChangeListener() {
@@ -80,7 +90,12 @@ public class MenuPanel extends JTabbedPane{
                     transactionsPanel.add(new AccountTransactionsView());
                     transactionsPanel.repaint();
                 }
-                else if(index == 4){
+                else if (index == 4) {
+                    loanPanel.removeAll();
+                    loanPanel.add(new LoanListView());
+                    loanPanel.repaint();
+                }
+                else if(index == 5){
                     returnPanel.removeAll();
                     returnPanel.add(new ReturnPanel());
                     returnPanel.repaint();

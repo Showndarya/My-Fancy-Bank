@@ -131,4 +131,14 @@ public class CustomerServiceImpl implements CustomerService {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public Customer getCustomerByID(int id) {
+        try{
+            Customer customer = customerDao.getCustomerByID(id);
+            return customer;
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
 }

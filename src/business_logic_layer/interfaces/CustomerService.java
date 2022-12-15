@@ -2,6 +2,9 @@ package business_logic_layer.interfaces;
 
 import dto.TableList;
 import enums.UserType;
+import models.users.Customer;
+
+import java.sql.SQLException;
 
 public interface CustomerService {
     public int getCustomerId(String name);
@@ -40,5 +43,7 @@ public interface CustomerService {
      * @return true if register successfully
      */
     public boolean registerCustomer(String name, String password);
+
+    public Customer getCustomerByID(int id);
 
 }

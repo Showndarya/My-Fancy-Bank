@@ -8,6 +8,8 @@ import models.users.User;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerDaoImpl implements CustomerDao {
 
@@ -97,5 +99,20 @@ public class CustomerDaoImpl implements CustomerDao {
                 java.sql.Date.valueOf(LocalDate.now()) + "');";
         int affectRows = BaseDao.executeUpdate(connection, sql, statement);
         return affectRows;
+    }
+
+    @Override
+    public Customer getCustomerByID(int id) throws SQLException {
+        Connection connection = BaseDao.getConnection();
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String sql = "select * from user where id = " + id;
+        resultSet = BaseDao.execute(connection, sql, statement, resultSet);
+        Customer customer = null;
+        while (resultSet.next()){
+            customer = new Customer(resultSet.getInt("id"), resultSet.getString("user_name"));
+        }
+        BaseDao.close(connection, statement, resultSet);
+        return customer;
     }
 }

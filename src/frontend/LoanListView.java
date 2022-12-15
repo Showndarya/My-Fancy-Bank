@@ -1,15 +1,19 @@
 package frontend;
 
+import business_logic_layer.impl.CustomerServiceImpl;
+import business_logic_layer.interfaces.CustomerService;
 import business_logic_layer.interfaces.LoanTransactionService;
 import business_logic_layer.impl.LoanTransactionServiceImpl;
 import frontend.component.AddLoanComponent;
 import frontend.component.LoanTransactionComponent;
 import models.transaction.LoanTransaction;
 import models.users.Customer;
+import utilities.FancyBank;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class LoanListView extends JPanel{
     private JPanel loanListView;
@@ -18,12 +22,14 @@ public class LoanListView extends JPanel{
     private JButton deleteButton;
     private JPanel contentPanel;
     private Customer customer;
+    private CustomerService customerService;
 
     private LoanTransactionService loanTransactionService;
 
     // create the list view for customer's loan
-    public LoanListView(Customer customer) {
-        this.customer = customer;
+    public LoanListView(){
+        customerService = new CustomerServiceImpl();
+        this.customer = customerService.getCustomerByID(FancyBank.getInstance().getUserId());
         loanTransactionService = new LoanTransactionServiceImpl();
         add(loanListView);
         contentPanel.add(LoanTransactionComponent.getInstance(customer));
@@ -34,7 +40,7 @@ public class LoanListView extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 contentPanel.remove(0);
-                contentPanel.add(new AddLoanComponent(contentPanel, customer));
+                contentPanel.add(new AddLoanComponent(contentPanel));
                 LoanTransactionComponent.getInstance(customer).reloadTable(customer);
                 contentPanel.validate();
                 contentPanel.repaint();
@@ -57,10 +63,10 @@ public class LoanListView extends JPanel{
         });
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         JFrame frame = new JFrame("LoanListView");
         Customer customer = new Customer(1, "name");
-        frame.setContentPane(new LoanListView(customer));
+        frame.setContentPane(new LoanListView());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

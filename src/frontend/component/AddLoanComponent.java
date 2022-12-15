@@ -1,13 +1,15 @@
 package frontend.component;
 
 import business_logic_layer.interfaces.LoanTransactionService;
-import business_logic_layer.interfaces.MoneyTypeService;
 import business_logic_layer.impl.LoanTransactionServiceImpl;
-import business_logic_layer.impl.MoneyTypeServiceImpl;
+import controller_layer.AccountController;
 import controller_layer.TransactionController;
+import dto.UserAccount;
+import models.account.Account;
 import models.transaction.MoneyType;
 import models.transaction.Collateral;
 import models.users.Customer;
+import utilities.FancyBank;
 import utilities.Tuple;
 
 import javax.swing.*;
@@ -17,7 +19,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AddLoanComponent extends JPanel{
+    private Customer customer;
     ArrayList<MoneyType> moneyTypes;
+    ArrayList<UserAccount> accountArrayList;
     private JPanel addLoanPanel;
     private JLabel collateralName;
     private JTextField textField1;
@@ -29,13 +33,25 @@ public class AddLoanComponent extends JPanel{
     private JButton saveButton;
     private JButton cancelButton;
     private JComboBox moneyTypeBox;
+    private JLabel accountLable;
+    private JComboBox accountBox;
     private LoanTransactionService loanTransactionService;
     TransactionController controller = new TransactionController();
+    AccountController accountController = new AccountController();
 
-    public AddLoanComponent(JPanel jPanel, Customer customer) {
+    public AddLoanComponent(JPanel jPanel) {
+
         moneyTypes = new ArrayList<>();
         try {
             moneyTypes = controller.getAllmoneyTypes();
+        } catch(SQLException e) {
+
+        }
+
+        accountArrayList = new ArrayList<>();
+        try {
+            accountArrayList = accountController.getAccountsByIdWithBalance(FancyBank.getInstance().getUserId());
+            // accountArrayList = accountController.getAccountsByIdWithBalance(2);
         } catch(SQLException e) {
 
         }
@@ -44,6 +60,10 @@ public class AddLoanComponent extends JPanel{
             moneyTypeBox.addItem(new Tuple(type.getType() + "("
                     + type.getSymbol() + ")",
                     type.getId()));
+        }
+
+        for (UserAccount userAccount: accountArrayList) {
+            accountBox.addItem(new Tuple(userAccount.accountType.getDisplay(), userAccount.accountId));
         }
 
         loanTransactionService = new LoanTransactionServiceImpl();
