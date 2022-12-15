@@ -1,5 +1,9 @@
 package frontend;
 
+import business_logic_layer.impl.SecurityServiceImpl;
+import business_logic_layer.interfaces.SecurityService;
+import utilities.FancyBank;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -8,13 +12,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 
-
-public class MenuPanel extends JTabbedPane{
+public class MenuPanel extends JTabbedPane {
     private static final int BUTTON_FONT_SIZE = 20;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
-//    private JTabbedPane mainTabbedPane;
+    //    private JTabbedPane mainTabbedPane;
     private JPanel stockPanel;
     private JPanel myAccountPanel;
     private JPanel returnPanel;
@@ -24,9 +27,12 @@ public class MenuPanel extends JTabbedPane{
 
     private JPanel loanPanel;
 
+    private SecurityService securityService;
+
 
     public MenuPanel() {
         super(SwingConstants.LEFT);
+        securityService = new SecurityServiceImpl();
 //        mainTabbedPane = new JTabbedPane(SwingConstants.LEFT);
         // panels
 
@@ -42,9 +48,17 @@ public class MenuPanel extends JTabbedPane{
 
         // Stock
         stockPanel = generateTabPanel();
-        stockPanel.setLayout(new FlowLayout());
+
         UserStockView userStockView = new UserStockView();
-        stockPanel.add(userStockView);
+        boolean b = securityService.checkAccountExists(FancyBank.getInstance().getUserId());
+        System.out.println(b);
+        if (b) {
+            stockPanel.setLayout(new FlowLayout());
+            stockPanel.add(userStockView);
+        } else {
+            stockPanel.add(new OpenSecurityAccountPanel());
+        }
+
 
         addTab("Stock", stockPanel);
 
@@ -76,12 +90,15 @@ public class MenuPanel extends JTabbedPane{
             @Override
             public void stateChanged(ChangeEvent e) {
                 int index = getSelectedIndex();
-                if(index == 0){
+                if (index == 0) {
                     myAccountPanel.removeAll();
                     myAccountPanel.add(new MyAccountPanel());
                     myAccountPanel.repaint();
                 } else if (index == 1) {
-                    userStockView.reloadTable();
+                    boolean b = securityService.checkAccountExists(FancyBank.getInstance().getUserId());
+                    if (b) {
+                        userStockView.reloadTable();
+                    }
                 } else if (index == 2) {
                     stockTransactionView.reload();
 
@@ -89,13 +106,11 @@ public class MenuPanel extends JTabbedPane{
                     transactionsPanel.removeAll();
                     transactionsPanel.add(new AccountTransactionsView());
                     transactionsPanel.repaint();
-                }
-                else if (index == 4) {
+                } else if (index == 4) {
                     loanPanel.removeAll();
                     loanPanel.add(new LoanListView());
                     loanPanel.repaint();
-                }
-                else if(index == 5){
+                } else if (index == 5) {
                     returnPanel.removeAll();
                     returnPanel.add(new ReturnPanel());
                     returnPanel.repaint();
@@ -107,11 +122,11 @@ public class MenuPanel extends JTabbedPane{
         setVisible(true);
     }
 
-    private void clickMyAccountButton(ActionEvent e){
+    private void clickMyAccountButton(ActionEvent e) {
         MainFrame.getInstance().setPanel(new MyAccountPanel());
     }
 
-    private JPanel generateTabPanel(){
+    private JPanel generateTabPanel() {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(null);
         jPanel.setSize(800, 600);

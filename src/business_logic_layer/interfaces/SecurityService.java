@@ -17,4 +17,6 @@ public interface SecurityService {
     public int createNewSecurityAccount(Connection connection, int clientId, double money) throws SQLException;
 
     public double getCustomerMoney(int clientId) throws SQLException;
+
+    public boolean checkAccountExists(int clientId);
 }

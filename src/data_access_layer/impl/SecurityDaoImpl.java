@@ -51,4 +51,19 @@ public class SecurityDaoImpl implements SecurityDao {
         BaseDao.close(connection, statement, resultSet);
         return result;
     }
+
+    @Override
+    public boolean checkAccountExists(int clientId) throws SQLException {
+        Connection connection = BaseDao.getConnection();
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String sql = "select count(*) as num from security_account where client_id=" + clientId;
+        resultSet = BaseDao.execute(connection, sql, statement, resultSet);
+        double result = 0;
+        if (resultSet.next()) {
+            result = resultSet.getInt("num");
+        }
+        BaseDao.close(connection, statement, resultSet);
+        return result > 0;
+    }
 }

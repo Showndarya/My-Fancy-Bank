@@ -12,7 +12,6 @@ import dto.UserAccount;
 import enums.AccountType;
 import enums.TransactionType;
 import models.transaction.MoneyType;
-import org.omg.PortableInterceptor.INACTIVE;
 import utilities.BaseDao;
 import utilities.FancyBank;
 
@@ -24,7 +23,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-public abstract class OpenAccountPanel extends JPanel{
+public abstract class OpenAccountPanel extends JPanel {
     protected static final double MINIMUM_INITIAL_MONEY = 100;
     protected static final double MINIMUM_MONEY_TYPE_NUM = 2;
     protected static final int USD_TYPE = 1;
@@ -45,11 +44,11 @@ public abstract class OpenAccountPanel extends JPanel{
     protected SecurityService securityService;
     protected MoneyTypeService moneyTypeService;
 
-    public OpenAccountPanel(){
+    public OpenAccountPanel() {
         reload();
     }
 
-    public void reload(){
+    public void reload() {
         // initial money label
         openAccountPrompt = new JLabel("", JLabel.RIGHT);
         openAccountPrompt.setBounds(130, 150, 200, 30);
@@ -80,7 +79,7 @@ public abstract class OpenAccountPanel extends JPanel{
         setVisible(true);
     }
 
-    private void initialize(){
+    private void initialize() {
         // service
         moneyTypeService = new MoneyTypeServiceImpl();
         accountOperationService = new AccountOperationServiceImpl();
@@ -92,14 +91,14 @@ public abstract class OpenAccountPanel extends JPanel{
         ArrayList<MoneyType> moneyTypes = null;
         try {
             moneyTypes = moneyTypeService.getAllMoneyTypes();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return;
         }
         int i = 0;
-        for(MoneyType moneyType: moneyTypes){
+        for (MoneyType moneyType : moneyTypes) {
             moneyTypeBoxes.put(moneyType.getId(), new JCheckBox(moneyType.getType()));
-            moneyTypeBoxes.get(moneyType.getId()).setBounds(130+100*i, 260, 80, 30);
+            moneyTypeBoxes.get(moneyType.getId()).setBounds(130 + 100 * i, 260, 80, 30);
             moneyTypeBoxes.get(moneyType.getId()).setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
             add(moneyTypeBoxes.get(moneyType.getId()));
             i++;

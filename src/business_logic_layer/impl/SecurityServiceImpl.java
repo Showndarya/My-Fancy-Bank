@@ -37,4 +37,16 @@ public class SecurityServiceImpl implements SecurityService {
         double customerMoney = Math.round(securityDao.getCustomerMoney(clientId) * 100.00) / 100.00;
         return customerMoney;
     }
+
+    @Override
+    public boolean checkAccountExists(int clientId) {
+        boolean result = false;
+        try {
+            result = securityDao.checkAccountExists(clientId);
+        } catch (SQLException e) {
+            System.out.println("Check account num failed");
+        }
+        return result;
+    }
+
 }
