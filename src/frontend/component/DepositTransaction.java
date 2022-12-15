@@ -5,6 +5,7 @@ import enums.TransactionType;
 import models.transaction.MoneyType;
 import models.transaction.Transaction;
 import models.users.Customer;
+import utilities.FancyBank;
 import utilities.Tuple;
 import dto.UserAccount;
 
@@ -50,7 +51,7 @@ public class DepositTransaction extends JPanel {
         submitButton.addActionListener(e -> {
 
             Transaction transaction = new Transaction(
-                    new Customer(2,"name"),
+                    new Customer(2, "name"),
                     Double.parseDouble(amount.getText()),
                     TransactionType.Deposit,
                     userAccounts.get(accountSelect.getSelectedIndex()).accountId,

@@ -44,8 +44,8 @@ public class AccountOperationServiceImpl implements AccountOperationService {
     }
 
     @Override
-    public ArrayList<UserAccount> getAccountsByIdWithBalance(int accountId) throws SQLException {
-        return accountOperationDao.getAccountsByIdWithBalance(accountId);
+    public ArrayList<UserAccount> getAccountsByIdWithBalance(int userId) throws SQLException {
+        return accountOperationDao.getAccountsByIdWithBalance(userId);
     }
 
     public TableList getAllTransactions(int userId) {

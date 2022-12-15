@@ -12,7 +12,7 @@ public interface AccountOperationService {
 
     public Boolean changeBalance(TransactionType type, int accountId, double amount, int moneyType);
     public double getBalance(int accountId, int moneyType) throws SQLException;
-    public ArrayList<UserAccount> getAccountsByIdWithBalance(int accountId) throws SQLException;
+    public ArrayList<UserAccount> getAccountsByIdWithBalance(int userId) throws SQLException;
 
     public TableList getAllTransactions(int userId);
 
