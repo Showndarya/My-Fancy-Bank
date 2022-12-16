@@ -1,4 +1,4 @@
-package models.account;
+package models.users;
 
 import models.users.User;
 
