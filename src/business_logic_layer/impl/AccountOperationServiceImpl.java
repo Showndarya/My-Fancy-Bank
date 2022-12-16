@@ -16,6 +16,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * handle all account operations like changing account balance, getting account balance
+ */
 public class AccountOperationServiceImpl implements AccountOperationService {
 
     private AccountOperationDao accountOperationDao;

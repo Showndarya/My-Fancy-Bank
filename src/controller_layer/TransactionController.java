@@ -6,7 +6,9 @@ import models.transaction.MoneyType;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+/**
+ * controller for transactions operations to hide service layer
+ */
 public class TransactionController {
 
     private MoneyTypeService moneyTypeService;

@@ -10,6 +10,9 @@ import dto.UserAccount;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * controller for account operations to hide service layer
+ */
 public class AccountController {
 
     private AccountOperationService accountOperationService;

@@ -8,6 +8,9 @@ import dto.UserAccount;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * interface for account operations
+ */
 public interface AccountOperationService {
 
     public Boolean changeBalance(TransactionType type, int accountId, double amount, int moneyType);

@@ -1,4 +1,8 @@
 package utilities;
+
+/**
+ * used to generate key value pairs(like in combobox items)
+ */
 public class Tuple
 {
     private String key;

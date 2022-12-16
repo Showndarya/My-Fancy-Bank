@@ -6,11 +6,14 @@ import enums.AccountType;
 import enums.TransactionType;
 import models.transaction.MoneyType;
 import dto.UserAccount;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+/**
+ * handle all account operations like changing account balance, getting account balance
+ */
 
 public class AccountOperationDaoImpl implements AccountOperationDao {
     @Override

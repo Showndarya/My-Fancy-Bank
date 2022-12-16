@@ -2,6 +2,9 @@ package enums;
 
 import java.util.Arrays;
 
+/**
+ * enum for transaction types
+ */
 public enum TransactionType {
     Deposit(1), Withdraw(2), LoanAdd(3), LoanDeduct(4), Stock(5);
     private final int value;

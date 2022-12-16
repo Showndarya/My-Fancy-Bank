@@ -6,14 +6,16 @@ import models.transaction.MoneyType;
 import models.users.Customer;
 import models.transaction.Transaction;
 import utilities.BaseDao;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+/**
+ * handle all transaction operations like adding, selecting
+ */
 
 public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
     @Override
