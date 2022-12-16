@@ -62,43 +62,49 @@ public class DepositTransaction extends JPanel {
             }
         }
         submitButton.addActionListener(e -> {
-
-            Tuple item = (Tuple) accountSelect.getSelectedItem();
-            Transaction transaction = new Transaction(
-                    new Customer(FancyBank.getInstance().getUserId(), "name"),
-                    Double.parseDouble(amount.getText()),
-                    TransactionType.Deposit,
-                    item.getValue(),
-                    moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
-            );
-            accountController.addTransaction(FancyBank.getInstance().getUserId(), transaction);
-
-            transaction = new Transaction(
-                    new Customer(FancyBank.getInstance().getUserId(), "name"),
-                    25.00,
-                    TransactionType.TransactionFee,
-                    item.getValue(),
-                    moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
-            );
-
-            accountController.addTransaction(FancyBank.getInstance().getUserId(), transaction);
-
             try {
-                double amountWithFee = Double.parseDouble(amount.getText()) - 25;
-                accountController.changeBalance(
+                Double.parseDouble(amount.getText());
+
+                Tuple item = (Tuple) accountSelect.getSelectedItem();
+                Transaction transaction = new Transaction(
+                        new Customer(FancyBank.getInstance().getUserId(), "name"),
+                        Double.parseDouble(amount.getText()),
                         TransactionType.Deposit,
                         item.getValue(),
-                        amountWithFee,
                         moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
                 );
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+                accountController.addTransaction(FancyBank.getInstance().getUserId(), transaction);
+
+                transaction = new Transaction(
+                        new Customer(FancyBank.getInstance().getUserId(), "name"),
+                        25.00,
+                        TransactionType.TransactionFee,
+                        item.getValue(),
+                        moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
+                );
+
+                accountController.addTransaction(FancyBank.getInstance().getUserId(), transaction);
+
+                try {
+                    double amountWithFee = Double.parseDouble(amount.getText()) - 25;
+                    accountController.changeBalance(
+                            TransactionType.Deposit,
+                            item.getValue(),
+                            amountWithFee,
+                            moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
+                    );
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                AccountTransactionsListComponent.getInstance().reloadTable();
+                jPanel.remove(0);
+                jPanel.add(AccountTransactionsListComponent.getInstance());
+                jPanel.validate();
+                jPanel.repaint();
             }
-            AccountTransactionsListComponent.getInstance().reloadTable();
-            jPanel.remove(0);
-            jPanel.add(AccountTransactionsListComponent.getInstance());
-            jPanel.validate();
-            jPanel.repaint();
+            catch(Exception exp) {
+                JOptionPane.showMessageDialog(null,"Enter valid amount","Error",1);
+            }
         });
 
         cancelButton.addActionListener(e -> {
