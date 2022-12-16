@@ -1,5 +1,8 @@
 package dto;
 
+/**
+ * the model for the front end transaction detail
+ */
 public class StockTransactionDetail {
     private String stockName;
 

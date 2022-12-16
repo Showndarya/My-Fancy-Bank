@@ -16,6 +16,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+/**
+ * used by user to trade stock
+ */
 public class UserStockView extends JPanel {
     private JPanel rightPanel;
     private JPanel userInfoPanel;

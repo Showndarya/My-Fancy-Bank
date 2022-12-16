@@ -9,6 +9,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * used by manager to add stock
+ */
 public class StockListView extends JPanel {
     private JPanel stockListView;
     private JPanel topPanel;

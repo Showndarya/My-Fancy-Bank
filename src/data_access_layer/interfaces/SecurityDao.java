@@ -3,6 +3,9 @@ package data_access_layer.interfaces;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * dao for security account
+ */
 public interface SecurityDao {
 
     /**

@@ -2,6 +2,9 @@ package dto;
 
 import java.util.List;
 
+/**
+ * used to genearte table model
+ */
 public class TableList {
     private Object[] columnsName;
     private Object[][] rowData;

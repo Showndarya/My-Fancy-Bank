@@ -7,6 +7,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * dao for stocks
+ */
 public interface StockDao {
     /**
      * get all stocks in the database

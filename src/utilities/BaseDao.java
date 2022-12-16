@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 
+/**
+ * used to connect database and basic operation
+ */
 public class BaseDao {
     private static String driver;
     private static String url;

@@ -3,6 +3,9 @@ package business_logic_layer.interfaces;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * interface for secirity service
+ */
 public interface SecurityService {
     /**
      * mondify the money for the client

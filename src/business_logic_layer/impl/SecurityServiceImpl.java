@@ -7,6 +7,9 @@ import data_access_layer.impl.SecurityDaoImpl;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * class with service of security account
+ */
 public class SecurityServiceImpl implements SecurityService {
     private SecurityDao securityDao;
 

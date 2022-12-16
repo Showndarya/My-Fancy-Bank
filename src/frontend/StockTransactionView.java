@@ -11,6 +11,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * show stock transaction for user
+ */
 public class StockTransactionView extends JPanel {
     private JPanel panel1;
     private JScrollPane jScrollPanel;
