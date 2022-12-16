@@ -2,6 +2,7 @@ package frontend;
 
 import business_logic_layer.impl.SecurityServiceImpl;
 import business_logic_layer.interfaces.SecurityService;
+import frontend.component.AccountTransactionsListComponent;
 import utilities.FancyBank;
 
 import javax.swing.*;
@@ -116,6 +117,7 @@ public class MenuPanel extends JTabbedPane {
                     transactionsPanel.removeAll();
                     transactionsPanel.add(new AccountTransactionsView());
                     transactionsPanel.repaint();
+                    AccountTransactionsListComponent.getInstance().reloadTable();
                 } else if (index == 4) {
                     loanPanel.removeAll();
                     loanPanel.add(new LoanListView());

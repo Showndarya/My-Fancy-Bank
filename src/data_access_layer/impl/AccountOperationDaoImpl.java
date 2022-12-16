@@ -108,7 +108,7 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
                 "on acc.id=acm.account_id " +
                 "inner join money_type mt " +
                 "on mt.id=acm.money_type_id"+
-                "where acm.amount > 2000 and acc.account_type=2";
+                " where acm.amount > 2000 and acc.account_type=2";
 
         results = BaseDao.execute(connection, sql, null, results);
         while(results.next()) {
@@ -127,8 +127,8 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
 
             sql = "update account_money as acm " +
                     "inner join account acc " +
-                    "set acm.amount = acm.amount "+interest+
-                    "where acm.amount > 2000 and acc.account_type=2";
+                    "set acm.amount = acm.amount +"+interest+
+                    " where acm.amount > 2000 and acc.account_type=2";
             BaseDao.executeUpdate(connection,sql, null);
         }
 
