@@ -94,6 +94,11 @@ public class AddLoanComponent extends JPanel {
                     return;
                 }
 
+                if (Integer.parseInt(loanAmount) < 0 || Integer.parseInt(worth) < 0) {
+                    JOptionPane.showMessageDialog(addLoanPanel, "Amount and worth must be int", "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
                 MoneyType currMoneyType = new MoneyType(moneyTypes.get(moneyTypeBox.getSelectedIndex()).getId(),
                         moneyTypes.get(moneyTypeBox.getSelectedIndex()).getType(),
                         moneyTypes.get(moneyTypeBox.getSelectedIndex()).getSymbol());

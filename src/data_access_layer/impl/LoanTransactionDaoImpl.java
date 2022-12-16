@@ -38,6 +38,7 @@ public class LoanTransactionDaoImpl implements LoanTransactionDao {
                     resultSet.getInt("collateral.worth"));
             collateral.setId(resultSet.getInt("collateral.id"));
             loanTransaction = new LoanTransaction(collateral, customer, resultSet.getInt("amount"));
+            loanTransaction.setInterest(resultSet.getInt("interest"));
             list.add(loanTransaction);
         }
 
@@ -103,7 +104,8 @@ public class LoanTransactionDaoImpl implements LoanTransactionDao {
             interest = resultSet.getInt("interest");
             interest *= 1.2;
             String changeSql = "update loan_transaction " +
-                    "set interest = " + interest;
+                    "set interest = " + interest  +
+                    " where id = " + id;
             int j = BaseDao.executeUpdate(connection, changeSql, statement);
         }
     }

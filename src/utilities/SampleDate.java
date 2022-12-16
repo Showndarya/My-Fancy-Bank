@@ -1,8 +1,12 @@
 package utilities;
 
+import business_logic_layer.impl.CustomerServiceImpl;
+import business_logic_layer.interfaces.CustomerService;
 import data_access_layer.impl.AccountOperationDaoImpl;
 import data_access_layer.impl.LoanTransactionDaoImpl;
 import data_access_layer.interfaces.LoanTransactionDao;
+import frontend.component.LoanTransactionComponent;
+import models.users.Customer;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -46,12 +50,15 @@ public class SampleDate {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        CustomerService customerService = new CustomerServiceImpl();
+        Customer customer = customerService.getCustomerByID(FancyBank.getInstance().getUserId());
 
-//        try {
-//            loanTransactionDao.addInterest();
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            loanTransactionDao.addInterest();
+            LoanTransactionComponent.getInstance(customer).reloadTable(customer);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
 
 
