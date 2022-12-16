@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * for handling money deposit in different currencies
+ */
 public class DepositTransaction extends JPanel {
     private JPanel makeTransaction;
     private JComboBox accountSelect;

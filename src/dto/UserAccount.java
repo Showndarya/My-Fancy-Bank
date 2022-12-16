@@ -3,6 +3,10 @@ package dto;
 import enums.AccountType;
 import models.transaction.MoneyType;
 
+/**
+ * contains information of users, accounts and money
+ */
+
 public class UserAccount {
     public double amount;
     public int accountId;

@@ -8,6 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
+/**
+ * for showing the list of account transactions(deposit, withdraw)
+ */
+
 public class AccountTransactionsListComponent extends JScrollPane {
     private JPanel accountTransactionsView;
     private JTable transactions;

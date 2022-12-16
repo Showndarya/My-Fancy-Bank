@@ -6,14 +6,17 @@ import models.transaction.MoneyType;
 import models.users.Customer;
 import models.transaction.Transaction;
 import utilities.BaseDao;
-
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+/**
+ * handle all transaction operations like adding, selecting
+ */
 
 public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
     @Override
@@ -51,14 +54,17 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
     @Override
     public Boolean addTransaction(Customer customer, Transaction deposit) throws SQLException {
         Connection connection = BaseDao.getConnection();
+        Date currentDate;
+        if(deposit.getTransactionDate()!="")  currentDate = Date.valueOf(deposit.getTransactionDate());
+        else currentDate=java.sql.Date.valueOf(LocalDate.now());
         String sql = "insert into current_transaction(account_id,amount,money_type,transaction_type,modified_date,created_date)" +
                 " values("
                 +deposit.getAccountId()+","
                 +deposit.getAmount()+","
                 +deposit.getMoneyTypeId()+","
                 +deposit.getTransactionType().getValue()+",'"
-                +java.sql.Date.valueOf(LocalDate.now())+"','"
-                +java.sql.Date.valueOf(LocalDate.now())+"')";
+                +currentDate+"','"
+                +currentDate+"')";
         int result = BaseDao.executeUpdate(connection, sql, null);
 
         BaseDao.close(connection, null, null);

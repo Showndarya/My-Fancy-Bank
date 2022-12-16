@@ -1,16 +1,22 @@
 package data_access_layer.impl;
 
+import data_access_layer.interfaces.CurrentTransactionDao;
+import models.transaction.Transaction;
+import models.users.Customer;
 import utilities.BaseDao;
 import data_access_layer.interfaces.AccountOperationDao;
 import enums.AccountType;
 import enums.TransactionType;
 import models.transaction.MoneyType;
 import dto.UserAccount;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+/**
+ * handle all account operations like changing account balance, getting account balance
+ */
 
 public class AccountOperationDaoImpl implements AccountOperationDao {
     @Override
@@ -89,5 +95,46 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
 
         BaseDao.close(connection, null, results);
         return userAccounts;
+    }
+
+    @Override
+    public void addInterest(String currentDate) throws SQLException {
+        Connection connection = BaseDao.getConnection();
+        ResultSet results = null;
+
+        String sql = "select * from account acc " +
+                "inner join account_money acm " +
+                "on acc.id=acm.account_id " +
+                "innner join money_type mt " +
+                "on mt.id=acm.money_type_id"+
+                "where acm.amount > 2000 and acc.account_type=2";
+
+        results = BaseDao.execute(connection, sql, null, results);
+        while(results.next()) {
+            double amount = results.getDouble("acm.amount");
+            double interest = amount*0.05;
+            CurrentTransactionDao currentTransactionDao = new CurrentTransactionDaoImpl();
+            Transaction transaction = new Transaction(
+                    new Customer(),
+                    interest,
+                    TransactionType.Interest,
+                    AccountType.getType(results.getInt("acc.account_type")).getValue(),
+                    new MoneyType(
+                            results.getInt("mt.id"),
+                            results.getString("mt.type"),
+                            results.getString("mt.symbol")
+                            )
+            );
+            transaction.setTransactionDate(currentDate);
+            currentTransactionDao.addTransaction(null, transaction);
+
+            sql = "update account_money as acm " +
+                    "inner join account acc " +
+                    "set acm.amount = acm.amount "+interest+
+                    "where acm.amount > 2000 and acc.account_type=2";
+            BaseDao.executeUpdate(connection,sql, null);
+        }
+
+        BaseDao.close(connection, null, results);
     }
 }
