@@ -113,6 +113,7 @@ public class WithdrawTransaction extends JPanel {
                         jPanel.add(AccountTransactionsListComponent.getInstance());
                         jPanel.validate();
                         jPanel.repaint();
+                            JOptionPane.showMessageDialog(null,"Withdraw successful","Success", 3);
                     }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);

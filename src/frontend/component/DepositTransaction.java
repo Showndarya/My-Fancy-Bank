@@ -103,6 +103,7 @@ public class DepositTransaction extends JPanel {
                 jPanel.add(AccountTransactionsListComponent.getInstance());
                 jPanel.validate();
                 jPanel.repaint();
+                JOptionPane.showMessageDialog(null,"Deposit successful","Success", 3);
             }
             catch(Exception exp) {
                 JOptionPane.showMessageDialog(null,"Enter valid amount","Error",1);
