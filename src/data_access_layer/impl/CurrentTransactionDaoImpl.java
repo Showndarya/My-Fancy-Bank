@@ -29,7 +29,7 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
                 "inner join money_type mt " +
                 "on mt.id=currt.money_type where acc.user_id="+customer.getId();
         if(type != null) sql += " and currt.transaction_type="+type.getValue();
-        sql += " order by currt.created_date desc";
+        sql += " order by currt.id desc";
 
         results = BaseDao.execute(connection, sql, null, results);
         List<Transaction> deposits = new ArrayList<>();

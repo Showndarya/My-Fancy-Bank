@@ -68,11 +68,10 @@ public class ManagerDaoImpl implements ManagerDao {
         Connection connection = BaseDao.getConnection();
         Statement statement = null;
         ResultSet resultSet = null;
-        SimpleDate simpleDate = new SimpleDate();
         String sql = "select * from current_transaction\n" +
                 "    join account on current_transaction.account_id = account.id\n" +
                 "    join user on account.user_id = user.id\n" +
-                "    where current_transaction.created_date = '" + simpleDate.getDateString() + "'";
+                "    order by current_transaction.modified_date ";
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         List<Transaction> list = new ArrayList<>();
         while (resultSet.next()) {
@@ -80,6 +79,7 @@ public class ManagerDaoImpl implements ManagerDao {
                     resultSet.getString("user.user_name"));
             TransactionType transactionType = TransactionType.values()[resultSet.getInt("transaction_type")];
             Transaction transaction = new Transaction(customer, resultSet.getDouble("amount"), transactionType);
+            transaction.setTransactionDate(resultSet.getString("current_transaction.modified_date"));
             list.add(transaction);
         }
         return list;
@@ -90,13 +90,11 @@ public class ManagerDaoImpl implements ManagerDao {
         Connection connection = BaseDao.getConnection();
         Statement statement = null;
         ResultSet resultSet = null;
-        SimpleDate simpleDate = new SimpleDate();
         String sql = "select * from loan_transaction\n" +
                 "    join collateral on loan_transaction.collateral_id = collateral.id\n" +
                 "    join user on loan_transaction.customer_id = user.id\n" +
                 "    join money_type on collateral.money_type = money_type.type\n" +
-                "    where loan_transaction.created_date = '"
-                + simpleDate.getDateString() + "'";
+                "    order by loan_transaction.created_date ";
         resultSet = BaseDao.execute(connection, sql, statement, resultSet);
         List<LoanTransaction> list = new ArrayList<>();
         while (resultSet.next()){
@@ -108,6 +106,7 @@ public class ManagerDaoImpl implements ManagerDao {
                     moneyType,
                     resultSet.getInt("collateral.worth"));
             LoanTransaction loanTransaction = new LoanTransaction(collateral, customer, resultSet.getInt("amount"));
+            loanTransaction.setTransactionDate(resultSet.getString("created_date"));
             list.add(loanTransaction);
         }
         BaseDao.close(connection, statement, resultSet);

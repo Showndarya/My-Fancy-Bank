@@ -81,6 +81,19 @@ public class AddLoanComponent extends JPanel {
                 String name = textField1.getText();
                 String worth = textField2.getText();
                 String loanAmount = textField4.getText();
+                if (name.length() == 0) {
+                    JOptionPane.showMessageDialog(addLoanPanel, "There must be a collateral name", "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                try {
+                    int amount = Integer.parseInt(loanAmount);
+                    int worthInt = Integer.parseInt(worth);
+                }catch (Exception e) {
+                    JOptionPane.showMessageDialog(addLoanPanel, "Amount and worth must be int", "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
                 MoneyType currMoneyType = new MoneyType(moneyTypes.get(moneyTypeBox.getSelectedIndex()).getId(),
                         moneyTypes.get(moneyTypeBox.getSelectedIndex()).getType(),
                         moneyTypes.get(moneyTypeBox.getSelectedIndex()).getSymbol());

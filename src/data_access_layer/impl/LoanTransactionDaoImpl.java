@@ -85,10 +85,27 @@ public class LoanTransactionDaoImpl implements LoanTransactionDao {
         String sql = "delete from loan_transaction where customer_id = "
                 + customer.getId() + " and collateral_id = "
                 + loanTransaction.getCollateral().getId();
-        System.out.println(sql);
         int i = BaseDao.executeUpdate(connection, sql, statement);
         BaseDao.close(null, statement, null);
         return i ;
+    }
+
+    public void addInterest() throws SQLException {
+        Connection connection = BaseDao.getConnection();
+        Statement statement = null;
+        String getSql = "select id, interest from loan_transaction";
+        ResultSet resultSet = null;
+        resultSet = BaseDao.execute(connection, getSql, statement, resultSet);
+        int id;
+        int interest;
+        while (resultSet.next()) {
+            id = resultSet.getInt("id");
+            interest = resultSet.getInt("interest");
+            interest *= 1.2;
+            String changeSql = "update loan_transaction " +
+                    "set interest = " + interest;
+            int j = BaseDao.executeUpdate(connection, changeSql, statement);
+        }
     }
 
 
