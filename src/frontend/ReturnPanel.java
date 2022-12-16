@@ -6,6 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * Panel of returning to the welcome panel
+ * extends: JPanel
+ */
 public class ReturnPanel extends JPanel{
     private static final int BUTTON_FONT_SIZE = 20;
     private static final int WIDTH = 800;

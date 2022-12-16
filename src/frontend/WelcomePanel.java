@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * Welcome Panel
+ * extends: JPanel
+ */
 public class WelcomePanel extends JPanel {
     private static final int WELCOME_TEXT_FONT_SIZE = 40;
     private static final int BUTTON_FONT_SIZE = 20;

@@ -11,7 +11,10 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-
+/**
+ * Panel of menu after signing in
+ * extends: JTabbedPane
+ */
 public class MenuPanel extends JTabbedPane {
     private static final int BUTTON_FONT_SIZE = 20;
     private static final int WIDTH = 800;

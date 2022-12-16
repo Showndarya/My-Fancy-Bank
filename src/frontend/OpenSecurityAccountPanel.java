@@ -19,6 +19,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Panel of opening security account
+ * extends: JPanel
+ */
 public class OpenSecurityAccountPanel extends JPanel {
     private static final int USD_TYPE = 1;
     private static final double MINIMUM_INITIAL_MONEY = 1000;

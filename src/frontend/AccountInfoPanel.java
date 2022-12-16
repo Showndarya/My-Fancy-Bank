@@ -11,6 +11,10 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+/**
+ * Basic class of account information panel
+ * extends: JPanel
+ */
 public abstract class AccountInfoPanel extends JPanel{
     private static final int LABEL_FONT_SIZE = 20;
     private static final int BUTTON_FONT_SIZE = 20;

@@ -12,6 +12,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 
+/**
+ * Implementation of Dao for savings accounts
+ * implements: CheckingAccountDao
+ */
 public class SavingsAccountDaoImpl implements SavingsAccountDao {
     @Override
     public Account getById(int id) throws SQLException {

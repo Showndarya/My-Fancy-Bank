@@ -5,6 +5,9 @@ import models.users.User;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Dao for users
+ */
 public interface UserDao {
     public boolean hasUser(String name) throws SQLException;
     public User getByName(String name) throws SQLException;

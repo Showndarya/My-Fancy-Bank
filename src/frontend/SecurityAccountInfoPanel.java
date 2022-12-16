@@ -3,6 +3,10 @@ package frontend;
 import java.awt.event.ActionEvent;
 import java.util.Hashtable;
 
+/**
+ * Panel of security account information
+ * extends: AccountInfoPanel
+ */
 public class SecurityAccountInfoPanel extends AccountInfoPanel {
     /**
      * Get account type from back-end

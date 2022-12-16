@@ -6,6 +6,9 @@ import models.users.Customer;
 
 import java.sql.SQLException;
 
+/**
+ * Service for customers
+ */
 public interface CustomerService {
     public int getCustomerId(String name);
 

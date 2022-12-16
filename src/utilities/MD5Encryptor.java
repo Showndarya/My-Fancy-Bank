@@ -2,6 +2,9 @@ package utilities;
 
 import java.security.MessageDigest;
 
+/**
+ * A md5 encryption generator
+ */
 public class MD5Encryptor {
 
     // Your can use this function to neglect encryption

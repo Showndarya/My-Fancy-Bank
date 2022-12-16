@@ -8,6 +8,10 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+/**
+ * Panel of opening savings account
+ * extends: OpenAccountPanel
+ */
 public class OpenSavingsAccountPanel extends OpenAccountPanel{
     @Override
     protected String getPrompt() {

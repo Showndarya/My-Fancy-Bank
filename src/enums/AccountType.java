@@ -2,6 +2,9 @@ package enums;
 
 import java.util.Arrays;
 
+/**
+ * Enum for account types
+ */
 public enum AccountType {
     Bank("Bank", 0),
     Checking("Checking", 1),

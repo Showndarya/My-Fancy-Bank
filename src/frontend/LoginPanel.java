@@ -9,7 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-
+/**
+ * Panel of signing in
+ * extends: JPanel
+ */
 public class LoginPanel extends JPanel{
     private static final int PROMPT_TEXT_FONT_SIZE = 20;
     private static final int TEXTFIELD_FONT_SIZE = 16;

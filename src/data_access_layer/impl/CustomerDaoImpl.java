@@ -11,6 +11,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of Dao for customers
+ * implements: CustomerDao
+ */
 public class CustomerDaoImpl implements CustomerDao {
 
     /**
