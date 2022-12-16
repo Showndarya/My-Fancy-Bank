@@ -32,7 +32,7 @@ public class LoanTransactionServiceImpl implements LoanTransactionService {
             throw new RuntimeException(e);
         }
         TableList tableList = new TableList();
-        tableList.setColumnsName(new Object[]{"Collateral ID", "Collateral Name", "Loan Amount", "Money Type"});
+        tableList.setColumnsName(new Object[]{"Collateral ID", "Collateral Name", "Loan Amount", "Loan Interest","Money Type"});
         Object[][] rowData = new Object[list.size()][];
         for(int i = 0; i < list.size(); i++){
             LoanTransaction loanTransaction = list.get(i);
@@ -40,6 +40,7 @@ public class LoanTransactionServiceImpl implements LoanTransactionService {
                     loanTransaction.getCollateral().getId(),
                     loanTransaction.getCollateral().getName(),
                     loanTransaction.getAmount(),
+                    loanTransaction.getInterest(),
                     loanTransaction.getCollateral().getMoneyType().getType()};
         }
         tableList.setRowData(rowData);

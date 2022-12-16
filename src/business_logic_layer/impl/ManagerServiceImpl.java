@@ -68,13 +68,15 @@ public class ManagerServiceImpl implements ManagerService {
             throw new RuntimeException(e);
         }
         TableList tableList = new TableList();
-        tableList.setColumnsName(new Object[]{"Customer", "Transaction Type", "Amount"});
+        tableList.setColumnsName(new Object[]{"Customer", "Transaction Type", "Amount", "Date"});
         Object[][] rowData = new Object[list.size()][];
         for(int i = 0; i < list.size(); i++){
             Transaction transaction = list.get(i);
             rowData[i] = new Object[]{transaction.getCustomer().getName(),
                     transaction.getTransactionType().toString(),
-                    transaction.getAmount()};
+                    transaction.getAmount(),
+                    transaction.getTransactionDate()
+                    };
         }
         tableList.setRowData(rowData);
         return tableList;
@@ -89,13 +91,15 @@ public class ManagerServiceImpl implements ManagerService {
             throw new RuntimeException(e);
         }
         TableList tableList = new TableList();
-        tableList.setColumnsName(new Object[]{"Customer", "Collateral", "Loan Amount"});
+        tableList.setColumnsName(new Object[]{"Customer", "Collateral", "Loan Amount", "Interest", "Date"});
         Object[][] rowData = new Object[list.size()][];
         for(int i = 0; i < list.size(); i++){
             LoanTransaction loanTransaction = list.get(i);
             rowData[i] = new Object[]{loanTransaction.getCustomer().getName(),
                 loanTransaction.getCollateral().getName(),
-                loanTransaction.getAmount()};
+                loanTransaction.getAmount(),
+                loanTransaction.getInterest(),
+                loanTransaction.getTransactionDate()};
         }
         tableList.setRowData(rowData);
         return tableList;
