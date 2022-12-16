@@ -9,6 +9,8 @@ import business_logic_layer.interfaces.SecurityService;
 import dto.UserAccount;
 import enums.AccountType;
 import enums.TransactionType;
+import models.transaction.Transaction;
+import models.users.Customer;
 import utilities.BaseDao;
 import utilities.FancyBank;
 
@@ -114,7 +116,15 @@ public class OpenSecurityAccountPanel extends JPanel {
             }
             Connection connection = BaseDao.getConnection();
             try {
+                Transaction transaction = new Transaction(
+                        new Customer(),
+                        initialMoney,
+                        TransactionType.Withdraw,
+                        accountId,
+                        USD_TYPE
+                );
                 accountOperationService.changeBalance(TransactionType.Withdraw, accountId, initialMoney, USD_TYPE);
+                accountOperationService.addTransaction(accountId, transaction);
                 securityService.createNewSecurityAccount(connection, FancyBank.getInstance().getUserId(), initialMoney);
             } catch (SQLException sqle) {
                 try {

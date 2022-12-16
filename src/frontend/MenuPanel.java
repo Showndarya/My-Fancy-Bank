@@ -31,6 +31,7 @@ public class MenuPanel extends JTabbedPane {
     private JPanel loanPanel;
 
     private JPanel updateDayPanel;
+    private JPanel transferBetweenAccountsPanel;
 
     private SecurityService securityService;
 
@@ -94,6 +95,11 @@ public class MenuPanel extends JTabbedPane {
         updateDayPanel.add(new UpdateDayPanel());
         addTab("Update Day", updateDayPanel);
 
+        // transferBetweenAccountsPanel
+        transferBetweenAccountsPanel = generateTabPanel();
+        transferBetweenAccountsPanel.add(new TransferBetweenAccountsPanel());
+        addTab("Transfer out", transferBetweenAccountsPanel);
+
 
         // Panel
         addChangeListener(new ChangeListener() {
@@ -128,6 +134,10 @@ public class MenuPanel extends JTabbedPane {
                     updateDayPanel.removeAll();
                     updateDayPanel.add(new UpdateDayPanel());
                     updateDayPanel.repaint();
+                } else if (index == 7) {
+                    transferBetweenAccountsPanel.removeAll();
+                    transferBetweenAccountsPanel.add(new TransferBetweenAccountsPanel());
+                    transferBetweenAccountsPanel.repaint();
                 }
                 System.out.println("Current index: " + getSelectedIndex());
             }
