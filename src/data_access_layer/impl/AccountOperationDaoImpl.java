@@ -119,12 +119,8 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
                     new Customer(),
                     interest,
                     TransactionType.Interest,
-                    AccountType.getType(results.getInt("acc.account_type")).getValue(),
-                    new MoneyType(
-                            results.getInt("mt.id"),
-                            results.getString("mt.type"),
-                            results.getString("mt.symbol")
-                            )
+                    results.getInt("acc.id"),
+                    results.getInt("acm.money_type_id")
             );
             transaction.setTransactionDate(currentDate);
             currentTransactionDao.addTransaction(null, transaction);
