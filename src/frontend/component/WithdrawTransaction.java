@@ -10,7 +10,11 @@ import utilities.Tuple;
 import dto.UserAccount;
 
 import javax.swing.*;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,21 +52,27 @@ public class WithdrawTransaction extends JPanel{
                 );
         }
         currencySelect.removeAllItems();
-        for(UserAccount userAccount: userAccounts)
-            if(userAccount.accountId==userAccounts.get(accountSelect.getSelectedIndex()).accountId) {
+        for(UserAccount userAccount: userAccounts) {
+            Tuple item = (Tuple) accountSelect.getSelectedItem();
+            if (userAccount.accountId == item.getValue()) {
                 currencySelect.addItem(
                         new Tuple(userAccount.moneyType.getType() + "(" + userAccount.moneyType.getSymbol() + ")", userAccount.moneyType.getId())
                 );
                 moneyTypesForAccount.add(userAccount.moneyType);
             }
+        }
 
-        if(userAccounts.size()>0) setBalance(moneyTypesForAccount, userAccounts);
+        if(userAccounts.size()>0)  {
+            Tuple item = (Tuple) accountSelect.getSelectedItem();
+            setBalance(moneyTypesForAccount, item.getValue());
+        }
         submitButton.addActionListener(e -> {
+            Tuple item = (Tuple) accountSelect.getSelectedItem();
             Transaction transaction = new Transaction(
                     new Customer(FancyBank.getInstance().getUserId(),"name"),
                     Double.parseDouble(amount.getText()),
                     TransactionType.Withdraw,
-                    userAccounts.get(accountSelect.getSelectedIndex()).accountId,
+                    item.getValue(),
                     moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
             );
 
@@ -71,7 +81,7 @@ public class WithdrawTransaction extends JPanel{
                 double amountWithFee = Double.parseDouble(amount.getText())+25;
                 accountController.changeBalance(
                         TransactionType.Withdraw,
-                        userAccounts.get(accountSelect.getSelectedIndex()).accountId,
+                        item.getValue(),
                         amountWithFee,
                         moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
                 );
@@ -95,29 +105,59 @@ public class WithdrawTransaction extends JPanel{
         });
 
         setVisible(true);
-        accountSelect.addActionListener(e -> {
-            currencySelect.removeAllItems();
-            moneyTypesForAccount = new ArrayList<>();
-            for(UserAccount userAccount: userAccounts)
-                if(userAccount.accountId==userAccounts.get(accountSelect.getSelectedIndex()).accountId) {
-                    currencySelect.addItem(
-                            new Tuple(userAccount.moneyType.getType() + "(" + userAccount.moneyType.getSymbol() + ")", userAccount.moneyType.getId())
-                    );
-                    moneyTypesForAccount.add(userAccount.moneyType);
-                }
 
-            setBalance(moneyTypesForAccount, userAccounts);
+        accountSelect.addPopupMenuListener(new PopupMenuListener() {
+            @Override
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+
+            }
+
+            @Override
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+                currencySelect.removeAllItems();
+                moneyTypesForAccount = new ArrayList<>();
+                Tuple item = (Tuple) accountSelect.getSelectedItem();
+                for(UserAccount userAccount: userAccounts)
+                    if(userAccount.accountId==item.getValue()) {
+                        currencySelect.addItem(
+                                new Tuple(userAccount.moneyType.getType() + "(" + userAccount.moneyType.getSymbol() + ")", userAccount.moneyType.getId())
+                        );
+                        moneyTypesForAccount.add(userAccount.moneyType);
+                    }
+                setBalance(moneyTypesForAccount, item.getValue());
+            }
+
+            @Override
+            public void popupMenuCanceled(PopupMenuEvent e) {
+
+            }
         });
 
-        currencySelect.addActionListener(e -> {
-            setBalance(moneyTypesForAccount, userAccounts);
+        currencySelect.addPopupMenuListener(new PopupMenuListener() {
+            @Override
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+
+            }
+
+            @Override
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+                Tuple account = (Tuple) accountSelect.getSelectedItem();
+                setBalance(moneyTypesForAccount, account.getValue());
+            }
+
+            @Override
+            public void popupMenuCanceled(PopupMenuEvent e) {
+
+            }
         });
+
+
     }
 
-    private void setBalance(ArrayList<MoneyType> moneyTypes, ArrayList<UserAccount> userAccounts) {
+    private void setBalance(ArrayList<MoneyType> moneyTypes, int accountId) {
         double value = 0;
         try {
-            value = accountController.getBalance(userAccounts.get(accountSelect.getSelectedIndex()).accountId,moneyTypes.get(currencySelect.getSelectedIndex()).getId());
+            value = accountController.getBalance(accountId,moneyTypes.get(currencySelect.getSelectedIndex()).getId());
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }

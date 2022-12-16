@@ -19,6 +19,7 @@ public class Transaction {
     private int moneyTypeId;
 
     private MoneyType moneyType;
+    private int accountType;
 
     public Transaction(Customer customer, Double amount, TransactionType transactionType) {
         this.customer=customer;
@@ -34,11 +35,19 @@ public class Transaction {
         this.moneyTypeId=moneyType;
     }
 
-    public Transaction(Customer customer, Double amount, TransactionType transactionType, Date transactionDate, MoneyType moneyType) {
+    public Transaction(Customer customer, Double amount, TransactionType transactionType, int accountType, MoneyType moneyType) {
         this.customer=customer;
         this.amount=amount;
-        this.transactionDate=transactionDate;
+        this.accountType=accountType;
         this.transaction_type=transactionType;
+        this.moneyType=moneyType;
+    }
+
+    public Transaction(Customer customer, double amount, TransactionType transactionType, Date date, MoneyType moneyType) {
+        this.customer=customer;
+        this.amount=amount;
+        this.transaction_type=transactionType;
+        this.transactionDate=date;
         this.moneyType=moneyType;
     }
 
@@ -91,5 +100,13 @@ public class Transaction {
 
     public Date getTransactionDate() {
         return transactionDate;
+    }
+
+    public int getAccountType() {
+        return accountType;
+    }
+
+    public int getAccountId() {
+        return accountId;
     }
 }
