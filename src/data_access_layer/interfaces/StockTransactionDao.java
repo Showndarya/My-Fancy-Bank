@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * dao for stock transaction
+ */
 public interface StockTransactionDao {
     /**
      * add transaction in the table

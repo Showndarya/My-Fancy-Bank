@@ -10,6 +10,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * class with service of modifying stock transaction
+ */
 public class StockTransactionServiceImpl implements StockTransactionService {
     private StockTransactionDao stockTransactionDao;
 

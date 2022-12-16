@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * interface for openinterest service
+ */
 public interface OpenInterestService {
 
     public void addToOpenInterest(Connection connection, int clientId, int stockId, double price, int numOfShare) throws SQLException;

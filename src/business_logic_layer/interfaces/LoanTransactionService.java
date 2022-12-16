@@ -5,6 +5,7 @@ import models.transaction.LoanTransaction;
 import models.users.Customer;
 import dto.TableList;
 
+// service for frontend to get loan transactions
 public interface LoanTransactionService {
 
     // get loan transaction of a specific user

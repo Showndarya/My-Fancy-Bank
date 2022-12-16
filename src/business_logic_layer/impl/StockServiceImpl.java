@@ -16,6 +16,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * class with service of stock trading
+ */
 public class StockServiceImpl implements StockService {
 
     private static final int MINIMUM_SAVINGS_MONEY = 2500;

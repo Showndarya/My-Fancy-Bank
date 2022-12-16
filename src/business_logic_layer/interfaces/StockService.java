@@ -3,6 +3,9 @@ package business_logic_layer.interfaces;
 import models.transaction.Stock;
 import dto.TableList;
 
+/**
+ * interface for stock service
+ */
 public interface StockService {
     public TableList getAllStock();
 

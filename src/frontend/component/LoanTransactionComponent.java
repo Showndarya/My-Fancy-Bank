@@ -1,17 +1,21 @@
 package frontend.component;
 
+import business_logic_layer.impl.MoneyTypeServiceImpl;
 import business_logic_layer.interfaces.LoanTransactionService;
 import business_logic_layer.interfaces.ManagerService;
 import business_logic_layer.impl.LoanTransactionServiceImpl;
 import business_logic_layer.impl.ManagerServiceImpl;
+import business_logic_layer.interfaces.MoneyTypeService;
 import models.transaction.Collateral;
 import models.transaction.LoanTransaction;
+import models.transaction.MoneyType;
 import models.users.Customer;
 import dto.TableList;
 
 import javax.swing.*;
 import java.awt.*;
 
+// component for all loan transaction related panel in frontend
 public class LoanTransactionComponent extends JScrollPane{
     private ManagerService managerService;
     private LoanTransactionService loanTransactionService;
@@ -19,6 +23,7 @@ public class LoanTransactionComponent extends JScrollPane{
     private JTable table;
     private Customer customer;
 
+    private MoneyTypeService moneyTypeService = new MoneyTypeServiceImpl();
     private static LoanTransactionComponent loanTransactionComponent;
 
     public LoanTransactionComponent() {
@@ -65,9 +70,9 @@ public class LoanTransactionComponent extends JScrollPane{
         table.setRowHeight(30);
 
 
-        table.getColumnModel().getColumn(0).setPreferredWidth(40);
+        table.getColumnModel().getColumn(0).setPreferredWidth(50);
 
-        table.setPreferredScrollableViewportSize(new Dimension(400, 300));
+        table.setPreferredScrollableViewportSize(new Dimension(600, 300));
 
 
         setViewportView(table);
@@ -92,9 +97,12 @@ public class LoanTransactionComponent extends JScrollPane{
         if (selectedRow < 0) return null;
         Collateral collateral = new Collateral((Integer) rowData[selectedRow][0],
                 (String) rowData[selectedRow][1]);
+        MoneyType moneyType = new MoneyType(moneyTypeService.getMoneyTypeIdByType((String) rowData[selectedRow][3]));
+        collateral.setMoneyType(moneyType);
         return new LoanTransaction(collateral, customer,
                 (Double) rowData[selectedRow][2]);
     }
+
 
     public static void main(String[] args) {
         JFrame jf = new JFrame();

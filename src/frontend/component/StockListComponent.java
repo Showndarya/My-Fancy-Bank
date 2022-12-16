@@ -10,6 +10,9 @@ import java.awt.*;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * showing the stock market
+ */
 
 public class StockListComponent extends JScrollPane {
 

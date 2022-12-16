@@ -5,6 +5,9 @@ import dto.TableList;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * interface for stock transaction service
+ */
 public interface StockTransactionService {
     /**
      * add transaction in the table
