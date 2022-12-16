@@ -1,17 +1,17 @@
 package frontend;
 
-import dto.UserAccount;
 import enums.AccountType;
 import enums.TransactionType;
-import utilities.BaseDao;
 import utilities.FancyBank;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Panel of opening checking account
+ * extends: OpenAccountPanel
+ */
 public class OpenCheckingAccountPanel extends OpenAccountPanel{
     @Override
     protected String getPrompt() {

@@ -1,7 +1,6 @@
 package business_logic_layer.impl;
 
 import business_logic_layer.interfaces.CustomerService;
-import business_logic_layer.interfaces.ManagerService;
 import dto.TableList;
 import enums.UserType;
 import utilities.BaseDao;
@@ -10,11 +9,14 @@ import data_access_layer.interfaces.CustomerDao;
 import models.users.Customer;
 import utilities.MD5Encryptor;
 
-import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Objects;
 
+/**
+ * Implementation of Service for customers
+ * implements: CustomerService
+ */
 public class CustomerServiceImpl implements CustomerService {
     private static final int ENCRYPTION_PASSWORD_LENGTH = 16;
     private final CustomerDao customerDao;

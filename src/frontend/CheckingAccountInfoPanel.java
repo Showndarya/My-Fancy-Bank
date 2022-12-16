@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
 
+/**
+ * Panel of checking account information
+ * extends: AccountInfoPanel
+ */
 public class CheckingAccountInfoPanel extends AccountInfoPanel {
 
 

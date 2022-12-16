@@ -12,6 +12,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Hashtable;
 
+/**
+ * Panel of showing all accounts information and operations
+ * extends: JPanel
+ */
 public class MyAccountPanel extends JPanel{
     private static final int LABEL_FONT_SIZE = 20;
     private static final int BUTTON_FONT_SIZE = 20;

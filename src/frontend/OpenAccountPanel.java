@@ -23,6 +23,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+/**
+ * The basic opening account panel
+ * extends: JPanel
+ */
 public abstract class OpenAccountPanel extends JPanel {
     protected static final double MINIMUM_INITIAL_MONEY = 100;
     protected static final double MINIMUM_MONEY_TYPE_NUM = 2;

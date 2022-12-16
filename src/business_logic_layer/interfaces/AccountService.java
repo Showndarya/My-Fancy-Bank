@@ -4,6 +4,9 @@ import enums.AccountType;
 
 import java.util.ArrayList;
 
+/**
+ * Service for accounts
+ */
 public interface AccountService {
     public int getAccountId(int ownerId, AccountType type);
     public boolean hasAccount(int ownerId, AccountType type);

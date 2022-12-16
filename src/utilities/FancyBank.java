@@ -1,5 +1,8 @@
 package utilities;
 
+/**
+ * A singleton class of Bank that contains variables for the whole process of software
+ */
 public class FancyBank {
     public static final int OPEN_ACCOUNT_MONEY = 20;
     private static FancyBank INSTANCE;

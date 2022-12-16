@@ -5,7 +5,10 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-
+/**
+ * Main Frame
+ * extends: JFrame
+ */
 public class MainFrame extends JFrame{
     private static MainFrame INSTANCE;
     private static final String FRAME_TITLE = "Utilities.FancyBank";

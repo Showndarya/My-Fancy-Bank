@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
 
+/**
+ * Panel of savings account information
+ * extends: AccountInfoPanel
+ */
 public class SavingsAccountInfoPanel extends AccountInfoPanel {
     /**
      * Get account type from back-end

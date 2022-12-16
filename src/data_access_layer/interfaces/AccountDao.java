@@ -5,6 +5,9 @@ import models.account.Account;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Dao for accounts
+ */
 public interface AccountDao {
     public Account getById(int id) throws SQLException;
     public boolean hasAccount(int ownerId) throws SQLException;

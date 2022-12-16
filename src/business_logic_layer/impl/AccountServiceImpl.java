@@ -13,6 +13,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+/**
+ * Implementation of Service for accounts
+ * implements: AccountService
+ */
 public class AccountServiceImpl implements AccountService {
     private final Hashtable<AccountType, AccountDao> accountDaos;
 
