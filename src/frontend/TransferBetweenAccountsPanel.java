@@ -302,6 +302,16 @@ public class TransferBetweenAccountsPanel extends JPanel{
                             return;
                         }
                         accountOperationService.addTransaction(FancyBank.getInstance().getUserId(), transaction);
+                        transaction = new Transaction(
+                                new Customer(),
+                                25.0,
+                                TransactionType.TransactionFee,
+                                senderAccountId,
+                                moneyType
+                        );
+                        accountOperationService.changeBalance(TransactionType.Withdraw, senderAccountId, 25, moneyType);
+                        accountOperationService.addTransaction(FancyBank.getInstance().getUserId(), transaction);
+
                         // increase money
                         Connection connection = BaseDao.getConnection();
                         try{
@@ -335,6 +345,16 @@ public class TransferBetweenAccountsPanel extends JPanel{
             JOptionPane.showMessageDialog(this, "You don't have enough money!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        accountOperationService.addTransaction(FancyBank.getInstance().getUserId(), transaction);
+
+        transaction = new Transaction(
+                new Customer(),
+                25.0,
+                TransactionType.TransactionFee,
+                senderAccountId,
+                moneyType
+        );
+        accountOperationService.changeBalance(TransactionType.Withdraw, senderAccountId, 25, moneyType);
         accountOperationService.addTransaction(FancyBank.getInstance().getUserId(), transaction);
 
 
