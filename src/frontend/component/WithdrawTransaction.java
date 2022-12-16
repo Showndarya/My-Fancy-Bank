@@ -78,6 +78,17 @@ public class WithdrawTransaction extends JPanel{
             );
 
             accountController.addTransaction(FancyBank.getInstance().getUserId(), transaction);
+
+            transaction = new Transaction(
+                    new Customer(FancyBank.getInstance().getUserId(), "name"),
+                    25.00,
+                    TransactionType.TransactionFee,
+                    item.getValue(),
+                    moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
+            );
+
+            accountController.addTransaction(FancyBank.getInstance().getUserId(), transaction);
+
             try {
                 double amountWithFee = Double.parseDouble(amount.getText())+25;
                 accountController.changeBalance(

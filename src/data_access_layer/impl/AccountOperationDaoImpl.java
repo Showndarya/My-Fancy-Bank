@@ -37,6 +37,7 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
                 break;
             case Withdraw:
             case LoanDeduct:
+            case TransactionFee:
                 if(existingAmount<amount) return false;
                 updatedAmount = existingAmount-amount;
                 break;
@@ -105,7 +106,7 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
         String sql = "select * from account acc " +
                 "inner join account_money acm " +
                 "on acc.id=acm.account_id " +
-                "innner join money_type mt " +
+                "inner join money_type mt " +
                 "on mt.id=acm.money_type_id"+
                 "where acm.amount > 2000 and acc.account_type=2";
 
