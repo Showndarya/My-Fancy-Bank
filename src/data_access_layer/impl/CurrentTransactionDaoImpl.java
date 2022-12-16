@@ -55,7 +55,7 @@ public class CurrentTransactionDaoImpl implements CurrentTransactionDao {
     public Boolean addTransaction(Customer customer, Transaction deposit) throws SQLException {
         Connection connection = BaseDao.getConnection();
         Date currentDate;
-        if(deposit.getTransactionDate()!="")  currentDate = Date.valueOf(deposit.getTransactionDate());
+        if(deposit.getTransactionType()==TransactionType.Interest)  currentDate = Date.valueOf(deposit.getTransactionDate());
         else currentDate=java.sql.Date.valueOf(LocalDate.now());
         String sql = "insert into current_transaction(account_id,amount,money_type,transaction_type,modified_date,created_date)" +
                 " values("
