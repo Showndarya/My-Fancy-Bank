@@ -8,6 +8,7 @@ import frontend.component.SearchCustomerComponent;
 
 import javax.swing.*;
 
+// while panel with tabs for manager management
 public class ManagerView extends JPanel{
     private ManagerService managerService;
     private JPanel managerView;

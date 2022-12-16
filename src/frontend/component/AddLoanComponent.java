@@ -25,6 +25,8 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+// panel for adding loan in front end
+
 public class AddLoanComponent extends JPanel{
     private Customer customer;
     ArrayList<MoneyType> moneyTypes;

@@ -15,6 +15,7 @@ import dto.TableList;
 import javax.swing.*;
 import java.awt.*;
 
+// component for all loan transaction related panel in frontend
 public class LoanTransactionComponent extends JScrollPane{
     private ManagerService managerService;
     private LoanTransactionService loanTransactionService;

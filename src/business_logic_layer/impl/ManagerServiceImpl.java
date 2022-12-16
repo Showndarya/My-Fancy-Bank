@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+// service for frontend to get manager functions
 public class ManagerServiceImpl implements ManagerService {
     private ManagerDao managerDao;
 

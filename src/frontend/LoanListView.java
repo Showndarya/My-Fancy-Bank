@@ -22,6 +22,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+// whole loan list for front end management
+
 public class LoanListView extends JPanel{
     private JPanel loanListView;
     private JButton addButton;
