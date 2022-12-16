@@ -25,6 +25,7 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
         Connection connection = BaseDao.getConnection();
         ResultSet results = null;
         Double existingAmount, updatedAmount = 0.0;
+        if(amount<0) return false;
         try {
             existingAmount = getBalance(accountId, moneyType);
         } catch (SQLException e) {

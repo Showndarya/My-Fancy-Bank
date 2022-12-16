@@ -1,6 +1,9 @@
 package business_logic_layer.impl;
 
+import business_logic_layer.interfaces.AccountOperationService;
 import business_logic_layer.interfaces.AccountService;
+import dto.UserAccount;
+import models.transaction.MoneyType;
 import utilities.BaseDao;
 import data_access_layer.impl.CheckingAccountDaoImpl;
 import data_access_layer.impl.SavingsAccountDaoImpl;
@@ -19,11 +22,13 @@ import java.util.Hashtable;
  */
 public class AccountServiceImpl implements AccountService {
     private final Hashtable<AccountType, AccountDao> accountDaos;
+    private AccountOperationService accountOperationService;
 
     public AccountServiceImpl(){
         accountDaos = new Hashtable<>();
         accountDaos.put(AccountType.Checking, new CheckingAccountDaoImpl());
         accountDaos.put(AccountType.Savings, new SavingsAccountDaoImpl());
+        accountOperationService = new AccountOperationServiceImpl();
     }
 
     @Override
@@ -117,14 +122,18 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public ArrayList<Integer> getAccountMoneyType(int accountId) {
-//        try{
-//
-//
-//
-//        } catch (SQLException e){
-//            e.printStackTrace();
-//        }
-        return null;
+    public ArrayList<MoneyType> getAccountMoneyType(int accountId, int ownerId) {
+        ArrayList<MoneyType> moneyTypes = new ArrayList<>();
+        try{
+            ArrayList<UserAccount> userAccounts = accountOperationService.getAccountsByIdWithBalance(ownerId);
+            for(UserAccount userAccount: userAccounts){
+                if(userAccount.accountId == accountId){
+                    moneyTypes.add(userAccount.moneyType);
+                }
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return moneyTypes;
     }
 }

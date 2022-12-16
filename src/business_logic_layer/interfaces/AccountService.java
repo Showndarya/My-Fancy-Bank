@@ -1,6 +1,7 @@
 package business_logic_layer.interfaces;
 
 import enums.AccountType;
+import models.transaction.MoneyType;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,6 @@ public interface AccountService {
      */
     public boolean createAccount(int ownerId, AccountType type, ArrayList<Integer> moneyTypes);
 
-    public ArrayList<Integer> getAccountMoneyType(int accountId);
+    public ArrayList<MoneyType> getAccountMoneyType(int accountId, int ownerId);
 
 }

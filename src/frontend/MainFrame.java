@@ -11,7 +11,7 @@ import java.awt.event.WindowEvent;
  */
 public class MainFrame extends JFrame{
     private static MainFrame INSTANCE;
-    private static final String FRAME_TITLE = "Utilities.FancyBank";
+    private static final String FRAME_TITLE = "Fancy Bank";
     private static final int WIDTH = 1000;
     private static final int HEIGHT = 600;
     private JPanel currentPanel;
