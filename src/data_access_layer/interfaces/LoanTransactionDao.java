@@ -19,4 +19,5 @@ public interface LoanTransactionDao {
     // let customer delete loan
     public int deleteLoan(Connection connection, Customer customer, LoanTransaction loanTransaction) throws SQLException;
 
+
 }

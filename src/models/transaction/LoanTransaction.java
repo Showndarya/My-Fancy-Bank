@@ -2,6 +2,7 @@ package models.transaction;
 
 import enums.TransactionType;
 import models.users.Customer;
+import utilities.SampleDate;
 import utilities.SimpleDate;
 
 import java.util.Date;
@@ -16,11 +17,13 @@ public class LoanTransaction extends Transaction{
         this.setAmount(amount);
         SimpleDate simpleDate = new SimpleDate();
         this.setSimpleDate(simpleDate);
-        calcInterest();
+        this.setInterest((int) (this.getAmount() * 0.05)) ;
     }
 
     // calculate interest for user
-    public void calcInterest() { this.setInterest((int) (this.getAmount() * 0.05)); }
+    public void addInterest() {
+        this.setInterest((int) (this.getInterest() * 1.05));
+    }
     public Collateral getCollateral() {
         return collateral;
     }
