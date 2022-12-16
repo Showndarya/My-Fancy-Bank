@@ -1,5 +1,6 @@
 package models.transaction;
 
+import enums.AccountType;
 import enums.TransactionType;
 import models.users.Customer;
 import utilities.SimpleDate;
@@ -13,7 +14,7 @@ public class Transaction {
     private int accountId;
     private TransactionType transaction_type;
 
-    private Date transactionDate;
+    private String transactionDate;
     private SimpleDate simpleDate;
     private Customer customer;
     private int moneyTypeId;
@@ -47,7 +48,7 @@ public class Transaction {
         this.customer=customer;
         this.amount=amount;
         this.transaction_type=transactionType;
-        this.transactionDate=date;
+        this.transactionDate=date.toString();
         this.moneyType=moneyType;
     }
 
@@ -98,7 +99,7 @@ public class Transaction {
         return moneyType;
     }
 
-    public Date getTransactionDate() {
+    public String getTransactionDate() {
         return transactionDate;
     }
 
@@ -108,5 +109,9 @@ public class Transaction {
 
     public int getAccountId() {
         return accountId;
+    }
+
+    public void setTransactionDate(String transactionDate) {
+        this.transactionDate = transactionDate;
     }
 }

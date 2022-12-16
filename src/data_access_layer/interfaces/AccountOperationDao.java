@@ -13,4 +13,6 @@ public interface AccountOperationDao {
     public double getBalance(int accountId, int moneyType) throws SQLException;
 
     public ArrayList<UserAccount> getAccountsByIdWithBalance(int userId) throws SQLException;
+
+    public void addInterest(String currentDate) throws SQLException;
 }
