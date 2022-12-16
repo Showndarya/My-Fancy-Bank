@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 /**
  * for handling money withdraw in different currencies
  */
-public class WithdrawTransaction extends JPanel{
+public class WithdrawTransaction extends JPanel {
     private JLabel withdrawLabel;
     private JComboBox accountSelect;
     private JComboBox currencySelect;
@@ -45,15 +45,15 @@ public class WithdrawTransaction extends JPanel{
 
         add(withdrawTransactionPanel);
         submitButton.setActionCommand("submit");
-        if(accountSelect.getItemCount() == 0) {
-            Map<Object, List<UserAccount>> groupedAccounts = userAccounts.stream().collect(Collectors.groupingBy(x->x.accountId));
-            for(Object key: groupedAccounts.keySet())
+        if (accountSelect.getItemCount() == 0) {
+            Map<Object, List<UserAccount>> groupedAccounts = userAccounts.stream().collect(Collectors.groupingBy(x -> x.accountId));
+            for (Object key : groupedAccounts.keySet())
                 accountSelect.addItem(
                         new Tuple(groupedAccounts.get(key).get(0).accountType.getDisplay(), (int) key)
                 );
         }
         currencySelect.removeAllItems();
-        for(UserAccount userAccount: userAccounts) {
+        for (UserAccount userAccount : userAccounts) {
             Tuple item = (Tuple) accountSelect.getSelectedItem();
             if (userAccount.accountId == item.getValue()) {
                 currencySelect.addItem(
@@ -63,14 +63,14 @@ public class WithdrawTransaction extends JPanel{
             }
         }
 
-        if(userAccounts.size()>0)  {
+        if (userAccounts.size() > 0) {
             Tuple item = (Tuple) accountSelect.getSelectedItem();
             setBalance(moneyTypesForAccount, item.getValue());
         }
         submitButton.addActionListener(e -> {
             Tuple item = (Tuple) accountSelect.getSelectedItem();
             Transaction transaction = new Transaction(
-                    new Customer(FancyBank.getInstance().getUserId(),"name"),
+                    new Customer(FancyBank.getInstance().getUserId(), "name"),
                     Double.parseDouble(amount.getText()),
                     TransactionType.Withdraw,
                     item.getValue(),
@@ -79,7 +79,7 @@ public class WithdrawTransaction extends JPanel{
 
             accountController.addTransaction(FancyBank.getInstance().getUserId(), transaction);
             try {
-                double amountWithFee = Double.parseDouble(amount.getText())+25;
+                double amountWithFee = Double.parseDouble(amount.getText()) + 25;
                 accountController.changeBalance(
                         TransactionType.Withdraw,
                         item.getValue(),
@@ -118,8 +118,8 @@ public class WithdrawTransaction extends JPanel{
                 currencySelect.removeAllItems();
                 moneyTypesForAccount = new ArrayList<>();
                 Tuple item = (Tuple) accountSelect.getSelectedItem();
-                for(UserAccount userAccount: userAccounts)
-                    if(userAccount.accountId==item.getValue()) {
+                for (UserAccount userAccount : userAccounts)
+                    if (userAccount.accountId == item.getValue()) {
                         currencySelect.addItem(
                                 new Tuple(userAccount.moneyType.getType() + "(" + userAccount.moneyType.getSymbol() + ")", userAccount.moneyType.getId())
                         );
@@ -158,17 +158,17 @@ public class WithdrawTransaction extends JPanel{
     private void setBalance(ArrayList<MoneyType> moneyTypes, int accountId) {
         double value = 0;
         try {
-            value = accountController.getBalance(accountId,moneyTypes.get(currencySelect.getSelectedIndex()).getId());
+            value = accountController.getBalance(accountId, moneyTypes.get(currencySelect.getSelectedIndex()).getId());
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
-        if(value<0) {
+        if (value < 0) {
             accountBalanceValue.setText("Account-Currency combination does not exist");
             submitButton.setEnabled(false);
-        }
-        else {
+        } else {
             accountBalanceValue.setText(String.valueOf(value));
             submitButton.setEnabled(true);
         }
     }
+
 }

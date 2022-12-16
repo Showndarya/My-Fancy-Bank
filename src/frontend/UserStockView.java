@@ -10,6 +10,7 @@ import dto.TableList;
 import utilities.FancyBank;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;

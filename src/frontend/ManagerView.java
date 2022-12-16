@@ -7,9 +7,10 @@ import frontend.component.LoanTransactionComponent;
 import frontend.component.SearchCustomerComponent;
 
 import javax.swing.*;
+import java.awt.*;
 
 // while panel with tabs for manager management
-public class ManagerView extends JPanel{
+public class ManagerView extends JPanel {
     private ManagerService managerService;
     private JPanel managerView;
     private JTabbedPane tabbedPane;

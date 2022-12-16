@@ -27,4 +27,6 @@ public interface AccountService {
      */
     public boolean createAccount(int ownerId, AccountType type, ArrayList<Integer> moneyTypes);
 
+    public ArrayList<Integer> getAccountMoneyType(int accountId);
+
 }

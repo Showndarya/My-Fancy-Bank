@@ -108,4 +108,5 @@ public class StockTransactionView extends JPanel {
         frame.setVisible(true);
 
     }
+
 }

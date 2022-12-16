@@ -5,6 +5,7 @@ import business_logic_layer.impl.StockServiceImpl;
 import models.transaction.Stock;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

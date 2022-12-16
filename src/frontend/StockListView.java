@@ -6,6 +6,7 @@ import frontend.component.AddStockComponent;
 import frontend.component.StockListComponent;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -84,6 +85,7 @@ public class StockListView extends JPanel {
             }
         });
     }
+
 }
 
 

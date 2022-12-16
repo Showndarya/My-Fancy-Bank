@@ -20,6 +20,7 @@ import utilities.FancyBank;
 import utilities.Tuple;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 
 // panel for adding loan in front end
 
-public class AddLoanComponent extends JPanel{
+public class AddLoanComponent extends JPanel {
     private Customer customer;
     ArrayList<MoneyType> moneyTypes;
     ArrayList<UserAccount> accountArrayList;
@@ -55,11 +56,11 @@ public class AddLoanComponent extends JPanel{
         moneyTypes = new ArrayList<>();
         try {
             moneyTypes = controller.getAllmoneyTypes();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
 
         }
 
-        for (MoneyType type: moneyTypes) {
+        for (MoneyType type : moneyTypes) {
             moneyTypeBox.addItem(new Tuple(type.getType() + "("
                     + type.getSymbol() + ")",
                     type.getId()));
@@ -70,7 +71,6 @@ public class AddLoanComponent extends JPanel{
         add(addLoanPanel);
         saveButton.setActionCommand("save");
         cancelButton.setActionCommand("cancel");
-
 
 
         saveButton.addActionListener(new ActionListener() {
@@ -114,4 +114,5 @@ public class AddLoanComponent extends JPanel{
         setVisible(true);
 
     }
+
 }

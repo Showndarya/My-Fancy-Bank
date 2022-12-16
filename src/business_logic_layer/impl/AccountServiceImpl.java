@@ -115,4 +115,16 @@ public class AccountServiceImpl implements AccountService {
         }
         return true;
     }
+
+    @Override
+    public ArrayList<Integer> getAccountMoneyType(int accountId) {
+//        try{
+//
+//
+//
+//        } catch (SQLException e){
+//            e.printStackTrace();
+//        }
+        return null;
+    }
 }
