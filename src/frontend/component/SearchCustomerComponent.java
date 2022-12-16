@@ -4,10 +4,11 @@ import business_logic_layer.impl.CustomerServiceImpl;
 import business_logic_layer.interfaces.CustomerService;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SearchCustomerComponent extends JPanel{
+public class SearchCustomerComponent extends JPanel {
 
     private JLabel searchLabel;
     private JTextField textField1;
@@ -45,4 +46,5 @@ public class SearchCustomerComponent extends JPanel{
         jf.setLocationRelativeTo(null);
         jf.setVisible(true);
     }
+
 }

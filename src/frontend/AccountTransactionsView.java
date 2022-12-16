@@ -8,6 +8,7 @@ import frontend.component.WithdrawTransaction;
 import dto.UserAccount;
 import utilities.FancyBank;
 import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -33,7 +34,7 @@ public class AccountTransactionsView extends JPanel {
         list.add(AccountTransactionsListComponent.getInstance());
         try {
             userAccounts = accountController.getAccountsByIdWithBalance(FancyBank.getInstance().getUserId());
-        } catch(SQLException e) {
+        } catch (SQLException e) {
 
         }
 
@@ -59,4 +60,5 @@ public class AccountTransactionsView extends JPanel {
 
         setVisible(true);
     }
+
 }

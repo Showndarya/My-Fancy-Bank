@@ -30,6 +30,8 @@ public class MenuPanel extends JTabbedPane {
 
     private JPanel loanPanel;
 
+    private JPanel updateDayPanel;
+
     private SecurityService securityService;
 
 
@@ -74,7 +76,7 @@ public class MenuPanel extends JTabbedPane {
         transactionsPanel = generateTabPanel();
         transactionsPanel.setLayout(new FlowLayout());
         transactionsPanel.add(new AccountTransactionsView());
-        addTab("Account Transactions", transactionsPanel);
+        addTab("Transfer between", transactionsPanel);
 
         // Loan
         loanPanel = generateTabPanel();
@@ -86,6 +88,11 @@ public class MenuPanel extends JTabbedPane {
         returnPanel = generateTabPanel();
         returnPanel.add(new ReturnPanel());
         addTab("Log out", returnPanel);
+
+        // Update day
+        updateDayPanel = generateTabPanel();
+        updateDayPanel.add(new UpdateDayPanel());
+        addTab("Update Day", updateDayPanel);
 
 
         // Panel
@@ -117,6 +124,10 @@ public class MenuPanel extends JTabbedPane {
                     returnPanel.removeAll();
                     returnPanel.add(new ReturnPanel());
                     returnPanel.repaint();
+                } else if (index == 6) {
+                    updateDayPanel.removeAll();
+                    updateDayPanel.add(new UpdateDayPanel());
+                    updateDayPanel.repaint();
                 }
                 System.out.println("Current index: " + getSelectedIndex());
             }

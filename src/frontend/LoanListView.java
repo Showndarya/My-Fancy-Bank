@@ -18,13 +18,14 @@ import models.users.Customer;
 import utilities.FancyBank;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 // whole loan list for front end management
 
-public class LoanListView extends JPanel{
+public class LoanListView extends JPanel {
     private JPanel loanListView;
     private JButton addButton;
     private JButton deleteButton;
@@ -37,7 +38,7 @@ public class LoanListView extends JPanel{
     private AccountService accountService = new AccountServiceImpl();
 
     // create the list view for customer's loan
-    public LoanListView(){
+    public LoanListView() {
         customerService = new CustomerServiceImpl();
         this.customer = customerService.getCustomerByID(FancyBank.getInstance().getUserId());
         loanTransactionService = new LoanTransactionServiceImpl();
@@ -89,4 +90,5 @@ public class LoanListView extends JPanel{
         frame.pack();
         frame.setVisible(true);
     }
+
 }

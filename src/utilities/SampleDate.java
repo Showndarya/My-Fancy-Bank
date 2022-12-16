@@ -7,14 +7,15 @@ import java.time.LocalDate;
 
 public class SampleDate {
     private static LocalDate now;
+    private static SampleDate sampleDate;
     private AccountOperationDaoImpl accountOperationDao;
 
-    public LocalDate getInstance() {
-        if (now == null) {
+    public static SampleDate getInstance() {
+        if (sampleDate == null) {
             now = LocalDate.now();
-
+            sampleDate = new SampleDate();
         }
-        return now;
+        return sampleDate;
     }
 
     private SampleDate() {

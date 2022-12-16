@@ -8,17 +8,11 @@ import business_logic_layer.interfaces.AccountOperationService;
 import business_logic_layer.interfaces.AccountService;
 import business_logic_layer.interfaces.MoneyTypeService;
 import business_logic_layer.interfaces.SecurityService;
-import dto.UserAccount;
-import enums.AccountType;
-import enums.TransactionType;
 import models.transaction.MoneyType;
-import utilities.BaseDao;
-import utilities.FancyBank;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;

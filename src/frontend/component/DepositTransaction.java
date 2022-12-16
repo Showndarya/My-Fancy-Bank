@@ -43,16 +43,16 @@ public class DepositTransaction extends JPanel {
         makeTransaction.setPreferredSize(new Dimension(400, 300));
         add(makeTransaction);
         submitButton.setActionCommand("submit");
-        if(currencySelect.getItemCount() == 0) {
-            Map<Object, List<UserAccount>> groupedAccounts = userAccounts.stream().collect(Collectors.groupingBy(x->x.accountId));
-            for(Object key: groupedAccounts.keySet())
+        if (currencySelect.getItemCount() == 0) {
+            Map<Object, List<UserAccount>> groupedAccounts = userAccounts.stream().collect(Collectors.groupingBy(x -> x.accountId));
+            for (Object key : groupedAccounts.keySet())
                 accountSelect.addItem(
                         new Tuple(groupedAccounts.get(key).get(0).accountType.getDisplay(), (int) key)
                 );
-            }
+        }
 
         currencySelect.removeAllItems();
-        for(UserAccount userAccount: userAccounts) {
+        for (UserAccount userAccount : userAccounts) {
             Tuple item = (Tuple) accountSelect.getSelectedItem();
             if (userAccount.accountId == item.getValue()) {
                 currencySelect.addItem(
@@ -84,7 +84,7 @@ public class DepositTransaction extends JPanel {
             accountController.addTransaction(FancyBank.getInstance().getUserId(), transaction);
 
             try {
-                double amountWithFee = Double.parseDouble(amount.getText())-25;
+                double amountWithFee = Double.parseDouble(amount.getText()) - 25;
                 accountController.changeBalance(
                         TransactionType.Deposit,
                         item.getValue(),
@@ -121,8 +121,8 @@ public class DepositTransaction extends JPanel {
                 currencySelect.removeAllItems();
                 moneyTypesForAccount = new ArrayList<>();
                 Tuple item = (Tuple) accountSelect.getSelectedItem();
-                for(UserAccount userAccount: userAccounts)
-                    if(userAccount.accountId==item.getValue()) {
+                for (UserAccount userAccount : userAccounts)
+                    if (userAccount.accountId == item.getValue()) {
                         currencySelect.addItem(
                                 new Tuple(userAccount.moneyType.getType() + "(" + userAccount.moneyType.getSymbol() + ")", userAccount.moneyType.getId())
                         );
@@ -136,4 +136,5 @@ public class DepositTransaction extends JPanel {
             }
         });
     }
+
 }

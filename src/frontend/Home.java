@@ -1,6 +1,7 @@
 package frontend;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Home {
     private JPanel rootPanel;
@@ -17,4 +18,5 @@ public class Home {
     private void createUIComponents() {
         // TODO: place custom component creation code here
     }
+
 }
