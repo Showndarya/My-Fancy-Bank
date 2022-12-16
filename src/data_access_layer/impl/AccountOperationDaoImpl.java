@@ -9,6 +9,7 @@ import enums.AccountType;
 import enums.TransactionType;
 import models.transaction.MoneyType;
 import dto.UserAccount;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,27 +27,26 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
         Double existingAmount, updatedAmount = 0.0;
         try {
             existingAmount = getBalance(accountId, moneyType);
-        }
-        catch(SQLException e) {
+        } catch (SQLException e) {
             return false;
         }
         switch (type) {
             case Deposit:
             case LoanAdd:
-                updatedAmount = existingAmount+amount;
+                updatedAmount = existingAmount + amount;
                 break;
             case Withdraw:
             case LoanDeduct:
             case TransactionFee:
-                if(existingAmount<amount) return false;
-                updatedAmount = existingAmount-amount;
+                if (existingAmount < amount) return false;
+                updatedAmount = existingAmount - amount;
                 break;
         }
 
-        String sql = "Update account_money set amount="+updatedAmount+" where account_id="+accountId+" and money_type_id="+moneyType;
+        String sql = "Update account_money set amount=" + updatedAmount + " where account_id=" + accountId + " and money_type_id=" + moneyType;
         int result = BaseDao.executeUpdate(connection, sql, null);
         BaseDao.close(connection, null, results);
-        return result>0;
+        return result > 0;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
         String sql = "select * from account acc " +
                 "inner join account_money acm " +
                 "on acc.id=acm.account_id where " +
-                "acm.money_type_id="+moneyType+" and acc.id="+accountId;
+                "acm.money_type_id=" + moneyType + " and acc.id=" + accountId;
         results = BaseDao.execute(connection, sql, null, results);
         results.next();
         double account_money = results.getDouble("acm.amount");
@@ -74,12 +74,12 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
                 "inner join account_money acm " +
                 "on acc.id=acm.account_id " +
                 "inner join money_type mon " +
-                "on mon.id=acm.money_type_id "+
+                "on mon.id=acm.money_type_id " +
                 "where " +
-                "acc.user_id="+ userId +" and account_type between 1 and 6";
+                "acc.user_id=" + userId + " and account_type between 1 and 6";
         results = BaseDao.execute(connection, sql, null, results);
         ArrayList<UserAccount> userAccounts = new ArrayList<>();
-        while(results.next()) {
+        while (results.next()) {
             UserAccount userAccount = new UserAccount(
                     results.getDouble("acm.amount"),
                     results.getInt("acc.id"),
@@ -107,13 +107,13 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
                 "inner join account_money acm " +
                 "on acc.id=acm.account_id " +
                 "inner join money_type mt " +
-                "on mt.id=acm.money_type_id"+
-                "where acm.amount > 2000 and acc.account_type=2";
+                "on mt.id=acm.money_type_id" +
+                " where acm.amount > 2000 and acc.account_type=2";
 
         results = BaseDao.execute(connection, sql, null, results);
-        while(results.next()) {
+        while (results.next()) {
             double amount = results.getDouble("acm.amount");
-            double interest = amount*0.05;
+            double interest = amount * 0.05;
             CurrentTransactionDao currentTransactionDao = new CurrentTransactionDaoImpl();
             Transaction transaction = new Transaction(
                     new Customer(),
@@ -127,9 +127,11 @@ public class AccountOperationDaoImpl implements AccountOperationDao {
 
             sql = "update account_money as acm " +
                     "inner join account acc " +
-                    "set acm.amount = acm.amount "+interest+
-                    "where acm.amount > 2000 and acc.account_type=2";
-            BaseDao.executeUpdate(connection,sql, null);
+                    "set acm.amount = acm.amount +" + interest +
+                    " where acm.amount > 2000 and acc.account_type=2";
+            System.out.println(sql);
+
+            BaseDao.executeUpdate(connection, sql, null);
         }
 
         BaseDao.close(connection, null, results);
