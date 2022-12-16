@@ -63,8 +63,10 @@ public class DepositTransaction extends JPanel {
         }
         submitButton.addActionListener(e -> {
             try {
-                Double.parseDouble(amount.getText());
-
+                double parsedAmount=Double.parseDouble(amount.getText());
+                if(parsedAmount<0) {
+                    JOptionPane.showMessageDialog(null,"Amount should be greater than 0.","Error",1);
+                }
                 Tuple item = (Tuple) accountSelect.getSelectedItem();
                 Transaction transaction = new Transaction(
                         new Customer(FancyBank.getInstance().getUserId(), "name"),

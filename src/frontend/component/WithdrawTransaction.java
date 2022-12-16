@@ -69,45 +69,54 @@ public class WithdrawTransaction extends JPanel {
         }
         submitButton.addActionListener(e -> {
             try{
-                Double.parseDouble(amount.getText());
+                double parsedAmount=Double.parseDouble(amount.getText());
+                if(parsedAmount<0) {
+                    JOptionPane.showMessageDialog(null,"Amount should be greater than 0.","Error",1);
+                }
                 Tuple item = (Tuple) accountSelect.getSelectedItem();
-                Transaction transaction = new Transaction(
-                        new Customer(FancyBank.getInstance().getUserId(), "name"),
-                        Double.parseDouble(amount.getText()),
-                        TransactionType.Withdraw,
-                        item.getValue(),
-                        moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
-                );
-
-                accountController.addTransaction(FancyBank.getInstance().getUserId(), transaction);
-
-                transaction = new Transaction(
-                        new Customer(FancyBank.getInstance().getUserId(), "name"),
-                        25.00,
-                        TransactionType.TransactionFee,
-                        item.getValue(),
-                        moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
-                );
-
-                accountController.addTransaction(FancyBank.getInstance().getUserId(), transaction);
 
                 try {
                     double amountWithFee = Double.parseDouble(amount.getText()) + 25;
-                    accountController.changeBalance(
+                    Boolean isSuccess = accountController.changeBalance(
                             TransactionType.Withdraw,
                             item.getValue(),
                             amountWithFee,
                             moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
                     );
+
+                    if(!isSuccess)
+                        JOptionPane.showMessageDialog(null,"Transaction failed. Insufficient balance.","Error",1);
+                    else {
+                        Transaction transaction = new Transaction(
+                                new Customer(FancyBank.getInstance().getUserId(), "name"),
+                                Double.parseDouble(amount.getText()),
+                                TransactionType.Withdraw,
+                                item.getValue(),
+                                moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
+                        );
+
+                        accountController.addTransaction(FancyBank.getInstance().getUserId(), transaction);
+
+                        transaction = new Transaction(
+                                new Customer(FancyBank.getInstance().getUserId(), "name"),
+                                25.00,
+                                TransactionType.TransactionFee,
+                                item.getValue(),
+                                moneyTypesForAccount.get(currencySelect.getSelectedIndex()).getId()
+                        );
+
+                        accountController.addTransaction(FancyBank.getInstance().getUserId(), transaction);
+
+
+                        AccountTransactionsListComponent.getInstance().reloadTable();
+                        jPanel.remove(0);
+                        jPanel.add(AccountTransactionsListComponent.getInstance());
+                        jPanel.validate();
+                        jPanel.repaint();
+                    }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-
-                AccountTransactionsListComponent.getInstance().reloadTable();
-                jPanel.remove(0);
-                jPanel.add(AccountTransactionsListComponent.getInstance());
-                jPanel.validate();
-                jPanel.repaint();
             }
             catch (Exception exp){
                 JOptionPane.showMessageDialog(null,"Enter valid amount","Error",1);
