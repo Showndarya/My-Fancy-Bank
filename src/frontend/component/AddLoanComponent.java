@@ -1,11 +1,18 @@
 package frontend.component;
 
+import business_logic_layer.impl.AccountServiceImpl;
+import business_logic_layer.impl.CustomerServiceImpl;
+import business_logic_layer.interfaces.AccountService;
+import business_logic_layer.interfaces.CustomerService;
 import business_logic_layer.interfaces.LoanTransactionService;
 import business_logic_layer.impl.LoanTransactionServiceImpl;
 import controller_layer.AccountController;
 import controller_layer.TransactionController;
 import dto.UserAccount;
+import enums.AccountType;
+import enums.TransactionType;
 import models.account.Account;
+import models.account.SavingsAccount;
 import models.transaction.MoneyType;
 import models.transaction.Collateral;
 import models.users.Customer;
@@ -33,25 +40,19 @@ public class AddLoanComponent extends JPanel{
     private JButton saveButton;
     private JButton cancelButton;
     private JComboBox moneyTypeBox;
-    private JLabel accountLable;
-    private JComboBox accountBox;
     private LoanTransactionService loanTransactionService;
+    private int accountID;
+    private AccountService accountService = new AccountServiceImpl();
     TransactionController controller = new TransactionController();
     AccountController accountController = new AccountController();
+    CustomerService customerService = new CustomerServiceImpl();
 
     public AddLoanComponent(JPanel jPanel) {
+        customer = customerService.getCustomerByID(FancyBank.getInstance().getUserId());
 
         moneyTypes = new ArrayList<>();
         try {
             moneyTypes = controller.getAllmoneyTypes();
-        } catch(SQLException e) {
-
-        }
-
-        accountArrayList = new ArrayList<>();
-        try {
-            accountArrayList = accountController.getAccountsByIdWithBalance(FancyBank.getInstance().getUserId());
-            // accountArrayList = accountController.getAccountsByIdWithBalance(2);
         } catch(SQLException e) {
 
         }
@@ -62,9 +63,6 @@ public class AddLoanComponent extends JPanel{
                     type.getId()));
         }
 
-        for (UserAccount userAccount: accountArrayList) {
-            accountBox.addItem(new Tuple(userAccount.accountType.getDisplay(), userAccount.accountId));
-        }
 
         loanTransactionService = new LoanTransactionServiceImpl();
         add(addLoanPanel);
@@ -72,9 +70,12 @@ public class AddLoanComponent extends JPanel{
         cancelButton.setActionCommand("cancel");
 
 
+
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                if (accountService.hasAccount(customer.getId(), AccountType.Savings) == false) return;
+                accountID = accountService.getAccountId(customer.getId(), AccountType.Savings);
                 String name = textField1.getText();
                 String worth = textField2.getText();
                 String loanAmount = textField4.getText();
@@ -85,11 +86,18 @@ public class AddLoanComponent extends JPanel{
                         currMoneyType,
                         Integer.parseInt(worth));
                 loanTransactionService.addLoan(customer, collateral, Integer.parseInt(loanAmount));
+                try {
+                    accountController.changeBalance(TransactionType.LoanAdd, accountID,
+                            Integer.parseInt(loanAmount), currMoneyType.getId());
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 LoanTransactionComponent.getInstance(customer).reloadTable(customer);
                 jPanel.remove(0);
                 jPanel.add(LoanTransactionComponent.getInstance(customer));
                 jPanel.validate();
                 jPanel.repaint();
+
             }
         });
         cancelButton.addActionListener(new ActionListener() {

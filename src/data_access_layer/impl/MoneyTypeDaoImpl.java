@@ -52,6 +52,6 @@ public class MoneyTypeDaoImpl implements MoneyTypeDao {
         }
 
         BaseDao.close(connection, null, results);
-        return 0;
+        return id;
     }
 }

@@ -45,7 +45,7 @@ public class MoneyTypeServiceImpl implements MoneyTypeService {
     }
 
     @Override
-    public int getMoneyTypeIdByType(String type) throws SQLException {
+    public int getMoneyTypeIdByType(String type) {
         int id;
         try {
             id = moneyTypeDao.getMoneyTypeIdByType(type);

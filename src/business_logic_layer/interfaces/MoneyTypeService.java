@@ -10,5 +10,5 @@ public interface MoneyTypeService {
     public ArrayList<MoneyType> getAllMoneyTypes() throws SQLException;
     public TableList getMoneyTypes();
 
-    public int getMoneyTypeIdByType(String type) throws SQLException;
+    public int getMoneyTypeIdByType(String type);
 }

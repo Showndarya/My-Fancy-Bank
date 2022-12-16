@@ -26,6 +26,16 @@ public class ReturnPanel extends JPanel{
         setLayout(null);
     }
 
+    // manager log out
+    public ReturnPanel(int manager){
+        // return button
+        returnButton = new JButton("log out");
+        returnButton.setBounds(350, 300, 160, 40);
+        returnButton.setFont(new Font("serif", Font.PLAIN, BUTTON_FONT_SIZE));
+        returnButton.addActionListener(this::clickReturnButton);
+        add(returnButton);
+    }
+
     private void clickReturnButton(ActionEvent e){
         FancyBank.getInstance().setUserId(-1);
         FancyBank.getInstance().setUserName("");

@@ -18,6 +18,7 @@ public class ManagerView extends JPanel{
     private JScrollPane dailyReport;
     private JPanel stock;
     private JPanel dailyReportContent;
+    private JPanel logoutPanel;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("managerView");
@@ -37,6 +38,7 @@ public class ManagerView extends JPanel{
         dailyReportContent.add(new JLabel("Current Transaction"));
         dailyReportContent.add(CurrentTransactionComponent.getInstance());
         stock.add(new StockListView());
+        logoutPanel.add(new ReturnPanel(1));
         setVisible(true);
     }
 
