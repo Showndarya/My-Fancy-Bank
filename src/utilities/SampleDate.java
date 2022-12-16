@@ -1,9 +1,13 @@
 package utilities;
 
+import data_access_layer.impl.AccountOperationDaoImpl;
+
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class SampleDate {
     private static LocalDate now;
+    private AccountOperationDaoImpl accountOperationDao;
 
     public LocalDate getInstance() {
         if (now == null) {
@@ -14,7 +18,7 @@ public class SampleDate {
     }
 
     private SampleDate() {
-
+        accountOperationDao = new AccountOperationDaoImpl();
 
     }
 
@@ -33,6 +37,11 @@ public class SampleDate {
         now = now.plusDays(1);
         //rest things to do.
         //add money to saving account
+        try {
+            accountOperationDao.addInterest(getCurrentDate());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         //add tranaction history for interest gain to transaction
     }
